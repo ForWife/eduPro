@@ -2,6 +2,6 @@
 /out/
 /.idea/
 /.settings/
-.pom.xml
+pom.xml
 !.gitignore
 eduPro.iml
