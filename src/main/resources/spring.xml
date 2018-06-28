@@ -13,8 +13,6 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	
-	
 	<!-- 配置数据源 -->
 	<!-- dbcp2 是一个数据库连接池  c3p0-->
 	 <bean id="ds" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
@@ -39,9 +37,6 @@
 </context:component-scan>  -->
 	
 	<!-- 扫描mapper -->
-
-
-
 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 	<!-- 指定扫描的包名
 	如果扫描多个包，每个包中间使用半角逗号分隔
@@ -57,10 +52,7 @@
 </bean>
 
 <!-- 配置事务通知 -->
-
-
 <tx:annotation-driven  transaction-manager="txm"/>
-
 
 <!-- <tx:advice id="txAdvice" transaction-manager="txm"> -->
 	<!-- 配置事务的传播特性 -->
@@ -94,7 +86,4 @@ NESTED 如果当前存在事务，则在嵌套事务内执行。如果当前没�
 	<!-- <aop:config>
 	<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neu.service.impl.*.*(..))"/>
 	</aop:config> -->
-	
-	
-	
 </beans>
