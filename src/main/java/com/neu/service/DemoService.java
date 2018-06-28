@@ -1,9 +1,9 @@
 package com.neu.service;
 
-import java.util.List;
-
 import com.neu.po.Lesson;
 
+import java.util.List;
+
 public interface DemoService {
-	public List<Lesson> findLessons();
+    public List<Lesson> findLessons();
 }
