@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.3.1.js"></script>
+    <script>
+        $(function () {
+            // $("#submit").click(function () {
+
+                $.ajax({
+                    url:"/test/findLessons",
+                    type:"get",
+                    dataType:"json",
+                    success:function (data) {
+                        console.log(data);
+                        // alert(data.result)
+                    },
+                    error:function () {
+                        console.log("emmmmm");
+                        alert('fuck')
+                    }
+                })
+            })
+        // })
+    </script>
+</head>
+<body>
+<form>
+    <!--&lt;!&ndash;-->
+        <!--作者：czy1997@126.com-->
+        <!--时间：2017-01-08-->
+        <!--描述：注册表单提交处-->
+    <!--&ndash;&gt;-->
+    <!--<div>-->
+        <!--<input id="name" type="text" placeholder="帐号">-->
+        <!--<input id="password" type="password" placeholder="密码">-->
+    <!--</div>-->
+    <!--<button id="submit">管理员登录</button>-->
+    <button id="submit">111</button>
+</form>
+</body>
+</html>
