@@ -21,4 +21,11 @@ public class DemoHandler {
         System.out.println("..........DemoHandler............findLessons..");
         return demoService.findLessons();
     }
+    
+    @RequestMapping(value="/test/lessonType")
+    @ResponseBody
+    public List<String> findLessonType(){
+    	System.out.println("........DemoHandler.......findLessonType.");
+    	return demoService.findlessonType();
+    }
 }
