@@ -2,7 +2,7 @@ package com.neu.beans;
 
 public class User {//backend admin user
     private String username;//admin username
-    private String uesrpassword;//admin password
+    private String userpassword;//admin password
     private int qid;//which company id (foreign)
     private String jurisdiction;//account privilige
     private int id;//primary key
@@ -15,12 +15,12 @@ public class User {//backend admin user
         this.username = username;
     }
 
-    public String getUesrpassword() {
-        return uesrpassword;
+    public String getUserpassword() {
+        return userpassword;
     }
 
-    public void setUesrpassword(String uesrpassword) {
-        this.uesrpassword = uesrpassword;
+    public void setUserpassword(String userpassword) {
+        this.userpassword = userpassword;
     }
 
     public int getQid() {
