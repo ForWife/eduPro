@@ -10,21 +10,21 @@
         // ajax请求
         $(function () {
             $("#submit").click(function () {
-                var username=$("#name").val();
-                var password=$("#password").val();
+                var username = $("#name").val();
+                var password = $("#password").val();
                 $.ajax({
-                    url:"/back/back_login",
-                    type:"post",
-                    data:{username:username,password:password},
-                    dataType:"json",
-                    success:function (data) {
+                    url: "/back/back_login",
+                    type: "post",
+                    data: {username: username, password: password},
+                    dataType: "json",
+                    success: function (data) {
                         // console.log(data);
                         // alert(data.result)
-                        window.location.href="index.html"//跳转到首页
+                        window.location.href = "index.html"//跳转到首页
                     },
-                    error:function () {
-                      console.log("emmmmm");
-                      alert('登陆失败')
+                    error: function () {
+                        console.log("emmmmm");
+                        alert('登陆失败')
                     }
                 })
             })
@@ -72,7 +72,7 @@
                 描述：注册
             -->
             <div class="register">
-                <form>
+                <form action="#" onsubmit="return toVaild()">
                     <!--
                         作者：czy1997@126.com
                         时间：2017-01-08
@@ -108,52 +108,15 @@
 
 
         </div>
-      </div>
-      <!--
-      	作者：czy1997@126.com
-      	时间：2017-10-08
-      	描述：注册
-      -->
-      <div class="register">
-        <form action="#" onsubmit="return toVaild()" method="post">
-                         <!--
-                         	作者：czy1997@126.com
-                         	时间：2017-01-08
-                         	描述：注册表单提交处
-                         -->
-          <div class="group-inputs">
-            <input id="name" type="text" placeholder="帐号">
-            <input id="password" type="password" placeholder="密码">
-          </div>
-          <button type="submit" class="sub">管理员登录</button>
-        </form>
-      </div>
-      <!--
-      	作者：czy1997@126.com
-      	时间：2017-10-08
-      	描述：登录
-      -->
-      <div class="login" style="display: none;">
-        <form action="#" onsubmit="return Vaild()" method="post">
-        	<!--
-                         	作者：czy1997@126.com
-                         	时间：2017-10-09
-                         	描述：登录表单提交处
-                         -->
-          <div class="group-inputs">
-            <input id="nameorphone" type="text" placeholder="帐号">
-            <input id="pass" type="password" placeholder="密码">
-          </div>
-          <button type="submit" class="sub">超级管理员登录</button>         
-        </form>
-      </div>
-      
     </div>
+    <!--
+        作者：czy1997@126.com
+        时间：2017-10-08
+        描述：注册
+    -->
+</div>
+<script type="text/javascript" src="js/login.js"></script>
+</body>
 
-	</div>  
-	</div>
-	<script type="text/javascript" src="js/login.js"></script>
-	</body>
-	
 
 </html>

@@ -7,7 +7,7 @@
 	<select id="findTypeList" resultType="String">
 	SELECT DISTINCT category FROM lesson
 	</select>
-	<select id="findLessehByCategory" parameterType="String" resultType="com.neu.beans.lesson">
+	<select id="findLessehByCategory" parameterType="String" resultType="com.neu.beans.Lesson">
 		SELECT * FROM lesson WHERE category = #{catigory}
 	</select>
     
