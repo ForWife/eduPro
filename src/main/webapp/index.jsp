@@ -10,5 +10,7 @@
 <h1 align="center">整合框架测试</h1>
 <hr>
 <h3>1.<a href="test/findLessons">课程列表</a></h3>
+<br>
+<h3>2.<a href="test/lessonType">这是测试哦</a></h3>
 </body>
 </html>

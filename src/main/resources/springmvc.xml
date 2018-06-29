@@ -37,7 +37,7 @@
     </bean>
 
     <!-- 全局异常处理 -->
-    <bean class="com.neu.controller.GlobalExceptionResolver"></bean>
+   <!--  <bean class="com.neu.controller.GlobalExceptionResolver"></bean> -->
 
     <!--  拦截器的配置：只能拦截处理器路径   -->
     <!-- 制定拦截器栈 -->
