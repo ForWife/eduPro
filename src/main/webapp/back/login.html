@@ -12,21 +12,37 @@
             $("#submit").click(function () {
                 var username = $("#name").val();
                 var password = $("#password").val();
-                $.ajax({
-                    url: "/back/back_login",
-                    type: "post",
-                    data: {username: username, password: password},
-                    dataType: "json",
-                    success: function (data) {
-                        // console.log(data);
-                        // alert(data.result)
-                        window.location.href = "index.html"//跳转到首页
-                    },
-                    error: function () {
-                        console.log("emmmmm");
-                        alert('登陆失败')
+                if(username!="")
+                {
+                    if (password!="")
+                    {
+                        $.ajax({
+                            url: "/back/back_login",
+                            type: "post",
+                            data: {username: username, password: password},
+                            dataType: "json",
+                            success: function (data) {
+                                // console.log(data);
+                                // alert(data.result)
+                                window.location.href = "index.html"//跳转到首页
+                            },
+                            error: function () {
+                                console.log("emmmmm");
+                                alert('登陆失败')
+                            }
+                        })
+                        return true;
                     }
-                })
+                    else{
+                        alert("密码为空，提交失败！");
+                        return false;
+                    }
+                }
+                else{
+                    alert("用户名为空，提交失败！");
+                    return false;
+                }
+
             })
         })
     </script>
