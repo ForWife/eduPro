@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="css/layui.css" media="all">
+    <script src="js/jquery-3.3.1.js"></script>
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body style="background-color: #F2F2F2;">
@@ -31,6 +32,7 @@
 <script src="layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
+
     layui.use('table', function () {
         var table = layui.table;
 
@@ -38,18 +40,13 @@
         table.render({
             elem: '#demo'
             , cols: [[ //标题栏
-                {field: 'id', title: 'ID', width: 100, sort: true}
-                , {field: 'username', title: '分部名字', width: 300}
-                , {field: 'loc', title: '城市', width: 250,}
-                , {field: 'phone', title: '分部电话', width: 250}
-                , {fixed: 'right', width: 400, align: 'center', toolbar: '#barDemo'}
-            ]]
-            , data: [{
-                "id": "10001"
-                , "username": "沈阳睿道"
-                , "loc": "沈阳"
-                , "phone": "110"
-            }]
+                {field: 'id', title: 'ID', width: 200, sort: true}
+                , {field: 'branch', title: '分部名字', width: 300}
+                , {field: 'address', title: '分部地址', width: 350}
+                , {field: 'tel', title: '分部电话', width: 350}
+                , {fixed: 'right', width: 500, align: 'center', toolbar: '#barDemo'}
+            ]],
+            url: "/back/findbranches"
             //,skin: 'line' //表格风格
             , even: true
             //,page: true //是否显示分页
@@ -69,7 +66,7 @@
             if (layEvent === 'detail') { //查看
                 //do somehing
                 layer.msg('ID：' + data.id + ' 的查看操作');
-                window.location.href = 'part_intro.html';
+                window.location.href = 'part_intro.html?id=' + data.id;
             } else if (layEvent === 'del') { //删除
                 layer.confirm('真的删除行么', function (index) {
                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
