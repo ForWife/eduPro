@@ -9,4 +9,5 @@ import com.neu.beans.Lesson;
 
 public interface FrontLessonService {
 	public Map<String, List<Lesson>> findLessonListByCategory() throws Exception;
+	public Lesson findLessonById(int lid);
 }

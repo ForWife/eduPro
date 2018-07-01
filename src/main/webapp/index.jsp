@@ -14,5 +14,7 @@
 <h3>2.<a href="test/lessonType">这是测试哦</a></h3>
 <br>
 <h3>3.<a href="front/findLessons">课程列表测试</a></h3>
+<br>
+<h3>4.<a href="front/findLessonById?lid=3">单个课程测试</a></h3>
 </body>
 </html>

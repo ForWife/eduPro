@@ -31,4 +31,11 @@ public class FrontLessonServiceBean implements FrontLessonService {
 		}
 		return map;
 	}
+
+	@Override
+	public Lesson findLessonById(int lid) {
+		System.out.println("...............LessonService..findLessonById");
+		Lesson lesson = lessonMapper.getLesssonById(lid);
+		return lesson;
+	}
 }

@@ -12,7 +12,7 @@ import com.neu.beans.Lesson;
 import com.neu.service.FrontLessonService;
 
 @Controller
-public class FrontClassHandler {
+public class FrontLessonHandler {
 
 	@Autowired
 	FrontLessonService lessonService;
@@ -21,5 +21,13 @@ public class FrontClassHandler {
 	@ResponseBody
 	public Map<String, List<Lesson>> findLessons() throws Exception{
 		return lessonService.findLessonListByCategory();
+	}
+	
+	@RequestMapping(value = "/front/findLessonById")
+	@ResponseBody
+	public Lesson findLessonById(int lid){
+		System.out.println("..........FrontLessonHandler.....findLessonById");
+		Lesson lesson = lessonService.findLessonById(lid);
+		return lesson;
 	}
 }

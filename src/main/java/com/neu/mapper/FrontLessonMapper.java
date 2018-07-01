@@ -8,5 +8,6 @@ import com.neu.beans.Lesson;
 
 public interface FrontLessonMapper {
 	public List<String> findTypeList() throws Exception;
-	public List<Lesson> findLessehByCategory(String catigory);
+	public List<Lesson> findLessehByCategory(String category);
+	public Lesson getLesssonById(int lid);
 }
