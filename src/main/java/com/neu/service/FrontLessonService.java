@@ -1,5 +1,12 @@
 package com.neu.service;
 
-public interface FrontLessonService {
+import java.util.List;
+import java.util.Map;
 
+import com.neu.beans.Lesson;
+
+
+
+public interface FrontLessonService {
+	public Map<String, List<Lesson>> findLessonListByCategory() throws Exception;
 }
