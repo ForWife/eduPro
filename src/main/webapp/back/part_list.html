@@ -17,10 +17,6 @@
     		<legend>分部信息</legend>
 		</fieldset>
 
-
-
-
-
 <table class="layui-hide" id="demo" lay-filter="useruv" style="margin:2%"></table>
 
 <script type="text/html" id="barDemo">
@@ -38,11 +34,11 @@
         table.render({
             elem: '#demo'
             , cols: [[ //标题栏
-                {field: 'id', title: 'ID', width: 100, sort: true}
-                , {field: 'username', title: '分部名字', width: 300}
-                , {field: 'loc', title: '城市', width: 250,}
-                , {field: 'phone', title: '分部电话', width: 250}
-                , {fixed: 'right', width: 400, align: 'center', toolbar: '#barDemo'}
+                {field: 'id', title: 'ID', sort: true}
+                , {field: 'username', title: '分部名字'}
+                , {field: 'loc', title: '城市',width:'30%'}
+                , {field: 'phone', title: '分部电话'}
+                , {fixed: 'right', align: 'center', toolbar: '#barDemo'}
             ]]
             , data: [{
                 "id": "10001"
