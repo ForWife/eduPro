@@ -6,6 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>后台系统</title>
     <link rel="stylesheet" href="css/layui.css">
+    <script src="js/jquery-3.3.1.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                url:"/back/findteachers",
+                type:"get",
+                dataType:"json",
+                success:function (data) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var tr = '<tr>';
+                        tr += '<td>' + data[i].tname + '</td>';
+                        tr += '<td>' + '<img src="'+data[i].tphoto + '"/></td>';
+                        tr += '<td>' + data[i].introduction + '</td>';
+                        tr+='<td>\n' +
+                            '            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="window.location.href=\'edit_teacher.html?id=' +data[i].tid+
+                            '\'">\n' +
+                            '                <i class="layui-icon layui-icon-edit"></i>\n' +
+                            '            </button>\n' +
+                            '        </td>\n' +
+                            '        <td>\n' +
+                            '            <button class="layui-btn layui-btn-primary layui-btn-sm">\n' +
+                            '                <i class="layui-icon layui-icon-delete"></i>\n' +
+                            '            </button>\n' +
+                            '        </td>'
+                        tr += '</tr>';
+                        $("#tab").append(tr);
+                }
+                }
+            })
+        })
+    </script>
 </head>
 
 <body style="background-color: #F2F2F2;">
@@ -19,7 +51,7 @@
     <legend>讲师列表</legend>
 </fieldset>
 
-<table class="layui-table" lay-skin="line">
+<table class="layui-table" lay-skin="line" id="tab">
     <colgroup>
         <col width="100">
         <col width="150">
@@ -37,86 +69,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>1</td>
-        <td>
-            <img src="image/shuijiao.jpg">
-        </td>
-        <td>balablab权威的短期内我的可前往去闻去 恰废去恰废却无法去闻a</td>
-        <td>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="window.location.href='edit_teacher.html'">
-                <i class="layui-icon layui-icon-edit"></i>
-            </button>
-        </td>
-        <td>
-            <button class="layui-btn layui-btn-primary layui-btn-sm">
-                <i class="layui-icon layui-icon-delete"></i>
-            </button>
-        </td>
-    </tr>
-    <tr>
-        <td>2</td>
 
-        <td>
-            <img src="image/muwu.jpg">
-        </td>
-        <td>balab擦父亲发为服务服务我法我
-
-            laba
-        </td>
-
-        <td>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="window.location.href='edit_teacher.html'">
-                <i class="layui-icon layui-icon-edit"></i>
-            </button>
-        </td>
-        <td>
-            <button class="layui-btn layui-btn-primary layui-btn-sm">
-                <i class="layui-icon layui-icon-delete"></i>
-            </button>
-        </td>
-    </tr>
-    <tr>
-        <td>31</td>
-
-        <td>
-            <img src="image/cbd.jpg">
-        </td>
-        <td>bal去去闻去奶父u发你ablaba</td>
-        <td>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="window.location.href='edit_teacher.html'">
-                <i class="layui-icon layui-icon-edit"></i>
-            </button>
-        </td>
-        <td>
-            <button class="layui-btn layui-btn-primary layui-btn-sm">
-                <i class="layui-icon layui-icon-delete"></i>
-            </button>
-        </td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>
-            <img src="image/shuijiao.jpg">
-        </td>
-        <td>balabla顽强反击买奶粉尾页我圑wew w we wgep; wefuba</td>
-
-        <td>
-            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="window.location.href='edit_teacher.html'">
-                <i class="layui-icon layui-icon-edit"></i>
-            </button>
-        </td>
-        <td>
-            <button class="layui-btn layui-btn-primary layui-btn-sm">
-                <i class="layui-icon layui-icon-delete"></i>
-            </button>
-        </td>
-    </tr>
     </tbody>
 </table>
-<center>
-    <div id="test1"></div>
-</center>
+
 
 
 <script src="layui.js"></script>
