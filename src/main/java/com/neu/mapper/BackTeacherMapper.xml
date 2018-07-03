@@ -7,5 +7,10 @@
     <select id="findTeachers" resultType="com.neu.beans.Teacher">
         select * FROM teacher
     </select>
-
+    <delete id="deleteTeacher" parameterType="int">
+        delete from teacher where tid=#{tid}
+    </delete>
+    <insert id="addTeacher" parameterType="com.neu.beans.Teacher">
+        insert into teacher(tname,tphoto,introduction,qid) values(#{tname},#{tphoto},#{introduction},#{qid})
+    </insert>
 </mapper>

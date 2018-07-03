@@ -5,6 +5,7 @@ import com.neu.mapper.BackTeacherMapper;
 import com.neu.service.BackTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -19,6 +20,26 @@ public class BackTeacherServiceImpl implements BackTeacherService {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    @Transactional
+    @Override
+    public boolean deleteTeacher(int tid) {
+        try {
+            return teacherMapper.deleteTeacher(tid) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    @Transactional
+    @Override
+    public boolean addTeacher(Teacher teacher) {
+        try {
+            return teacherMapper.addTeacher(teacher)>0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
