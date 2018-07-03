@@ -45,7 +45,7 @@
                         map.clearOverlays();
                         var new_point = new BMap.Point(document.getElementById("longitude").value, document.getElementById("latitude").value);
                         var marker = new BMap.Marker(new_point);  // 创建标注
-                        map.addOverlay(marker);              // 将标注添加到地图中
+                        map.addOverlay(marker);        // 将标注添加到地图中
                         map.panTo(new_point);
                     }
                 }

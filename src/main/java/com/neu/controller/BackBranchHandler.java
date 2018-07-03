@@ -16,7 +16,6 @@ import java.util.List;
 public class BackBranchHandler {
     @Autowired
     BackBranchService backBranchService;
-
     @ResponseBody
     @RequestMapping(value = "/back/findbranches")
     public Return findBranches(HttpServletRequest request) {

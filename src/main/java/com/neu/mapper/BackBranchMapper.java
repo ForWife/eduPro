@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface BackBranchMapper {
     public List<Address> findBranches(int qid) throws SQLException;
-
     public Address findBranchById(int id) throws SQLException;
 }

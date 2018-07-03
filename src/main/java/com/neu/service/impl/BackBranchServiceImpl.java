@@ -13,7 +13,6 @@ import java.util.List;
 public class BackBranchServiceImpl implements BackBranchService {
     @Autowired
     BackBranchMapper backBranchMapper;
-
     @Override
     public List<Address> findBranches(int qid) {
         try {
@@ -23,7 +22,6 @@ public class BackBranchServiceImpl implements BackBranchService {
             return null;
         }
     }
-
     @Override
     public Address findBranch(int id) {
         try {

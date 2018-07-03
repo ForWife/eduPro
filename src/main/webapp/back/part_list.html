@@ -32,7 +32,6 @@
 <script src="layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-
     layui.use('table', function () {
         var table = layui.table;
 
@@ -40,11 +39,11 @@
         table.render({
             elem: '#demo'
             , cols: [[ //标题栏
-                {field: 'id', title: 'ID', width: 200, sort: true}
-                , {field: 'branch', title: '分部名字', width: 300}
-                , {field: 'address', title: '分部地址', width: 350}
-                , {field: 'tel', title: '分部电话', width: 350}
-                , {fixed: 'right', width: 500, align: 'center', toolbar: '#barDemo'}
+                {field: 'id', title: 'ID', width: '10%', sort: true}
+                , {field: 'branch', title: '分部名字', width: '20%'}
+                , {field: 'address', title: '分部地址', width: '20%'}
+                , {field: 'tel', title: '分部电话', width: '20%'}
+                , {fixed: 'right', width: "30%", align: 'center', toolbar: '#barDemo'}
             ]],
             url: "/back/findbranches"
             //,skin: 'line' //表格风格
