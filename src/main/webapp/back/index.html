@@ -20,11 +20,27 @@
                 </a>
             </li>
             <li class="layui-nav-item">
-                <a href="">退出</a>
+                <a href="" id="exit">退出</a>
             </li>
         </ul>
     </div>
-
+	<script src="js/jquery-3.3.1.js"></script>
+	<script type="text/javascript">
+	 $(function(){
+	    	$("#exit").click(function () {
+	            $.ajax({
+	                url:"/back/exit",
+	                type:"post",
+	                dataType:"json",
+	                success:function (data) {
+	                    window.location.href="login.html"
+	                },
+	                error:function () {
+	                }
+	            })
+	        })
+	    })
+	</script>
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->

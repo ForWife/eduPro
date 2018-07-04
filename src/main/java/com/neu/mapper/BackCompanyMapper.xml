@@ -7,5 +7,7 @@
     <select id="findCompanyByQid" parameterType="int" resultType="com.neu.beans.Enterprise">
         select * FROM enterprise where qid=#{qid}
     </select>
-
+	<update id="editCompany" parameterType="com.neu.beans.Enterprise">
+		update enterprise set name=#{name},videopath=#{videopath},introduction=#{introduction},jczs=#{jczs} where qid=#{qid}
+	</update>
 </mapper>

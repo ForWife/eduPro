@@ -22,4 +22,16 @@ public class BackCompanyServiceImpl implements BackCompanyService {
             return null;
         }
     }
+
+	@Override
+	public boolean editCompany(Enterprise enterprise) {
+		// TODO Auto-generated method stub
+		try {
+			return companyMapper.editCompany(enterprise)>0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

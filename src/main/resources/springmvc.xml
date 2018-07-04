@@ -29,12 +29,11 @@
 
 
     <!-- 文件上传 -->
-    <!--<bean id="multipartResolver" class="com.neu.controller.CommonsMultipartResolver">-->
-        <!--<property name="maxUploadSize">-->
-            <!--<value>10240000</value>-->
-        <!--</property>-->
-
-    <!--</bean>-->
+    <bean id="multipartResolver" class="com.neu.controller.CommonsMultipartResolver">
+        <property name="maxUploadSize">
+            <value>33554432</value>
+        </property>
+    </bean>
 
 
     <!-- 全局异常处理 -->

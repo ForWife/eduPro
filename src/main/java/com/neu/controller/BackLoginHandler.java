@@ -30,4 +30,11 @@ public class BackLoginHandler {
             return "{\"result\":\"failed\"}";
         }
     }
+    @RequestMapping(value = "/back/exit")
+    @ResponseBody
+    public String exit(HttpServletRequest request){
+        HttpSession session=request.getSession();
+        session.setAttribute("user",null);
+        return "{\"result\":\"success\"}";
+    }
 }

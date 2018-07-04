@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/layui.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <script src="js/jquery-3.3.1.js"></script>
+    <script src="layui.all.js"></script>
     <script>
         $(function (){
             $.ajax({
@@ -19,9 +20,11 @@
                     $("#company_intro").append(data.introduction);
                     $("#company_des").append(data.jczs);
                     $("#company_name").append(data.name);
+                    $('#video').attr('src', '/upload/'+data.videopath);
                 }
             })
         })
+        
     </script>
 </head>
 <body style="background-color: #F2F2F2;">
@@ -62,8 +65,7 @@
             <div class="layui-card">
                 <div class="layui-card-header">企业视频</div>
                 <div class="layui-card-body" id="company_video">
-                    二哈玩蛇的下场
-                    <video src="images/1.mp4" style="width:40%" controls="controls"></video>
+                    <video id="video" style="width:40%" controls="controls"></video>
                 </div>
             </div>
         </div>
