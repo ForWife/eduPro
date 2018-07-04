@@ -42,4 +42,24 @@ public class BackTeacherServiceImpl implements BackTeacherService {
             return false;
         }
     }
+
+    @Override
+    public Teacher findTeacherBiId(int tid) {
+        try {
+            return teacherMapper.findTeacherById(tid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean editTeacher(Teacher teacher) {
+        try {
+            return teacherMapper.editTeacher(teacher)>0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

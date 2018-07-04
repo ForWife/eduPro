@@ -25,6 +25,7 @@ public class BackTeacherHandler {
     public List<Teacher> findteachers(){
         return teacherService.findTeachers();
     }
+
     @RequestMapping(value = "/back/deleteteacher")
     @ResponseBody
     public String deleteTeacher(int tid){
@@ -71,7 +72,6 @@ public class BackTeacherHandler {
     @RequestMapping(value = "/back/teacherupload")
     @ResponseBody
     public Update upload(HttpServletRequest request, MultipartFile file){
-
         String filename=System.currentTimeMillis()+file.getOriginalFilename();
         String path=request.getServletContext().getRealPath("/");
         File f=new File(path);
@@ -104,5 +104,18 @@ public class BackTeacherHandler {
         if (teacherService.addTeacher(teacher)){
             return "{\"result\":\"success\"}";
         }else return "{\"result\":\"failed\"}";
+    }
+    @ResponseBody
+    @RequestMapping(value = "/back/editteacher")
+    public String editteacher(Teacher teacher){
+        System.out.println(teacher.getTname()+teacher.getTid());
+        if (teacherService.editTeacher(teacher)){
+            return "{\"result\":\"success\"}";
+        }else return "{\"result\":\"failed\"}";
+    }
+    @ResponseBody
+    @RequestMapping(value = "/back/findteacherbyid")
+    public Teacher findteacherbyid(int tid){
+        return teacherService.findTeacherBiId(tid);
     }
 }

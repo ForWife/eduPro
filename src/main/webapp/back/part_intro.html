@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="css/layui.css" media="all">
     <style type="text/css">
         #allmap {
-            height: 650px;
-            width: 85%;
+            height: 540px;
+            width: 960px;
         }
 
         #r-result {
@@ -22,6 +22,7 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nSxiPohfziUaCuONe4ViUP2N"></script>
     <script src="js/jquery-3.3.1.js"></script>
     <script>
+
         var loc = location.href;
         var n1 = loc.length;//地址的总长度
         var n2 = loc.indexOf("=");//取得=号的位置
@@ -30,7 +31,7 @@
             $.ajax({
                 url: "/back/findbranchbyid",
                 type: "get",
-                data: {"id": id},
+                data: {id: id},
                 success: function (data) {
                     console.log(data);
                     $("#name").append(data.branch);
@@ -73,7 +74,7 @@
                 <div class="layui-card-body">
                     <div id="loc"></div>
                     <div id="allmap"></div>
-                    <div id="r-result">
+                    <div id="r-result" hidden="hidden">
                         经度: <input id="longitude" type="text" style="width:100px; margin-right:10px;"/>
                         纬度: <input id="latitude" type="text" style="width:100px; margin-right:10px;"/>
                         <input type="button" value="查询" onclick="theLocation()"/>

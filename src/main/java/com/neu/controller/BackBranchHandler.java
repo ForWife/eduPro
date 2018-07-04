@@ -24,13 +24,35 @@ public class BackBranchHandler {
         List<Address> addresses = backBranchService.findBranches(qid);
         return new Return(0, "", addresses.size(), addresses);
     }
-
+    @RequestMapping(value = "/back/addbranch")
+    @ResponseBody
+    public String addBranch(HttpServletRequest request,Address address){
+        HttpSession session= request.getSession();
+        User user= (User) session.getAttribute("user");
+        address.setQid(user.getQid());
+        if (backBranchService.addBranch(address)){
+            return "{\"result\":\"success\"}";
+        }else return "{\"result\":\"failed\"}";
+    }
+    @RequestMapping(value = "/back/editbranch")
+    @ResponseBody
+    public String editBranch(Address address){
+        if (backBranchService.editBranch(address)){
+            return "{\"result\":\"success\"}";
+        }else return "{\"result\":\"failed\"}";
+    }
     @ResponseBody
     @RequestMapping(value = "/back/findbranchbyid")
     public Address findBranchesByid(int id) {
         return backBranchService.findBranch(id);
     }
-
+    @RequestMapping(value = "/back/deletebranch")
+    @ResponseBody
+    public String deleteBranch(int id){
+        if (backBranchService.deleteBranch(id)){
+            return "{\"result\":\"success\"}";
+        }else return "{\"result\":\"failed\"}";
+    }
     class Return {
         private int code;
         private String msg;

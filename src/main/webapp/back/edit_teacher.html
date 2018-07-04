@@ -50,7 +50,70 @@
 <script src="layui.js"></script>
 <script src="js/jquery-3.3.1.js"></script>
 <script>
-    img=new String("");
+    var loc = location.href;
+    var n1 = loc.length;//地址的总长度
+    var n2 = loc.indexOf("=");//取得=号的位置
+    var id = decodeURI(loc.substr(n2 + 1, n1 - n2));//从=号后面的内容
+    console.log(id)
+    img=String("");
+    if (id!==0){
+        console.log(id)
+        $(function () {
+            $.ajax({
+                url:'/back/findteacherbyid',
+                data:{"tid":id},
+                dataTyoe:'json',
+                success:function (data) {
+                    console.log(data);
+                    $("#name").val(data.tname);
+                    $("#des").val(data.introduction);
+                    $('#demo1').attr('src', '../upload/'+data.tphoto);
+                    img=data.tphoto;
+                }
+            })
+        });
+        $(function () {
+            $("#submit").click(function () {
+                var name=$("#name").val();
+                var des=$("#des").val();
+                $.ajax({
+                    url:"/back/editteacher",
+                    type:"post",
+                    data:{tid:Number(id),tname:name,tphoto:img,introduction:des},
+                    dataType:"json",
+                    success:function (data) {
+                        console.log(data);
+                        layer.msg("修改成功");
+                        window.location.href="teacher.html"
+                    },
+                    error:function () {
+                        layer.msg("修改失败");
+                    }
+                })
+            })
+        })
+    }else {
+        $(function () {
+            $("#submit").click(function () {
+                var name=$("#name").val();
+                var des=$("#des").val();
+                $.ajax({
+                    url:"/back/addteacher",
+                    type:"post",
+                    data:{tname:name,tphoto:img,introduction:des},
+                    dataType:"json",
+                    success:function (data) {
+                        console.log(data);
+                        layer.msg("添加成功");
+                        window.location.href="teacher.html"
+                    },
+                    error:function () {
+                        layer.msg("添加失败");
+                    }
+                })
+            })
+        })
+    }
     layui.use(['layer'], function(){
         layer = layui.layer;
         // layer.msg('Hello World');
@@ -88,28 +151,8 @@
                 });
             }
         });
-    })
-    $(function () {
-        $("#submit").click(function () {
-            var name=$("#name").val();
-            var des=$("#des").val();
-            layer.msg(name);
-            $.ajax({
-                url:"/back/addteacher",
-                type:"post",
-                data:{tname:name,tphoto:img,introduction:des},
-                dataType:"json",
-                success:function (data) {
-                    console.log(data);
-                    layer.msg("添加成功");
-                    window.location.href="teacher.html"
-                },
-                error:function () {
-                    layer.msg("添加失败");
-                }
-            })
-        })
-    })
+    });
+
 </script>
 </body>
 

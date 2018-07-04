@@ -10,8 +10,8 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style type="text/css">
         #l-map {
-            height: 400px;
-            width: 100%;
+            height: 540px;
+            width: 960px;
         }
 
         #r-result {
@@ -33,7 +33,7 @@
             <div class="layui-card">
                 <div class="layui-card-header">分部名称</div>
                 <div class="layui-card-body">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入名字"
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入名字" id="name"
                            class="layui-input">
                 </div>
             </div>
@@ -55,22 +55,91 @@
             <div class="layui-card">
                 <div class="layui-card-header">分部电话</div>
                 <div class="layui-card-body">
-                    110
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入电话" id="tel"
+                           class="layui-input">
                 </div>
             </div>
         </div>
-
+        <div style="margin:auto;width: 20%;">
+            <button class="layui-btn layui-btn-lg" type="button" id="submit">提交</button>
+        </div>
     </div>
 </div>
+<script src="js/jquery-3.3.1.js"></script>
+<script src="layui.all.js"></script>
 <script type="text/javascript">
+    layui.use(['layer'], function(){
+        layer = layui.layer;
+        // layer.msg('Hello World');
+    });
+    var loc = location.href;
+    var n1 = loc.length;//地址的总长度
+    var n2 = loc.indexOf("=");//取得=号的位置
+    var id = decodeURI(loc.substr(n2 + 1, n1 - n2));//从=号后面的内容
+    console.log(id)
     // 百度地图API功能
     function G(id) {
         return document.getElementById(id);
     }
 
     var map = new BMap.Map("l-map");
-    map.centerAndZoom("北京", 12);                   // 初始化地图,设置城市和地图级别。
+    map.centerAndZoom("北京", 16);                   // 初始化地图,设置城市和地图级别。
 
+    if (id!='0'){
+        url='/back/editbranch';
+        $(function () {
+            $.ajax({
+                url:"/back/findbranchbyid",
+                type:'get',
+                data:{id:id},
+                success:function (data) {
+                    $("#name").val(data.branch);
+                    $("#suggestId").val(data.address);
+                    $("#tel").val(data.tel);
+                    map.clearOverlays();
+                    longitude=data.longitude;
+                    latitude=data.latitude;
+                    var new_point = new BMap.Point(data.longitude,data.latitude);
+                    var marker = new BMap.Marker(new_point);  // 创建标注
+                    map.addOverlay(marker);        // 将标注添加到地图中
+                    map.panTo(new_point);
+                }
+            })
+        })
+        $(function () {
+            $("#submit").click(function () {
+                $.ajax({
+                    url:'/back/editbranch',
+                    type:'post',
+                    data:{id:id,branch:$("#name").val(),address:$("#suggestId").val(),tel:$("#tel").val(),longitude:longitude,latitude:latitude},
+                    success:function (data) {
+                        layer.msg("修改成功");
+                        window.location.href='part_list.html'
+                    },
+                    error:function () {
+                        layer.msg("修改失败")
+                    }
+                })
+            })
+        })
+    }else {
+        $(function () {
+            $("#submit").click(function () {
+                $.ajax({
+                    url:'/back/addbranch/',
+                    type:'post',
+                    data:{branch:$("#name").val(),address:$("#suggestId").val(),tel:$("#tel").val(),longitude:longitude,latitude:latitude},
+                    success:function (data) {
+                        layer.msg("添加成功");
+                        window.location.href='part_list.html'
+                    },
+                    error:function () {
+                        layer.msg("添加失败")
+                    }
+                })
+            })
+        })
+    }
     var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
         {
             "input": "suggestId"
@@ -100,15 +169,16 @@
         var _value = e.item.value;
         myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
         G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-
         setPlace();
     });
 
     function setPlace() {
         map.clearOverlays();    //清除地图上所有覆盖物
         function myFun() {
-            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-            alert(pp.lng + "," + pp.lat);
+            pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            layer.msg(pp.lng + "," + pp.lat);
+            longitude=pp.lng;
+            latitude=pp.lat;
             map.centerAndZoom(pp, 18);
             map.addOverlay(new BMap.Marker(pp));    //添加标注
         }
@@ -118,6 +188,7 @@
         });
         local.search(myValue);
     }
+
 </script>
 </body>
 </html>

@@ -10,7 +10,13 @@
     <delete id="deleteTeacher" parameterType="int">
         delete from teacher where tid=#{tid}
     </delete>
+    <select id="findTeacherById" parameterType="int" resultType="com.neu.beans.Teacher">
+        select * from teacher where tid=#{tid}
+    </select>
     <insert id="addTeacher" parameterType="com.neu.beans.Teacher">
         insert into teacher(tname,tphoto,introduction,qid) values(#{tname},#{tphoto},#{introduction},#{qid})
     </insert>
+    <update id="editTeacher" parameterType="com.neu.beans.Teacher">
+        update teacher set tname=#{tname},tphoto=#{tphoto},introduction=#{introduction} where tid=#{tid}
+    </update>
 </mapper>

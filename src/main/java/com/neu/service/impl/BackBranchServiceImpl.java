@@ -31,4 +31,34 @@ public class BackBranchServiceImpl implements BackBranchService {
             return null;
         }
     }
+
+    @Override
+    public boolean deleteBranch(int id) {
+        try {
+            return backBranchMapper.deleteBranch(id)>0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addBranch(Address address) {
+        try {
+            return backBranchMapper.addBranch(address)>0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean editBranch(Address address) {
+        try {
+            return backBranchMapper.editBranch(address)>0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

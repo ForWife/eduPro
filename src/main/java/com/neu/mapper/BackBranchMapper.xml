@@ -9,4 +9,13 @@
     <select id="findBranchById" parameterType="int" resultType="com.neu.beans.Address">
         select * FROM address where id=#{id}
     </select>
+    <delete id="deleteBranch" parameterType="int">
+        delete from address where id=#{id}
+    </delete>
+    <insert id="addBranch" parameterType="com.neu.beans.Address">
+        insert into address(qid,branch,address,tel,longitude,latitude) values(#{qid},#{branch},#{address},#{tel},#{longitude},#{latitude})
+    </insert>
+    <update id="editBranch" parameterType="com.neu.beans.Address">
+        update address set branch=#{branch},address=#{address},tel=#{tel},longitude=#{longitude},latitude=#{latitude} where id=#{id}
+    </update>
 </mapper>
