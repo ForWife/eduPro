@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "BackBespeakPagingMapper">
+	<select id = "getFreelisten" resultType = "com.neu.beans.FreeListen">
+		select * 
+		from FreeListen
+	</select>
+	<select id = "getFreeListenBook" resultType ="com.neu.beans.FreeListenBook">
+		 select *
+		 from FreeListenBook
+		 where fid = #{id} 
+		 limit #{begin}, #{number}
+	</select>
+</mapper>

@@ -5,7 +5,105 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="css/layui.css">
+   	<script src = "js/jquery-3.3.1.js"></script>
+   	<script>
+   	/*jq代码块*/
+	   	window.onload = loading();
+	   	function loading(){
+	   		$.ajax({
+	   			url:"/back/back_getAllMessage",
+	    		success:function(data){
+	    			var card = '';
+	    			for(var i = 0; i < data.length; i++){
+	    				card += '<div class="layui-card" style="margin: 2%">';
+	    				card += '<div class="layui-card-body">';
+	    				card += '<div>';
+	    				card += '<span>'+data[i].address.branch+'</span>';
+	    				card += '<a href = "javascript:deleteMessage('+data[i].mid+','+data[i].messageImg.length+','data[i].messageLike.length','data[i].messageReply.length')">';
+	    				card += '<span class="layui-icon layui-icon-delete" style="float: right; margin-right: 10px;"></span>';
+	    				card += '</a>';
+	    				card += '<a href = "javascript:editMessage('+data[i].mid+')">';
+	    				card += '<span class="layui-icon layui-icon-edit" style="float: right;margin-right: 13px;"></span>';
+	    				card += '</a>';
+	    				card += '</div>';
+	    				card += '<div class="timeStyle">';
+	    				card += '<span class="wordStyle">Posted on '+new Date(parseInt(data[i].mtime)).toLocaleString().replace(/:\d{1,2}$/,' ')+'</span>';
+	    				card += '</div>';
+	    				card += '</div>';
+	    				card += '<div class="layui-card-body" style="border-top: #d9d9d9 1px solid; ">';
+	    				card += '<div style="width: 350px;">'+data[i].mtitle+'</div>';
+	    				card += '<div class="pictureStyle ">';
+	    				card += '<ul>';
+	    				for(var j = 0; j < data[i].messageImg.length; j++){
+	    					card  += '<li><img class="';
+	    					if(data[i].messageImg[j].flag == 0){
+	    						card  += 'pwidth';
+	    					}else{
+	    						card  += 'pheigh';
+	    					}
+	    					card += '" src="'+data[i].messageImg[j].imgurl+'"/></li>';
+	    				}
+	    				card += '</ul">';
+	    				card += '</div>';
+	    				card += '</div>';
+	    				card += '<div class="layui-card-body" style="border-top: #d9d9d9 1px solid; ">';
+	    				card += '<div style="width: 350px;">';
+	    				card += '<span class="layui-icon layui-icon-praise" style="color: red;"></span>';
+	    				card += '<span>';
+	    				for(var j = 0; j < data[i].messageLike.length; j++){
+	    					card += data[i].messageLike[j].nickname;
+	    					if(j > 0){
+	    						card += ' 、 ';
+	    					}
+	    				}
+	    				card += '</span>';
+	    				card += '</div>';
+	    				for(var j = 0; j < data[i].messageReply.length; j++){
+	    					card += '<div>';
+	    					card += '<span>'+data[i].messageReply[j].nickname+' : </span>';
+	    					card += '<span style="width: 350px;">'+data[i].messageReply[j].content+'</span>'
+	    					card += '<a href="javascript:deleteMR('+data[i].messageReply[j].id+')" "><span class="layui-icon layui-icon-delete" style="float: right; margin-right: 10px;"></span></a>'
+	    					card += '</div>';
+	    				}
+	    				
+	    				card += '</div>';
+	    				card += '</div>';
+	    				
+	    			}
+	    			$("#card").html(card);
+	    		}
+	    	})
+	    }
+	   	
+	   	function deleteMR(id){
+	   		$.ajax({
+	   			url: "/back/back_deleteMessageReply",
+	   			data: {"id" : id},
+	   			type: "get",
+	   			success:function(data){
+	   				console.log(data);
+	   				if(data != 0){
+	   					loading();
+	   				}else{
+	   					alert("删除失败");
+	   					loading();
+	   				}
+	   			}
+	   		})
+	   	}
+	   	
+	   	function deleteMessage(id, imgNumber, likeNumber,replyNumber){
+	   		$.ajax{
+	   			
+	   		}
+	   	}
+	   	function editMessage(id){
+	   		
+	   	}
+    
+   	</script> 
     <script>
+    	/*textArea自适应高度*/
         var autoTextarea = function (elem, extra, maxHeight) {
             extra = extra || 0;
             var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
@@ -33,7 +131,7 @@
                 minHeight = parseFloat(getStyle('height'));
 
             elem.style.resize = 'none';
-
+			
             var change = function () {
                 var scrollTop, height,
                     padding = 0,
@@ -72,7 +170,8 @@
             addEvent('focus', change);
             change();
         };
-
+		
+    	/*图片自适应宽高*/
         function setImagePreviews(avalue) {
             var docObj = document.getElementById("picInput");
             var fileList = docObj.files;
@@ -94,12 +193,11 @@
             }
             return true;
         }
-
+    	/*隐藏编辑div*/
         function display() {
             document.getElementById("hideDiv1").style.display = "block";
         }
     </script>
-
     <style>
         .timeStyle {
             margin-left: 0px;
@@ -107,6 +205,7 @@
 
         .timeStyle .wordStyle {
             color: #777777;
+            font-style:italic
         }
 
         .pictureStyle {
@@ -167,8 +266,8 @@
         .areaStyle {
             border: 1px solid;
             overflow-x: hidden;
-            overflow-y: hidden;
             width: 96%;
+            height: 45px;
         }
 
         .picDiv {
@@ -206,40 +305,8 @@
 </head>
 
 <body style="background-color: #F2F2F2;">
-<div class="layui-card" style="margin: 2%">
-    <div class="layui-card-body">
-        <span>东软睿道</span>
-        <span class="layui-icon layui-icon-delete" style="float: right; margin-right: 10px;"></span>
-        <span class="layui-icon layui-icon-edit" style="float: right;margin-right: 13px;"></span>
-        <div class="timeStyle">
-            <span class="wordStyle">Posted on January 18, 2016</span>
-        </div>
-    </div>
-    <div class="layui-card-body" style="border-top: #d9d9d9 1px solid; ">
-        <div style="width: 350px;">
-            欲买桂花同载酒。
-        </div>
-        <div class="pictureStyle ">
-            <ul>
-                <li><img class="pwidth" src="image/cbd.jpg"/></li>
-                <li><img class="pwidth" src="image/shuijiao.jpg"/></li>
-                <li><img class="pwidth" src="image/yuantiao.jpg"/></li>
-                <li><img class="pwidth" src="image/muwu.jpg"/></li>
-            </ul>
-        </div>
-    </div>
-    <div class="layui-card-body" style="border-top: #d9d9d9 1px solid; ">
-        <div style="width: 350px;">
-            <span class="layui-icon layui-icon-praise" style="color: red;"></span>
-            <span>小名</span>
-        </div>
-        <div>
-            <span>小名：</span>
-            <span style="width: 350px;">哈哈哈</span>
-            <span class="layui-icon layui-icon-delete" style="float: right; margin-right: 10px;"></span>
-        </div>
-    </div>
-</div>
+<div id = "card"></div>
+
 
 <div class="layui-card" style="margin: 2%">
     <div class="layui-card-body" style="height:30px; overflow: hidden;">
@@ -257,14 +324,14 @@
     <div class="layui-card-body" style=" overflow: hidden;">
         <div style="margin: 10px; border-bottom: #d9d9d9 1px solid;">
 					<span>
-						信息发布
+						信息编辑
 					</span>
             <span>
 						<div class="layui-icon layui-icon-release" style="float:right; margin:0 10px"></div>
 					</span>
             <span>
 						<a class="layui-icon layui-icon-delete" style="float:right;margin:0 10px" href="#"></a>
-					</span?>
+					</span>
 
         </div>
         <form>
@@ -295,9 +362,7 @@
 
                 </ul>
             </div>
-
         </form>
-
     </div>
 </div>
 
