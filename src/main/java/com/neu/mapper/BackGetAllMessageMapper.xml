@@ -45,5 +45,4 @@
 					 address a
 			where a.id = m.qid and a.qid = 1
     </select>
-
 </mapper>
