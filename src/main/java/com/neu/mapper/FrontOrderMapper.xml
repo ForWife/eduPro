@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.mapper.FrontOrderMapper">
+
+<select id="findAllorder" resultType="com.neu.po.OrderVO">
+SELECT DATE_FORMAT(a.ordertime,"%Y-%c-%d %h:%i:%s") ordertime,a.status,b.category,b.imgurl,b.lname,b.lprice,DATE_FORMAT(b.pubtime,"%Y-%c-%d") pubtime,d.address,d.tel  
+FROM sorder as a LEFT JOIN lesson as b ON(a.lid=b.lid) LEFT JOIN lessonbranch as c ON(b.lid=c.lid) LEFT JOIN address as d ON(c.branchid=d.id)
+WHERE a.openid='oC9yV5KjYiv_zu6qJ0pm_WlN4LEk'
+order by ordertime desc
+</select>
+
+
+
+</mapper>
