@@ -94,10 +94,7 @@
 	
 	function seccessFunction(data){
 		console.log(data);
-		
-		
 		console.log(data.lesson.ldesc);
-		
 		$('#text-context').html(data.lesson.ldesc);
 		
 		$('#lesson-title').text(data.lesson.lname);
@@ -105,13 +102,7 @@
 		
 		$('#address').text("门店地址："+data.address.address);
 		$('#tel').text("Tel："+data.address.tel);
-		
-		
-		
-		
-		
-		
-		
+
 		/* 地图显示 */
 		longitude=data.address.longitude;
 		latitude = data.address.latitude;
