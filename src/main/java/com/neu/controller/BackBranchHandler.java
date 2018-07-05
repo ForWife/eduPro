@@ -24,6 +24,14 @@ public class BackBranchHandler {
         List<Address> addresses = backBranchService.findBranches(qid);
         return new Return(0, "", addresses.size(), addresses);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/back/findbranches1")
+    public List<Address> findBranches1(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int qid = ((User) session.getAttribute("user")).getQid();
+        return backBranchService.findBranches(qid);
+    }
     @RequestMapping(value = "/back/addbranch")
     @ResponseBody
     public String addBranch(HttpServletRequest request,Address address){

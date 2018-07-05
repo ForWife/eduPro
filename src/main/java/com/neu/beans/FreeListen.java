@@ -8,7 +8,16 @@ public class FreeListen {//free listen class
     private String status;//class status
     private int qid;//company id(foreign)
     private int branchid;//class at branch id(foreign)
+    private Address address;
     private int pubtime;//publish time
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public int getId() {
         return id;

@@ -1,8 +1,8 @@
 package com.neu.service.impl;
 
+import com.neu.beans.Lesson;
 import com.neu.mapper.DemoMapper;
 import com.neu.mapper.FrontLessonMapper;
-import com.neu.po.Lesson;
 import com.neu.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

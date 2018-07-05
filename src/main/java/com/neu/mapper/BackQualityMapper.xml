@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.mapper.BackQualityMapper">
+
+    <select id="findQuality" parameterType="int" resultType="com.neu.beans.Lesson">
+        select * FROM lesson where qid=#{qid}
+    </select>
+    <delete id="deleteQuality" parameterType="int">
+        delete from lesson where lid=#{lid}
+    </delete>
+    <select id="finQualityById" parameterType="int" resultType="com.neu.beans.Lesson">
+        select * from lesson where lid=#{lid}
+    </select>
+</mapper>

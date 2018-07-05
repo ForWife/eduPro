@@ -6,7 +6,6 @@ public class CommonsMultipartResolver extends org.springframework.web.multipart.
     public boolean isMultipart(HttpServletRequest request)
     {
         String url = request.getRequestURI();
-        System.out.println(url);
         if (url != null && url.contains("ue/jsp"))
         {
             return false;

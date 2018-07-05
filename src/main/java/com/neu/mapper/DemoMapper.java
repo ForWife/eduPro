@@ -1,6 +1,6 @@
 package com.neu.mapper;
 
-import com.neu.po.Lesson;
+import com.neu.beans.Lesson;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

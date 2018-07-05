@@ -1,6 +1,6 @@
 package com.neu.service;
 
-import com.neu.po.Lesson;
+import com.neu.beans.Lesson;
 
 import java.util.List;
 

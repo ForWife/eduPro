@@ -22,6 +22,15 @@
                     $("#company_name").append(data.name);
                     $('#video').attr('src', '/upload/'+data.videopath);
                 }
+            });
+            $.ajax({
+                url: '/back/findswiper',
+                typr: 'get',
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $("#img" + (i + 1)).attr('src', '/upload/' + data[i].imgurl);
+                    }
+                }
             })
         })
         
@@ -53,10 +62,10 @@
             <div class="layui-card">
                 <div class="layui-card-header">企业图片</div>
                 <div class="layui-card-body" id="company_img">
-                    <img src="images/cbd.jpg"/>
-                    <img src="images/cbd.jpg"/>
-                    <img src="images/cbd.jpg"/>
-                    <img src="images/cbd.jpg"/>
+                    <img id="img1" style="width: 20%;" src="images/cbd.jpg"/>
+                    <img id="img2" style="width: 20%;" src="images/cbd.jpg"/>
+                    <img id="img3" style="width: 20%;" src="images/cbd.jpg"/>
+                    <img id="img4" style="width: 20%;" src="images/cbd.jpg"/>
                 </div>
             </div>
         </div>

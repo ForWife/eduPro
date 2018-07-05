@@ -34,10 +34,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">公司图片</label>
                 <div class="layui-input-inline">
-                    <button type="button" class="layui-btn" id="test1">
-                        <i class="layui-icon">&#xe67c;</i>上传图片
-                    </button>
-                    
+                    <div class="layui-upload">
+                        <button class="layui-btn" id="test1" type="button">多图片上传</button>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                            预览图：
+                            <div class="layui-upload-list" id="demo2"></div>
+                        </blockquote>
+                    </div>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -67,6 +70,7 @@
             //实例化编辑器
             //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
             var ue = UE.getEditor('editor');
+            video = String("");
             $(function (){
                 $.ajax({
                     url:"/back/get_company",
@@ -77,9 +81,24 @@
                         $("#name").val(data.name);
                         ue.setContent(data.jczs);
                         $('#demoText').append(data.videopath);
+                        video = data.videopath;
+                    }
+                });
+
+                $.ajax({
+                    url: '/back/findswiper',
+                    typr: 'get',
+                    success: function (data) {
+                        console.log(data);
+                        $('#demo2').empty();
+                        for (var i = 0; i < data.length; i++) {
+                            $('#demo2').append('<img src="/upload/' + data[i].imgurl + '" style="width:100%" class="layui-upload-img">');
+                        }
+                        imgs = data;
+                        console.log(imgs)
                     }
                 })
-            })
+            });
     layui.use(['layer'], function(){
         layer = layui.layer;
         //layer.msg('Hello World');
@@ -87,6 +106,29 @@
     layui.use('upload', function() {
         var $ = layui.jquery
             , upload = layui.upload;
+        i = Number(0);
+        upload.render({
+            elem: '#test1'
+            , url: '/back/uploadmul'
+            , multiple: true,
+            number: 4
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                $('#demo2').empty();
+                obj.preview(function (index, file, result) {
+                    $('#demo2').append('<img src="' + result + '" style="width:100%" alt="' + file.name + '" class="layui-upload-img">')
+                });
+            }
+            , done: function (res) {
+                if (res.code > 0) {
+                    return layer.msg("上传失败")
+                }
+                imgs[i].imgurl = res.data[0].src;
+                i++;
+                console.log(i)
+                //上传完毕
+            }
+        });
         var uploadInst = upload.render({
             elem: '#test2'
             , url: '/back/uploadcompanyvideo',
@@ -119,11 +161,25 @@
     	$("#submit").click(function () {
             var name=$("#name").val();
             var des=$("#des").val();
+            console.log(imgs);
             $.ajax({
                 url:"/back/editcompany",
                 type:"post",
-                data:{name:name,videopath:video,introduction:des,jczs:ue.getContent()},
                 dataType:"json",
+                data: {
+                    name: name,
+                    videopath: video,
+                    introduction: des,
+                    jczs: ue.getContent(),
+                    img1: imgs[0].imgurl,
+                    img1id: imgs[0].id,
+                    img2: imgs[1].imgurl,
+                    img2id: imgs[1].id,
+                    img3: imgs[2].imgurl,
+                    img3id: imgs[2].id,
+                    img4: imgs[3].imgurl,
+                    img4id: imgs[3].id
+                },
                 success:function (data) {
                     console.log(data);
                     layer.msg("修改成功");
