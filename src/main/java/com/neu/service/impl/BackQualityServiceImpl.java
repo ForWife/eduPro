@@ -43,4 +43,34 @@ public class BackQualityServiceImpl implements BackQualityService {
             return null;
         }
     }
+
+    @Override
+    public List<String> findCategory(int qid) {
+        try {
+            return qualityMapper.findCategory(qid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean addQuality(Lesson lesson) {
+        try {
+            return qualityMapper.addQuality(lesson) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean editQuality(Lesson lesson) {
+        try {
+            return qualityMapper.editQuality(lesson) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

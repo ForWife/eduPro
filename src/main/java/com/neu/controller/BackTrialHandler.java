@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -28,8 +29,7 @@ public class BackTrialHandler {
     @ResponseBody
     @RequestMapping(value = "/back/findtrialbyid")
     public FreeListen findtrialbyid(int id) {
-        FreeListen freeListen = trialService.fintrialbyid(id);
-        return freeListen;
+        return trialService.fintrialbyid(id);
     }
 
     @RequestMapping(value = "/back/deletetrial")
@@ -55,6 +55,7 @@ public class BackTrialHandler {
         User user = (User) session.getAttribute("user");
         freeListen.setQid(user.getQid());
         freeListen.setStatus("进行中");
+        freeListen.setPubtime(new Date());
         if (trialService.addTrial(freeListen)) {
             return "{\"result\":\"success\"}";
         } else return "{\"result\":\"failed\"}";

@@ -1,5 +1,7 @@
 package com.neu.beans;
 
+import java.util.Date;
+
 public class FreeListen {//free listen class
     private int id;//primary key
     private String title;//class title
@@ -9,7 +11,7 @@ public class FreeListen {//free listen class
     private int qid;//company id(foreign)
     private int branchid;//class at branch id(foreign)
     private Address address;
-    private int pubtime;//publish time
+    private Date pubtime;//publish time
 
     public Address getAddress() {
         return address;
@@ -75,11 +77,11 @@ public class FreeListen {//free listen class
         this.branchid = branchid;
     }
 
-    public int getPubtime() {
+    public Date getPubtime() {
         return pubtime;
     }
 
-    public void setPubtime(int pubtime) {
+    public void setPubtime(Date pubtime) {
         this.pubtime = pubtime;
     }
 }

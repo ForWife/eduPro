@@ -20,28 +20,32 @@
         <form class="layui-form">
             <div class="layui-form-item">
                 <label class="layui-form-label">精品课名称</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                <div class="layui-input-block" style="width: 80%;">
+                    <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input" id="lname">
                 </div>
             </div>
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">精品课简介</label>
-                <div class="layui-input-block">
-                    <textarea class="layui-textarea" placeholder="请输入内容"></textarea>
+            <div class="layui-form-item">
+                <label class="layui-form-label">课程状态</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="status" placeholder="请输入内容" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">课程图片</label>
                 <div class="layui-input-inline">
-                    <button type="button" class="layui-btn" id="test1">
-                        <i class="layui-icon">&#xe67c;</i>上传图片
-                    </button>
+                    <div class="layui-upload">
+                        <button class="layui-btn" id="test1" type="button">上传图片</button>
+                        <div class="layui-upload-list">
+                            <img class="layui-upload-img" style="width:100%;height:auto" id="demo1">
+                            <p id="demoText"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">课程价格</label>
 				<div class="layui-input-inline">
-					<input type="number" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="number" name="" placeholder="请输入" autocomplete="off" class="layui-input" id="lprice">
 				</div>
 			</div>
             <div class="layui-form-item">
@@ -55,47 +59,156 @@
                 <label class="layui-form-label">精品课类别</label>
                 <div class="layui-input-inline">
                     <div class="layui-input-inline">
-                        <select name="modules" lay-search="" lay-verify="required">
-                            <option value="">直接选择或搜索选择</option>
-                            <option value="1">layer</option>
-                            <option value="2">form</option>
-                            <option value="3">layim</option>
-                            <option value="4">element</option>
-                            <option value="5">laytpl</option>
-                            <option value="6">upload</option>
-                            <option value="7">laydate</option>
-                            <option value="8">laypage</option>
-                            <option value="9">flow</option>
-                            <option value="10">util</option>
-                            <option value="11">code</option>
-                            <option value="12">tree</option>
-                            <option value="13">layedit</option>
-                            <option value="14">nav</option>
-                            <option value="15">tab</option>
-                            <option value="16">table</option>
-                            <option value="17">select</option>
-                            <option value="18">checkbox</option>
-                            <option value="19">switch</option>
-                            <option value="20">radio</option>
+                        <select name="modules" lay-search="" lay-verify="required" id="select" lay-filter="select">
                         </select>
                     </div>
                 </div>
             </div>
-		
+        </form>
     </div>
     <div style="margin:auto;width: 20%;">
-        <button class="layui-btn layui-btn-lg" onclick="">提交</button>
+        <button class="layui-btn layui-btn-lg" type="button" id="submit">提交</button>
     </div>
-    </form>
 	<script src="layui.js" charset="utf-8"></script>
+    <script src="js/jquery-3.3.1.js"></script>
     <script type="text/javascript">
         //实例化编辑器
         //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
         var ue = UE.getEditor('editor');
 		layui.use('form', function(){
-		  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-		
-		});    
+            form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        });
+
+        img = String("");
+        var loc = location.href;
+        var n1 = loc.length;//地址的总长度
+        var n2 = loc.indexOf("=");//取得=号的位置
+        id = decodeURI(loc.substr(n2 + 1, n1 - n2));//从=号后面的内容
+        $(function () {
+            $.ajax({
+                url: '/back/findcategory',
+                type: 'get',
+                success: function (data) {
+                    for (i = 0; i < data.length; i++) {
+                        $("#select").append('<option value="' + data[i] + '">' + data[i] + '</option>');
+                    }
+                    form.render();
+                }
+            });
+        });
+        // alert(id);
+        if (id !== '0') {
+            $(function () {
+                // console.log(id);
+                $.ajax({
+                    url: '/back/findqualitybyid',
+                    type: 'get',
+                    data: {lid: id},
+                    success: function (data) {
+                        console.log(data);
+                        $("#lname").val(data.lname);
+                        $("#demo1").attr('src', '/upload/' + data.imgurl);
+                        ue.setContent(data.ldesc);
+                        img = data.imgurl;
+                        $("#status").val(data.status);
+                        category = data.category;
+                        $("#lprice").val(data.lprice);
+                        layui.use('form', function () {
+                            form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                            $("#select").val(category);
+                            form.render();
+                        });
+                    }
+                });
+                $("#submit").click(function () {
+                    var lname = $("#lname").val();
+                    var lprice = $("#lprice").val();
+                    $.ajax({
+                        url: '/back/editquality',
+                        type: 'post',
+                        data: {
+                            lid: id,
+                            lname: lname,
+                            ldesc: ue.getContent(),
+                            imgurl: img,
+                            status: $("#status").val(),
+                            lprice: lprice,
+                            category: $("#select").val()
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            console.log(data);
+                            layer.msg("修改成功");
+                            window.location.href = "quality.html"
+                        },
+                        error: function () {
+                            layer.msg("修改失败");
+                        }
+                    })
+                })
+            })
+        } else {
+            // alert("asad")
+            $("#status").val("进行中");
+            $("#submit").click(function () {
+                var lname = $("#lname").val();
+                var lprice = $("#lprice").val();
+                $.ajax({
+                    url: '/back/addquality',
+                    type: 'post',
+                    data: {
+                        lname: lname,
+                        ldesc: ue.getContent(),
+                        imgurl: img,
+                        lprice: lprice,
+                        category: $("#select").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        layer.msg("添加成功");
+                        window.location.href = "quality.html"
+                    },
+                    error: function () {
+                        layer.msg("添加失败");
+                    }
+                })
+            })
+        }
+        layui.use('upload', function () {
+            var $ = layui.jquery
+                , upload = layui.upload;
+            var uploadInst = upload.render({
+                elem: '#test1'
+                , url: '/back/teacherupload',
+                dataType: "json"
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo1').attr('src', result); //图片链接（base64）
+                    });
+                }
+                , done: function (res) {
+                    //如果上传失败
+                    console.log(res);
+                    img = res.data.src;
+                    layer.msg(img);
+                    if (res.code > 0) {
+                        return layer.msg('上传失败');
+                    }
+                    //上传成功
+                }
+                , error: function (res) {
+                    console.log(res);
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function () {
+                        uploadInst.upload();
+                    });
+                }
+            });
+        });
     </script>
 </body>
 

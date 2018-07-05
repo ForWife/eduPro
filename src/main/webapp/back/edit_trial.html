@@ -39,7 +39,7 @@
                 <div class="layui-upload">
                     <button class="layui-btn" id="test1" type="button">上传图片</button>
                     <div class="layui-upload-list">
-                        <img class="layui-upload-img" style="width:100%" id="demo1">
+                        <img class="layui-upload-img" style="width:100%;height:auto" id="demo1">
                         <p id="demoText"></p>
                     </div>
                 </div>
@@ -83,88 +83,89 @@
     var loc = location.href;
     var n1 = loc.length;//地址的总长度
     var n2 = loc.indexOf("=");//取得=号的位置
-    var id = decodeURI(loc.substr(n2 + 1, n1 - n2));//从=号后面的内容
-    console.log(id);
-
+    id = decodeURI(loc.substr(n2 + 1, n1 - n2));//从=号后面的内容
     $(function () {
+        $.ajax({
+            url: '/back/findbranches1',
+            type: 'get',
+            success: function (data) {
+                for (i = 0; i < data.length; i++) {
+                    $("#part").append("<input id=\"bid_" + data[i].id + "\" name=\"radio\" title=\"" + data[i].branch + "\" type=\"radio\" value=\"" + data[i].id + " \" lay-filter=\"filter\">\n");
+                }
+                form.render();
+            }
+        });
+    });
+    // alert(id);
+    if (id !== '0') {
         $(function () {
+            // console.log(id);
             $.ajax({
-                url: '/back/findbranches1',
+                url: '/back/findtrialbyid',
                 type: 'get',
+                data: {id: id},
                 success: function (data) {
                     console.log(data);
-                    for (i = 0; i < data.length; i++) {
-                        $("#part").append("<input id=\"bid_" + data[i].id + "\" name=\"radio\" title=\"" + data[i].branch + "\" type=\"radio\" value=\"" + data[i].id + " \" lay-filter=\"filter\">\n");
-                    }
-                    form.render();
+                    $("#title").val(data.title);
+                    $("#demo1").attr('src', '/upload/' + data.imgurl);
+                    ue.setContent(data.fdesc);
+                    img = data.imgurl;
+                    $("#status").val(data.status);
+                    branchid = data.branchid;
+                    layui.use('form', function () {
+                        form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                        $("#bid_" + data.branchid).attr("checked", "true");
+                        form.render();
+                    });
                 }
             });
-            if (id !== 0) {
+            $("#submit").click(function () {
+                var title = $("#title").val();
+                var status = $("#status").val();
                 $.ajax({
-                    url: '/back/findtrialbyid',
-                    type: 'get',
-                    data: {id: id},
+                    url: '/back/edittrial',
+                    type: 'post',
+                    data: {
+                        id: id,
+                        title: title,
+                        fdesc: ue.getContent(),
+                        imgurl: img,
+                        status: status,
+                        branchid: branchid
+                    },
+                    dataType: "json",
                     success: function (data) {
                         console.log(data);
-                        $("#title").val(data.title);
-                        $("#demo1").attr('src', '/upload/' + data.imgurl);
-                        ue.setContent(data.fdesc);
-                        img = data.imgurl;
-                        $("#status").val(data.status);
-                        branchid = data.branchid;
-                        layui.use('form', function () {
-                            form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-                            $("#bid_" + data.branchid).attr("checked", "true");
-                            form.render();
-                        });
+                        layer.msg("修改成功");
+                        window.location.href = "trial.html"
+                    },
+                    error: function () {
+                        layer.msg("修改失败");
                     }
-                });
-                $("#submit").click(function () {
-                    $.ajax({
-                        url: '/back/edittrial',
-                        type: 'post',
-                        data: {
-                            id: id,
-                            title: title,
-                            fdesc: ue.getContent(),
-                            imgurl: img,
-                            status: status,
-                            branchid: branchid
-                        },
-                        dataType: "json",
-                        success: function (data) {
-                            console.log(data);
-                            layer.msg("修改成功");
-                            window.location.href = "trial.html"
-                        },
-                        error: function () {
-                            layer.msg("修改失败");
-                        }
-                    })
                 })
-            } else {
-                $("#submit").click(function () {
-                    $.ajax({
-                        url: '/back/addtrial',
-                        type: 'post',
-                        data: {title: title, fdesc: ue.getContent(), imgurl: img, branchid: branchid},
-                        dataType: "json",
-                        success: function (data) {
-                            console.log(data);
-                            layer.msg("添加成功");
-                            window.location.href = "trial.html"
-                        },
-                        error: function () {
-                            layer.msg("添加失败");
-                        }
-                    })
-                })
-
-            }
-
+            })
         })
-    });
-
+    } else {
+        $("#status").val("进行中");
+        // alert("asad")
+        $("#submit").click(function () {
+            var title = $("#title").val();
+            $.ajax({
+                url: '/back/addtrial',
+                type: 'post',
+                data: {title: title, fdesc: ue.getContent(), imgurl: img, branchid: branchid},
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    layer.msg("添加成功");
+                    window.location.href = "trial.html"
+                },
+                error: function () {
+                    layer.msg("添加失败");
+                }
+            })
+        })
+    }
     layui.use('upload', function () {
         var $ = layui.jquery
             , upload = layui.upload;

@@ -20,6 +20,7 @@
                         var tr = '<tr id="lid_' + data[i].lid + '">';
                         tr += '<td>' + data[i].lid + '</td>';
                         tr += '<td>' + data[i].lname + '</td>';
+                        tr += '<td>' + data[i].status + '</td>';
                         tr += '<td>' + '<img src="../upload/' + data[i].imgurl + '"/></td>';
                         tr += '<td>' + data[i].category + '</td>';
                         tr += '<td>' + data[i].lprice + '</td>';
@@ -88,9 +89,10 @@
 <table class="layui-table" lay-skin="line" id="tab">
     <colgroup>
         <col width="100">
-        <col width="150">
+        <col width="200">
+        <col width="100">
         <col width="250">
-        <col width="150">
+        <col width="100">
         <col width="100">
         <col width="50">
         <col width="50">
@@ -100,6 +102,7 @@
     <tr>
         <th>课程编号</th>
         <th>课程名称</th>
+        <th>状态</th>
         <th>图片</th>
         <th>课程类别</th>
         <th>课程价格</th>

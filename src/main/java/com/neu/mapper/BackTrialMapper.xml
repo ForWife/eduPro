@@ -29,7 +29,7 @@
     </delete>
     <insert id="addTrial" parameterType="com.neu.beans.FreeListen">
         insert into freelisten(title,imgurl,fdesc,status,qid,branchid,pubtime)
-        values(#{title},#{imgurl},#{fdesc},#{status},#{qid},#{branchid},sysdate)
+        values(#{title},#{imgurl},#{fdesc},#{status},#{qid},#{branchid},#{pubtime})
     </insert>
     <update id="editTrial" parameterType="com.neu.beans.FreeListen">
         update freelisten set title=#{title},imgurl=#{imgurl},fdesc=#{fdesc},status=#{status},branchid=#{branchid} where

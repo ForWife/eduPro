@@ -20,6 +20,7 @@
                         var tr = '<tr id="id_' + data[i].id + '">';
                         tr += '<td>' + data[i].id + '</td>';
                         tr += '<td>' + data[i].title + '</td>';
+                        tr += '<td>' + data[i].status + '</td>';
                         tr += '<td>' + '<img src="../upload/' + data[i].imgurl + '"/></td>';
                         tr += '<td>\n' +
                             '            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="window.location.href=\'view_trial.html?id=' + data[i].id + '\'">\n' +
@@ -87,7 +88,8 @@
     <colgroup>
         <col width="100">
         <col width="350">
-        <col width="300">
+        <col width="100">
+        <col width="250">
         <col width="50">
         <col width="50">
         <col width="50">
@@ -96,6 +98,7 @@
     <tr>
         <th>课程编号</th>
         <th>课程名称</th>
+        <th>状态</th>
         <th>图片</th>
         <th></th>
         <th></th>

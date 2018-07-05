@@ -13,4 +13,16 @@
     <select id="finQualityById" parameterType="int" resultType="com.neu.beans.Lesson">
         select * from lesson where lid=#{lid}
     </select>
+    <select id="findCategory" parameterType="int" resultType="java.lang.String">
+        select category from lesson where qid=#{qid} group by category
+    </select>
+    <insert id="addQuality" parameterType="com.neu.beans.Lesson">
+        insert into lesson(lname,imgurl,lprice,ldesc,category,status,qid,pubtime)
+        value(#{lname},#{imgurl},#{lprice},#{ldesc},#{category},#{status},#{qid},#{pubtime})
+    </insert>
+    <update id="editQuality" parameterType="com.neu.beans.Lesson">
+        update lesson set
+        lname=#{lname},imgurl=#{imgurl},ldesc=#{ldesc},status=#{status},lprice=#{lprice},category=#{category} where
+        lid=#{lid}
+    </update>
 </mapper>

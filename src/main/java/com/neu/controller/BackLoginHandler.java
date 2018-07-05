@@ -37,4 +37,11 @@ public class BackLoginHandler {
         session.setAttribute("user",null);
         return "{\"result\":\"success\"}";
     }
+
+    @RequestMapping(value = "/back/getuser")
+    @ResponseBody
+    public String getuser(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return ((User) session.getAttribute("user")).getUsername();
+    }
 }
