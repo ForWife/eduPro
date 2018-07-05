@@ -56,7 +56,7 @@
     var id = decodeURI(loc.substr(n2 + 1, n1 - n2));//从=号后面的内容
     console.log(id)
     img=String("");
-    if (id!==0){
+    if (id !== '0') {
         console.log(id)
         $(function () {
             $.ajax({

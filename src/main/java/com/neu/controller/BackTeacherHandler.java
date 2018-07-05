@@ -6,7 +6,6 @@ import com.neu.service.BackTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -92,7 +91,6 @@ public class BackTeacherHandler {
             u.setCode(1);
             return u;
         }
-//        return "{\"code\":0,\"data\":{\"src\":\""+filename+"\"}}";
     }
     @ResponseBody
     @RequestMapping(value = "/back/addteacher")
