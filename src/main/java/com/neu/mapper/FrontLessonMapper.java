@@ -1,8 +1,8 @@
 package com.neu.mapper;
 
-import java.util.List;
+import com.neu.beans.Lesson;
 
-import com.neu.po.Lesson;
+import java.util.List;
 
 public interface FrontLessonMapper {
 	public List<String> findTypeList() throws Exception;

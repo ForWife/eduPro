@@ -6,6 +6,18 @@ public class Swiper {//swiper image of company intro
     private String imgurl;//image url
     private String category;//image category
 
+    public Swiper(int id, int qid, String imgurl, String category) {
+        this.id = id;
+        this.qid = qid;
+        this.imgurl = imgurl;
+        this.category = category;
+    }
+
+    public Swiper(int id, String imgurl) {
+        this.id = id;
+        this.imgurl = imgurl;
+    }
+
     public int getId() {
         return id;
     }
