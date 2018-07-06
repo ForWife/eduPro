@@ -47,6 +47,7 @@
     </a>
 </nav>
 <script src="js/mui.min.js"></script>
+<script src="./js/plus.js"></script>
 <script type="text/javascript" charset="utf-8">
     //mui初始化
     mui.init();
@@ -67,6 +68,7 @@
             if (i > 0) {
                 sub.hide();
             } else {
+            	sub.show();
                 temp[subpages[i]] = "true";
                 mui.extend(aniShow, temp);
             }

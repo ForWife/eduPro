@@ -11,6 +11,16 @@ WHERE a.openid='oC9yV5KjYiv_zu6qJ0pm_WlN4LEk'
 order by ordertime desc
 </select>
 
+<select id="getOrderByStatus" resultType="com.neu.po.OrderAbout" parameterType="String">
+	SELECT * FROM sorder WHERE  `openid`= ${openid}
+</select>
+<select id="getLesssonById" resultType="com.neu.beans.Lesson" parameterType="int">
+    	SELECT * FROM lesson WHERE lid = #{lid}
+</select>
+<select id="getLessonAdderss" resultType="com.neu.beans.Address" parameterType="int">
+    	SELECT * FROM address WHERE id = (SELECT branchid FROM lessonbranch where lid=#{lid})
+</select>
+
 
 
 </mapper>

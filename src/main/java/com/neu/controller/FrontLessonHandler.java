@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.neu.beans.Lesson;
+import com.neu.po.LessonAndAddress;
 import com.neu.service.FrontLessonService;
 
 @Controller
 public class FrontLessonHandler {
+	
 
 	@Autowired
 	FrontLessonService lessonService;
@@ -25,9 +27,17 @@ public class FrontLessonHandler {
 	
 	@RequestMapping(value = "/front/findLessonById")
 	@ResponseBody
-	public Lesson findLessonById(int lid){
+	public LessonAndAddress findLessonById(Integer lid) throws Exception{
 		System.out.println("..........FrontLessonHandler.....findLessonById");
-		Lesson lesson = lessonService.findLessonById(lid);
-		return lesson;
+		LessonAndAddress lessonAndAddress;
+		if(lid!=null){
+		lessonAndAddress = lessonService.findLessonAndAddressById(lid);
+		}else{
+			System.out.println("...................没有传入数据");
+			lessonAndAddress = null;
+		}
+		return lessonAndAddress;
 	}
+
 }
+
