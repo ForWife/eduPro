@@ -11,7 +11,7 @@
 	margin: 0px auto 10px auto;
     background-color: #FFFFFF;
     box-shadow: 0 1px 3px 0 rgba(0,37,55,.1);
-    height: 264px;
+    height:184px;
     
 }
 
@@ -124,7 +124,7 @@
 	float: right;
 	height: 60px;
 	margin: 6px 10px 5px auto;
-	color: #8f8f94;
+	color: #F0AD4E;
 	width: 40px;
 	text-align: right;
 	word-wrap:break-word;

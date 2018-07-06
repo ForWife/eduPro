@@ -6,7 +6,7 @@ public class Lesson {//quality class
     private int lid;//quality class id
     private String lname;//class name
     private String imgurl;//class image url
-    private float price;//class price
+    private float lprice;//class price
     private String ldesc;//rich text class intro
     private String status;//class status
     private String category;//class category
@@ -37,12 +37,12 @@ public class Lesson {//quality class
         this.imgurl = imgurl;
     }
 
-    public float getPrice() {
-        return price;
+    public float getLprice() {
+        return lprice;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setLprice(float lprice) {
+        this.lprice = lprice;
     }
 
     public String getLdesc() {
