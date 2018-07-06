@@ -16,5 +16,7 @@
 <h3>3.<a href="front/findLessons">课程列表测试</a></h3>
 <br>
 <h3>4.<a href="front/findLessonById?lid=3">单个课程测试</a></h3>
+<br>
+<h3>4.<a href="/front/findCircleOfFriends?qid=1">测试朋友圈</a></h3>
 </body>
 </html>

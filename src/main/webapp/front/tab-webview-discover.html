@@ -113,14 +113,14 @@
 </head>
 
 <body>
-<div class="mui-content">
+
+<div class="mui-content" id="cardlist">
     <div class="mui-card">
         <div class="mui-card-content">
             <div class="mui-card-content-inner">
                 包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）
 
             </div>
-
             <div class="pictureStyle">
                 <ul>
                     <li><img class="pwidth" src="images/1.jpg"></li>
@@ -150,8 +150,69 @@
             </div>
         </div>
     </div>
-</div>
-</body>
-<script src="js/mui.min.js"></script>
+ </div>
 
+
+</body>
+
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script src="js/mui.min.js"></script>
+<script>
+$(function(){
+	$.ajax({
+		type:"get",
+		url:"/front/findCircleOfFriends?qid=1",
+		async:true,
+		success:successfunction,
+		error:function(data){
+			console.log(data)
+		}
+	});
+})
+function successfunction(data){
+	console.log(data)
+	for(var i = 0; i < data.length; i++) {
+		var card = '<div class="mui-card">';
+		card += ' 	<div class="mui-card-header">'+data[i].address.address+'</div>';
+		card += ' <div class="mui-card-content">';
+		card += '<div class="mui-card-content-inner">';
+		card += data[i].message.mtitle;
+		card += '</div>';
+		card += '<div class="pictureStyle">';
+		card += '<ul>';
+		for (var j = 0; j < data[i].messageImg.length; j++) {
+			card += '<li><img class="pwidth" src="'+data[i].messageImg[j].imgurl+'"></li>';
+		}
+		card += '</ul>';
+		card += '</div>';
+		card += '<p class="pStyle">';
+		
+		card += '<span>'+new Date(parseInt(data[i].message.mtime)).toLocaleString().replace(/:\d{1,2}$/,' ')+'</span>';
+		
+		card += '<span class="fRight iconSize mui-icon mui-icon-chatbubble" id="like"></span>';
+		card += '<span class="fRight iconSize mui-icon-extra mui-icon-extra-heart"></span>';
+		card += '</p>';
+		card += '</div>';
+		card += '<div class="mui-card-footer">';
+		card += '<div>';
+		for (var k = 0; k < data[i].messageLike.length; k++) {			
+		card += '<p>';
+		card += '<span class="spanColor mui-icon-extra mui-icon-extra-heart-filled"></span>';
+		card += '<span>'+data[i].messageLike[k].nickname+'</span>';
+		card += '</p>';
+		}
+		
+		card += '</div>';
+		for (var r = 0; r < data[i].messageReply.length; r++) {
+		card += '<div>';
+		card += data[i].messageReply[r].content;
+		card += '</div>';
+		}
+		
+		card += '</div>';
+		card += ' </div>';
+		$("#cardlist").append(card);
+	}
+}
+</script>
 </html>

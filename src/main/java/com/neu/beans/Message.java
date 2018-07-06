@@ -7,6 +7,7 @@ public class Message {//friend circle message
     private String mtitle;//message title (content)
     private Date mtime;//message send time
     private int qid;//company id(foreign)
+    private int branchid;
 
     public int getMid() {
         return mid;
@@ -39,4 +40,12 @@ public class Message {//friend circle message
     public void setQid(int qid) {
         this.qid = qid;
     }
+
+	public int getBranchid() {
+		return branchid;
+	}
+
+	public void setBranchid(int branchid) {
+		this.branchid = branchid;
+	}
 }
