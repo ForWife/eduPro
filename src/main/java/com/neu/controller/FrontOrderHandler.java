@@ -24,5 +24,35 @@ public class FrontOrderHandler
 		  return frontorderService.findAllorder();
       }
 	  
+	  @RequestMapping(value = "/front/ajaxorderpaying")
+	  @ResponseBody
+	  public List<OrderVO> findorderpaying()
+	  {
+		  System.out.println("....servlet....findorderpaying()......");
+		  return frontorderService.findorderpaying();
+      }
 
+	  @RequestMapping(value = "/front/ajaxorderpaied")
+	  @ResponseBody
+	  public List<OrderVO> findorderpaied()
+	  {
+		  System.out.println("....servlet....findorderpaied()......");
+		  return frontorderService.findorderpaied();
+      }
+	  
+	  @RequestMapping(value = "/front/ajaxorderused")
+	  @ResponseBody
+	  public List<OrderVO> findorderused()
+	  {
+		  System.out.println("....servlet....findorderused()......");
+		  return frontorderService.findorderused();
+      }
+	  
+	  @RequestMapping(value = "/front/ajaxordercancel")
+	  @ResponseBody
+	  public List<OrderVO> findordercancel()
+	  {
+		  System.out.println("....servlet....findordercancel()......");
+		  return frontorderService.findordercancel();
+      }
 }

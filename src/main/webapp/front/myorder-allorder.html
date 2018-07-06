@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="css/mui.min.css">
     <link rel="stylesheet" href="css/myorder.css">
-     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
     <script>
     $(function(){
 	   	 	  //这个界面还有两个未完成的点 
@@ -21,9 +21,10 @@
 		   {
 			   for(var i=0; i<data.length;i++)
 			   {
+				  
 				   var card ='<div class="ordercard"><div class="ordercard_up">';
-				   card+='<div class="ordercard_num">'+data[i].ordertime+'订购</div>';
-				   switch(data[i].status)
+				   card+='<div class="ordercard_num">'+(new Date(data[i].sorder.ordertime)).Format("yyyy-MM-dd hh:mm:ss")+'订购</div>';
+				   switch(data[i].sorder.status)
 				   {
 				   case "待付款":
 					   card+='<div class="ordercard_state_paying">待付款</div></div>';
@@ -41,14 +42,14 @@
 					   card+='<div class="ordercard_state_cancel">退款中</div></div>';
 					   break;
 				   }
-				   card+=' <div class="ordercard_body"><div class="ordercard_pic"><img src="images/'+data[i].imgurl+'"></div>';
-				   card+=' <div class="ordercard_name"><p>'+data[i].lname+'</p>';
-				   card+='<span class="time_p">'+data[i].pubtime+'开课</span><br/>';
-				   card+='开课地点:'+data[i].address+'<br/>';
-				   card+='联系电话:'+data[i].tel+'<br/></div>';
-				   card+='<div class="ordercard_price">￥'+data[i].lprice+'</div> </div>';
+				   card+=' <div class="ordercard_body"><div class="ordercard_pic"><img src="images/'+data[i].lesson.imgurl+'"></div>';
+				   card+=' <div class="ordercard_name"><p>'+data[i].lesson.lname+'</p>';
+				   card+='<span class="time_p">'+(new Date(data[i].lesson.pubtime)).Format("yyyy-MM-dd hh:mm:ss")+'开课</span><br/>';
+				   card+='开课地点:'+data[i].address.address+'<br/>';
+				   card+='联系电话:'+data[i].address.tel+'<br/></div>';
+				   card+='<div class="ordercard_price">￥'+data[i].lesson.lprice+'</div> </div>';
 				   card+='<div class="ordercard_down">';
-				   switch(data[i].status)
+				   switch(data[i].sorder.status)
 				   {
 				   case "待付款"	:				  
 					   card+=' <div class="orderbutton"><button type="button">取消</button></div><div class="orderbuttonpay"><button type="button">付款</button></div>';
@@ -71,6 +72,22 @@
 	   })
 	   	   
 })
+
+Date.prototype.Format = function (fmt) { //author:czy 
+            var o = {  
+                "M+": this.getMonth() + 1, //月份  
+                "d+": this.getDate(), //日  
+                "h+": this.getHours(), //小时  
+                "m+": this.getMinutes(), //分  
+                "s+": this.getSeconds(), //秒  
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度  
+                "S": this.getMilliseconds() //毫秒  
+            };  
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));  
+            for (var k in o)  
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));  
+            return fmt;  
+        };
 </script>
     <style>
         html,
