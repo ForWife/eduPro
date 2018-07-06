@@ -4,10 +4,10 @@ import com.neu.beans.Address;
 import com.neu.beans.Lesson;
 import com.neu.beans.SOrder;
 
-public class OrderAbout {
+public class OrderVO {
 	private Lesson lesson;
 	private Address address;
-	private SOrder order;
+	private SOrder sorder;
 	public Lesson getLesson() {
 		return lesson;
 	}
@@ -20,11 +20,11 @@ public class OrderAbout {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public SOrder getOrder() {
-		return order;
+	public SOrder getSorder() {
+		return sorder;
 	}
-	public void setOrder(SOrder order) {
-		this.order = order;
+	public void setSorder(SOrder sorder) {
+		this.sorder = sorder;
 	}
 	
 }

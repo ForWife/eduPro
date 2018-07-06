@@ -4,10 +4,6 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-
-
-
-
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
@@ -15,7 +11,6 @@
     <!-- dbcp2 是一个数据库连接池  c3p0-->
     <bean id="ds" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <!-- <property name="url" value="jdbc:mysql://203.195.242.172:3306/neuer"/> -->
         <property name="url" value="jdbc:mysql://203.195.242.172:3306/neuer?useUnicode=true&amp;characterEncoding=utf8"/>
         <property name="username" value="root"/>
         <property name="password" value="123456"/>
