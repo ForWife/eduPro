@@ -2,10 +2,12 @@ package com.neu.po;
 
 import com.neu.beans.Address;
 import com.neu.beans.Lesson;
+import com.neu.beans.SOrder;
 
-public class LessonAndAddress{
+public class OrderVO {
 	private Lesson lesson;
-	private Address address;	
+	private Address address;
+	private SOrder sorder;
 	public Lesson getLesson() {
 		return lesson;
 	}
@@ -18,4 +20,11 @@ public class LessonAndAddress{
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	public SOrder getSorder() {
+		return sorder;
+	}
+	public void setSorder(SOrder sorder) {
+		this.sorder = sorder;
+	}
+	
 }
