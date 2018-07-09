@@ -1,6 +1,7 @@
 package com.neu.beans;
 
 import java.util.Date;
+import java.util.List;
 
 public class FreeListen {//free listen class
     private int id;//primary key
@@ -12,6 +13,7 @@ public class FreeListen {//free listen class
     private int branchid;//class at branch id(foreign)
     private Address address;
     private Date pubtime;//publish time
+    private List<FreeListenBook> freeListenBook;
 
     public Address getAddress() {
         return address;
@@ -84,4 +86,12 @@ public class FreeListen {//free listen class
     public void setPubtime(Date pubtime) {
         this.pubtime = pubtime;
     }
+
+	public List<FreeListenBook> getFreeListenBook() {
+		return freeListenBook;
+	}
+
+	public void setFreeListenBook(List<FreeListenBook> freeListenBook) {
+		this.freeListenBook = freeListenBook;
+	}
 }

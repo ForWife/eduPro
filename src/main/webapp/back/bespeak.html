@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>后台系统</title>
     <link rel="stylesheet" href="css/layui.css">
+    <script src = "js/jquery-3.3.1.js"></script>
     <style>
         body {
             background-color: #F2F2F2;
@@ -119,32 +120,297 @@
 
         }
 
-        .layui-card-body .tableStyle .trBackground2 .dealAll {
+        .layui-card-body .tableStyle .dealAll {
             overflow: hidden;
         }
 
-        .layui-card-body .tableStyle .trBackground2 .dealAll .dealWord {
+        .layui-card-body .tableStyle .dealAll .dealWord {
             display: block;
         }
 
-        .layui-card-body .tableStyle .trBackground2 .dealAll .dealA {
+        .layui-card-body .tableStyle .dealAll .dealA {
             display: none;
         }
 
-        .layui-card-body .tableStyle .trBackground2 .dealAll:hover .dealWord {
+        .layui-card-body .tableStyle .dealAll:hover .dealWord {
             display: none;
         }
 
-        .layui-card-body .tableStyle .trBackground2 .dealAll:hover .dealA {
+        .layui-card-body .tableStyle .dealAll:hover .dealA {
             color: #D3D4D3;
             display: block;
         }
+        
+        /*CSS green-black style pagination*/ 
+        
+		DIV.green-black { 
+		    PADDING-RIGHT: 3px; 
+		    PADDING-LEFT: 3px; 
+		    PADDING-BOTTOM: 3px; 
+		    PADDING-TOP: 3px; 
+		    TEXT-ALIGN: center 
+		} 
+		
+		DIV.green-black A { 
+		    BORDER-RIGHT: #d9d9d9 1px solid; 
+		    padding: 5px 10px;
+		    BORDER-TOP: #d9d9d9  1px solid; 
+		    BACKGROUND: #FFFFFF; 
+		    BORDER-LEFT: #d9d9d9  1px solid; 
+		    COLOR: #000000; 
+		    MARGIN-RIGHT: 1px; 
+		    BORDER-BOTTOM: #d9d9d9  1px solid; 
+		    TEXT-DECORATION: none 
+		} 
+		
+		DIV.green-black A:hover { 
+		    BORDER-RIGHT: #009688 1px solid; 
+		    BORDER-TOP: #009688 1px solid; 
+		    BACKGROUND:#009688; 
+		    BORDER-LEFT: #009688 1px solid; 
+		    COLOR: #fff; 
+		    BORDER-BOTTOM: #009688 1px solid 
+		} 
+		
+		DIV.green-black A:active { 
+		    BORDER-RIGHT: #009688 1px solid; 
+		    BORDER-TOP: #009688 1px solid; 
+		    BACKGROUND: #009688; 
+		    BORDER-LEFT: #009688 1px solid; 
+		    COLOR: #fff; 
+		    BORDER-BOTTOM: #009688 1px solid 
+		} 
+		
+		DIV.green-black a.current { 
+		    BORDER-RIGHT: #009688 1px solid; 
+		    padding: 5px 10px;
+		    BORDER-TOP: #009688 1px solid; 
+		    FONT-WEIGHT: bold; 
+		    BACKGROUND:#009688; 
+		    BORDER-LEFT: #009688 1px solid; 
+		    COLOR: #fff; 
+		    MARGIN-RIGHT: 2px; 
+		    BORDER-BOTTOM: #009688 1px solid 
+		} 
+		/*前一页、后一页无任何css样式*/ 
+		DIV.green-black span.disabled {
+		    BORDER-RIGHT: #d9d9d9 1px solid; 
+		    PADDING: 5px 10px; 
+		    BORDER-TOP: #d9d9d9 1px solid;
+		    BORDER-LEFT: #d9d9d9 1px solid; 
+		    COLOR: #ccc; 
+		    MARGIN-RIGHT: 2px;
+		    BORDER-BOTTOM: #d9d9d9 1px solid 
+		} 
+        
 
     </style>
 
 
     <script>
-
+   		var pageNmber = 0;
+   		var currectPage = 1;
+   		window.onload = function getAllPageNumber(){
+   			$.ajax({
+   				url: "/back/back_bespeak_getPageNumber",
+   				type: "get",
+   				async: false,
+   				success:function(data){
+   					pageNmber = data;
+   				}
+   			})
+   			getFreeLession(currectPage);
+   			getPageNumber(currectPage);
+   		}
+		function getFreeLession(currectPage){
+			alert(currectPage);
+			$.ajax({
+				url: "/back/back_bespeak_getfreeListenBook",
+				data: {"currectPage" : currectPage},
+				type: "get",
+				success:function(data){
+					console.log(data);
+					var table_body = "";
+					var count = 1;
+					for(var i = 0; i < data.length; i++){
+						for(var j = 0; j < data[i].freeListenBook.length; j++){
+							if(count % 2 == 1){
+								table_body += '<tr>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].id;
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].title;
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].freeListenBook[j].username;
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].freeListenBook[j].tel;
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += new Date(parseInt(data[i].freeListenBook[j].booktime)).toLocaleString().replace(/:\d{1,2}$/,' ');
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].freeListenBook[j].comment;
+								table_body += '</td>';
+								if(data[i].freeListenBook[j].status == "已处理"){
+									table_body += '<td class="trBackground">';
+									table_body += data[i].freeListenBook[j].status;
+									table_body += '</td>';
+								}else{
+									table_body += '<td class="trBackground">';
+									table_body += '<div class="dealAll">';
+									table_body += '<span class="dealWord">'+data[i].freeListenBook[j].status+'</span>';
+									table_body += '<span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"href="">确认处理</a></span>';
+									table_body += '</div>';
+									table_body += '</td>';
+								}
+							}else{
+								table_body += '<tr>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].id;
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].title;
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].freeListenBook[j].username;
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].freeListenBook[j].tel;
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += new Date(parseInt(data[i].freeListenBook[j].booktime)).toLocaleString().replace(/:\d{1,2}$/,' ');
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].freeListenBook[j].comment;
+								table_body += '</td>';
+								if(data[i].freeListenBook[j].status == "已处理"){
+									table_body += '<td class="trBackground2">';
+									table_body += data[i].freeListenBook[j].status;
+									table_body += '</td>';
+								}else{
+									table_body += '<td class="trBackground2">';
+									table_body += '<div class="dealAll">';
+									table_body += '<span class="dealWord">'+data[i].freeListenBook[j].status+'</span>';
+									table_body += '<span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"href="">确认处理</a></span>';
+									table_body += '</div>';
+									table_body += '</td>';
+								}
+								table_body += '</tr>';
+							}
+							count++;
+						}
+					}
+					$("#table_body").html(table_body);
+				}
+			})
+		}
+		
+		function getPageNumber(currectPage){
+			var page_number = '';
+			if(pageNmber <= 9){
+				if(currectPage == 1){
+					page_number += '<span class="disabled">< Prev</span>';
+				}else{
+					page_number += '<a href="javascript:prev()">< Prev</a>';
+				}
+				for(var i = 1; i <= pageNmber; i++){
+					if(i == currectPage){
+						page_number += '<a class="current" href="">'+i+'</a>';
+					}else{
+						page_number += '<a href="javascript:setPage('+i+')" id = "pageOrder">'+i+'</a>';
+					}
+				}
+				if(currectPage == pageNmber){
+					page_number += '<span class="disabled">Next ></span>';
+				}else{
+					page_number += '<a href="javascript:next()">Next > </a>';
+				}
+			}else{
+				if(currectPage - 3 < 0){
+					if(currectPage == 1){
+						page_number += '<span class="disabled">< Prev</span>';
+					}else{
+						page_number = '<a href="javascript:prev()">< Prev</a>';
+					}
+					for(var i = 1; i <= 7; i++){
+						if(i == currectPage){
+							page_number += '<a class="current" href="">'+i+'</a>';
+						}else{
+							page_number += '<a href="javascript:setPage('+i+')" id = "pageOrder">'+i+'</a>';
+						}
+					}
+					page_number += '...';
+					for(var i = pageNmber - 1; i <= pageNmber; i++){
+						page_number += '<a href="javascript:setPage('+i+')" id = "pageOrder">'+i+'</a>';
+					}
+					page_number += '<a href="javascript:next()">Next > </a>';
+				}else if(currectPage + 3 > pageNmber){
+					page_number += '<a href="javascript:prev()">< Prev</a>';
+					for(var i = 1; i <= 2; i++){
+						page_number += '<a href="javascript:setPage('+i+')" id = "pageOrder">'+i+'</a>';
+					}
+					page_number += '...';
+					for(var i = pageNmber - 6; i <= pageNmber; i++){
+						if(i == currectPage){
+							page_number += '<a class="current" href="">'+i+'</a>';
+						}else{
+							page_number += '<a href="javascript:setPage('+i+')" id = "pageOrder">'+i+'</a>';
+						}
+					}
+					if(currectPage == pageNmber){
+						page_number += '<span class="disabled">Next ></span>';
+					}else{
+						page_number += '<a href="javascript:next()">Next > </a>';
+					}
+				}else{
+					page_number += '<a href="javascript:prev()">< Prev</a>';
+					for(var i = 1; i <= 2; i++){
+						page_number += '<a href="javascript:setPage('+i+')" id = "pageOrder">'+i+'</a>';
+					}
+					page_number += '...';
+					for(var i = currectPage - 2; i <= currectPage + 2; i++){
+						if(i == currectPage){
+							page_number += '<a class="current" href="">'+i+'</a>';
+						}else{
+							page_number += '<a href="javascript:setPage('+i+')" id = "pageOrder">'+i+'</a>';
+						}
+					}
+					page_number += '...';
+					for(var i = pageNmber - 1; i <= pageNmber; i++){
+						page_number += '<a href="javascript:setPage('+i+')" id = "pageOrder">'+i+'</a>';
+					}
+					page_number += '<a href="javascript:next()">Next > </a>';
+				}
+			}
+			$("#page_number").html(page_number);
+		}
+		
+		
+		function prev(){
+			if(currectPage > 1){
+				currectPage--;
+			}
+			getFreeLession(currectPage);
+   			getPageNumber(currectPage);
+		}
+		
+		function next(){
+			alert(currectPage);
+			if(currectPage < pageNmber){
+				currectPage++;
+			}
+			getFreeLession(currectPage);
+   			getPageNumber(currectPage);
+		}
+		
+		function setPage(pageOrder){
+			currectPage = pageOrder;
+			getFreeLession(currectPage);
+   			getPageNumber(currectPage);
+		}
     </script>
 </head>
 <body>
@@ -190,232 +456,18 @@
                 <th class="th7">预约状态</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    已处理
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    <div class="dealAll">
-                        <span class="dealWord">待处理</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">确认处理</a></span>
-                    </div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    已处理
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    <div class="dealAll">
-                        <span class="dealWord">待处理</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">确认处理</a></span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    已处理
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    <div class="dealAll">
-                        <span class="dealWord">待处理</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">确认处理</a></span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    已处理
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    <div class="dealAll">
-                        <span class="dealWord">待处理</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">确认处理</a></span>
-                    </div>
-                </td>
-            </tr>
-
-
+            <tbody id = "table_body">
+            
             </tbody>
         </table>
     </div>
 </div>
 <center>
-    <div id="test1"></div>
+  <div id = "page_number" class="green-black">
+  	<div class="green-black">
+	</div>
+	</div>
 </center>
 
-
-<script src="layui.js"></script>
-<script>
-    layui.use('laypage', function () {
-        var laypage = layui.laypage;
-
-        //执行一个laypage实例
-        laypage.render({
-            elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
-            ,
-            count: 50 //数据总数，从服务端得到
-        });
-    });
-</script>
 </body>
 </html>
