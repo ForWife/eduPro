@@ -9,6 +9,7 @@ public interface BackQualityService {
     public boolean deleteQuanlity(int lid);
     public Lesson finQualityById(int lid);
 
+    public List<Integer> findBranchIds(int lid);
     public List<String> findCategory(int qid);
 
     public boolean addQuality(Lesson lesson);

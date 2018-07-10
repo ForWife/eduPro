@@ -11,5 +11,4 @@ public interface BackBranchMapper {
     public int deleteBranch(int id) throws SQLException;
     public int addBranch(Address address)throws SQLException;
     public int editBranch(Address address)throws SQLException;
-
 }

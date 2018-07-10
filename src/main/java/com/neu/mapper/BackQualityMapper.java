@@ -10,6 +10,8 @@ public interface BackQualityMapper {
     public int deleteQuality(int lid) throws SQLException;
     public Lesson finQualityById(int lid) throws SQLException;
 
+    public List<Integer> findBranchIds(int lid) throws SQLException;
+
     public List<String> findCategory(int qid) throws SQLException;
 
     public int addQuality(Lesson lesson) throws SQLException;

@@ -5,11 +5,19 @@
 <mapper namespace="com.neu.mapper.BackQualityMapper">
 
     <select id="findQuality" parameterType="int" resultType="com.neu.beans.Lesson">
-        select * FROM lesson where qid=#{qid}
+        select * FROM lesson where qid=#{qid} and status!='已删除'
     </select>
-    <delete id="deleteQuality" parameterType="int">
-        delete from lesson where lid=#{lid}
-    </delete>
+    <select id="findBranchIds" parameterType="int" resultType="int">
+        SELECT
+        lessonbranch.branchid
+        FROM
+        lessonbranch
+        LEFT JOIN address ON lessonbranch.branchid = address.id
+        where lessonbranch.lid=#{lid} and address.status!='已删除'
+    </select>
+    <update id="deleteQuality" parameterType="int">
+        update lesson set status='已删除' where lid=#{lid}
+    </update>
     <select id="finQualityById" parameterType="int" resultType="com.neu.beans.Lesson">
         select * from lesson where lid=#{lid}
     </select>

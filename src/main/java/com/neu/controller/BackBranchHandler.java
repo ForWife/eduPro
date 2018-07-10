@@ -38,6 +38,7 @@ public class BackBranchHandler {
         HttpSession session= request.getSession();
         User user= (User) session.getAttribute("user");
         address.setQid(user.getQid());
+        address.setStatus("正在营业");
         if (backBranchService.addBranch(address)){
             return "{\"result\":\"success\"}";
         }else return "{\"result\":\"failed\"}";

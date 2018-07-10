@@ -64,6 +64,11 @@
                     </div>
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所在分部</label>
+                <div class="layui-input-block" id="part">
+                </div>
+            </div>
         </form>
     </div>
     <div style="margin:auto;width: 20%;">
@@ -78,7 +83,18 @@
 		layui.use('form', function(){
             form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
         });
-
+        $(function () {
+            $.ajax({
+                url: '/back/findbranches1',
+                type: 'get',
+                success: function (data) {
+                    for (i = 0; i < data.length; i++) {
+                        $("#part").append("<input id=\"bid_" + data[i].id + "\" name=\"checkbox\" title=\"" + data[i].branch + "\" type=\"checkbox\" value=\"" + data[i].id + " \" lay-filter=\"filter\">\n");
+                    }
+                    form.render();
+                }
+            });
+        });
         img = String("");
         var loc = location.href;
         var n1 = loc.length;//地址的总长度

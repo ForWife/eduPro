@@ -18,15 +18,15 @@
         </association>
     </resultMap>
     <select id="findTrial" parameterType="int" resultType="com.neu.beans.FreeListen">
-        select * FROM freelisten where qid=#{qid}
+        select * FROM freelisten where qid=#{qid} and status!='已删除'
     </select>
     <select id="findTrialById" parameterType="int" resultMap="freelisten">
         select freelisten.*,address.branch from freelisten right join address on freelisten.branchid=address.id where
         freelisten.id=#{id}
     </select>
-    <delete id="deleteTrial" parameterType="int">
-        delete from freelisten where id=#{id}
-    </delete>
+    <update id="deleteTrial" parameterType="int">
+        update freelisten set status='已删除' where id=#{id}
+    </update>
     <insert id="addTrial" parameterType="com.neu.beans.FreeListen">
         insert into freelisten(title,imgurl,fdesc,status,qid,branchid,pubtime)
         values(#{title},#{imgurl},#{fdesc},#{status},#{qid},#{branchid},#{pubtime})

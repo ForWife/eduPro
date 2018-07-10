@@ -8,6 +8,15 @@ public class Address {//branch address
     private String tel;//branch telephone number
     private double longitude;//place longitude
     private double latitude;//place latitude
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     //getter and setter
     public int getId() {

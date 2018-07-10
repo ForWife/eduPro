@@ -14,7 +14,8 @@ import javax.servlet.http.HttpSession;
 public class BackLoginHandler {
     @Autowired
     BackUserService userService;
-    @RequestMapping(value = "/back/back_login")
+
+    @RequestMapping(value = "/back_login")
     @ResponseBody
     public String Login(HttpServletRequest request,String username,String password){
         System.out.println(username+" "+password);

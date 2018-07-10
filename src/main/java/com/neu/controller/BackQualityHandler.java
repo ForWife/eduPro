@@ -25,6 +25,12 @@ public class BackQualityHandler {
         User user = (User) session.getAttribute("user");
         return qualityService.findCategory(user.getQid());
     }
+
+    @RequestMapping(value = "/back/findbranchsbylid")
+    @ResponseBody
+    public List<Integer> findbranches(int lid) {
+        return qualityService.findBranchIds(lid);
+    }
     @ResponseBody
     @RequestMapping(value = "/back/findquality")
     public List<Lesson> findquality(HttpServletRequest request) {

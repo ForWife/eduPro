@@ -45,6 +45,16 @@ public class BackQualityServiceImpl implements BackQualityService {
     }
 
     @Override
+    public List<Integer> findBranchIds(int lid) {
+        try {
+            return qualityMapper.findBranchIds(lid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public List<String> findCategory(int qid) {
         try {
             return qualityMapper.findCategory(qid);
