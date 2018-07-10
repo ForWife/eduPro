@@ -1,5 +1,6 @@
 package com.neu.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,12 @@ public class BackGetFreeListenBookServiceImpl implements BackGetFreeListenBookSe
 		// TODO Auto-generated method stub
 		
 		return backGetFreeListenBookMapper.getPageNumber();
+	}
+
+	@Override
+	public List<FreeListen> getfreeListenBookByeInput(int pageStart, int pageNumber, String titleKey, String listenState, String listenStartTime, String listenEndTime) throws Exception {
+		// TODO Auto-generated method stub
+		return backGetFreeListenBookMapper.getfreeListenBookByeInput(pageStart, pageNumber, titleKey, listenState, listenStartTime, listenEndTime);
 	}
 	
 	

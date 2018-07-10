@@ -41,6 +41,15 @@
 		select f.id, f.title, f_book.id book_id, f_book.username, f_book.tel, f_book.booktime, f_book.comment, f_book.status book_status
 		from freelisten f, freelistenbook f_book
 		where f.id = f_book.fid
+		<if test = 'titleKey != null and titleKey != ""'>
+			and f.title like "%"#{titleKey}"%"
+		</if>
+		<if test = 'listenState != null and listenState != ""'>
+			and f_book.status like "%"#{listenState}"%"
+		</if>
+		<if test = 'listenStratTime != null and listenStratTime != "" and listenEndTime != null and listenEndTime != ""'>
+			and f_book.booktime between #{listenStratTime} and #{listenEndTime}
+		</if>
 		order by id, book_id asc
 		limit #{pageStart}, #{pageNumber}
 	</select>

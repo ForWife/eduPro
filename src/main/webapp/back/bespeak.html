@@ -210,6 +210,10 @@
     <script>
    		var pageNmber = 0;
    		var currectPage = 1;
+   		var titleKey = null;
+   		var listenState = null;
+   		var listenStartTime = null;
+   		var listenEndTime = null;
    		window.onload = function getAllPageNumber(){
    			$.ajax({
    				url: "/back/back_bespeak_getPageNumber",
@@ -226,7 +230,11 @@
 			alert(currectPage);
 			$.ajax({
 				url: "/back/back_bespeak_getfreeListenBook",
-				data: {"currectPage" : currectPage},
+				data: {"currectPage" : currectPage,
+					   "titleKey" : titleKey,
+					   "listenState" : listenState,
+					   "listenStartTime" : listenStartTime,
+					   "listenEndTime" : listenEndTime},
 				type: "get",
 				success:function(data){
 					console.log(data);
@@ -411,37 +419,47 @@
 			getFreeLession(currectPage);
    			getPageNumber(currectPage);
 		}
+		
+		function findByInput(){
+			titleKey = document.getElementById("titleKey").value;
+	   		listenState = document.getElementById("listenState").value;
+	   		listenStartTime = document.getElementById("listenStartTime").value;
+	   		listenEndTime = document.getElementById("listenEndTime").value;
+	   		currectPage = 1;
+	   		getFreeLession(currectPage);
+   			getPageNumber(currectPage);
+		}
     </script>
 </head>
 <body>
 <h1 style="margin: 2%;">预约查询</h1>
 <div class="layui-card" style="margin: 2%">
     <div class="layui-card-header">
-        <form action="">
 	  				<span>
 	  					检索
 	  				</span>
             <span>
-	  					关键字：<input class="inputStyle" type="text" name="keyword"/>
+	  					关键字：<input id = "titleKey" class="inputStyle" type="text" name="keyword"/>
 	  				</span>
             <span>
-	  					预约状态：<input class="inputStyle" type="text" list="stateList" autocomplete="off" name="state"/>
+	  					预约状态：<input id = "listenState" class="inputStyle" type="text" list="stateList" autocomplete="off" name="state"/>
 	  					<datalist id="stateList">
 						    <option>待处理</option>
 						    <option>已处理</option>
 						</datalist>  
 	  				</span>
             <span>
-	  					预约时间：自 <input class="inputTimeStyle" type="date" name="startTime">至 <input
-                    class="inputTimeStyle" type="date" name="endTime">
+	  					预约时间：自 
+	  					<input id = "listenStartTime" class="inputTimeStyle" type="date" name="startTime">
+	  					至
+	  					<input id = "listenEndTime" class="inputTimeStyle" type="date" name="endTime">
 	  				</span>
             <span>
-	  					<button class="inputButton">
+	  					<button class="inputButton" onclick="findByInput()">
 	  						查询
 	  						<i class="layui-icon layui-icon-search" style="font-size: 13px;"></i>
 	  					</button>
 	  				</span>
-        </form>
     </div>
     <div class="layui-card-body">
         <table class="tableStyle">
