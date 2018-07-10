@@ -16,4 +16,5 @@ public interface BackGetFreeListenBookMapper {
 													  @Param("listenState") String listenState,
 													  @Param("listenStratTime") String listenStartTime,
 													  @Param("listenEndTime") String listenEndTime) throws Exception;
+	public void setState(@Param("book_id") int book_id) throws Exception;
 }

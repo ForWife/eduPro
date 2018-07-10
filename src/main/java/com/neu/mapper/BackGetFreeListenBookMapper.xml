@@ -53,4 +53,10 @@
 		order by id, book_id asc
 		limit #{pageStart}, #{pageNumber}
 	</select>
+	
+	<update id = "setState">
+		update freelistenbook f_book
+		set f_book.status = "已处理"
+		where f_book.id = #{book_id}
+	</update>
 </mapper>

@@ -32,6 +32,12 @@ public class BackGetFreeListenBookServiceImpl implements BackGetFreeListenBookSe
 		// TODO Auto-generated method stub
 		return backGetFreeListenBookMapper.getfreeListenBookByeInput(pageStart, pageNumber, titleKey, listenState, listenStartTime, listenEndTime);
 	}
+
+	@Override
+	public void setState(int book_id) throws Exception {
+		backGetFreeListenBookMapper.setState(book_id);
+		
+	}
 	
 	
 }

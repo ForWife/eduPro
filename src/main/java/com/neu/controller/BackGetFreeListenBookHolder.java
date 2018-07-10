@@ -52,4 +52,10 @@ public class BackGetFreeListenBookHolder {
 		
 		return backGetFreeListenBookService.getfreeListenBookByeInput(0, 20, "大咔","待处理",("2018-05-26 17:54:33"),("2018-05-26 17:55:34"));
 	}
+	
+	@RequestMapping(value = "/back/back_setState")
+	@ResponseBody
+	public void setState(@RequestParam int book_id) throws Exception {
+		backGetFreeListenBookService.setState(book_id);
+	}
 }
