@@ -30,6 +30,7 @@ public class BackQualityHandler {
     @ResponseBody
     public List<Integer> findbranches(int lid) {
         return qualityService.findBranchIds(lid);
+        
     }
     @ResponseBody
     @RequestMapping(value = "/back/findquality")
