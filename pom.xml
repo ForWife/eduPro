@@ -27,16 +27,16 @@
       -->
      <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
      <!-- 日志处理 -->
-        <!--<dependency>-->
-        <!--<groupId>org.slf4j</groupId>-->
-        <!--<artifactId>slf4j-api</artifactId>-->
-        <!--<version>1.7.25</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.slf4j</groupId>-->
-        <!--<artifactId>slf4j-log4j12</artifactId>-->
-        <!--<version>1.7.25</version>-->
-        <!--</dependency>-->
+        <!-- <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
+        </dependency> -->
 
 
         <dependency>
@@ -174,7 +174,7 @@
                </configuration>
            </plugin>
        </plugins>
-       <resources>
+       <!--  <resources>
            <resource>
                <directory>src/main/resources</directory>
                <includes>
@@ -194,6 +194,6 @@
                </includes>
                <filtering>false</filtering>
            </resource>
-       </resources>
+       </resources>-->
   </build>
 </project>

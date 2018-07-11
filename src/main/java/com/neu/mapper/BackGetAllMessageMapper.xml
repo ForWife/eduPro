@@ -43,6 +43,6 @@
 					 left join messagelike ml on m.mid = ml.mid
 					 left join messagereply mr on m.mid = mr.mid,
 					 address a
-			where a.id = m.qid and a.qid = 1
+			where a.id = m.branchid and m.qid = #{id}
     </select>
 </mapper>

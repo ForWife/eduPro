@@ -1,6 +1,7 @@
 package com.neu.beans;
 
 import java.util.Date;
+import java.util.List;
 
 public class Lesson {//quality class
     private int lid;//quality class id
@@ -12,6 +13,7 @@ public class Lesson {//quality class
     private String category;//class category
     private int qid;//company id (foreign)
     private Date pubtime;//class publish time
+    private List<LessonBranch> lessonBranch;
 
     public int getLid() {
         return lid;
