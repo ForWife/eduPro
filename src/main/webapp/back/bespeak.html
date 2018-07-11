@@ -432,9 +432,17 @@
 	   		listenState = document.getElementById("listenState").value;
 	   		listenStartTime = document.getElementById("listenStartTime").value;
 	   		listenEndTime = document.getElementById("listenEndTime").value;
-	   		currectPage = 1;
-	   		getFreeLession(currectPage);
-   			getPageNumber(currectPage);
+	   		if(titleKey == "" && listenStartTime == "" && listenStartTime == "" && listenEndTime == ""){
+	   			alert("搜索时，输入不能为空");
+	   		}else{
+	   			if((listenStartTime == "" && listenEndTime != "") || (listenStartTime != "" && listenEndTime == "")){
+	   				alert("请输入完整的时间范围");
+	   			}else{
+	   		   		currectPage = 1;
+	   		   		getFreeLession(currectPage);
+	   	   			getPageNumber(currectPage);
+	   			}
+	   		}
 		}
     </script>
 </head>

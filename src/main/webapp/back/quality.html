@@ -16,8 +16,9 @@
                 type: 'get',
                 success: function (data) {
                     console.log(data);
+                    var tr = '';
                     for (i = 0; i < data.length; i++) {
-                        var tr = '<tr id="lid_' + data[i].lid + '">';
+                        tr += '<tr id="lid_' + data[i].lid + '">';
                         tr += '<td>' + data[i].lid + '</td>';
                         tr += '<td>' + data[i].lname + '</td>';
                         tr += '<td>' + data[i].status + '</td>';
@@ -40,8 +41,8 @@
                             '            </button>\n' +
                             '        </td>'
                         tr += '</tr>';
-                        $("#tab").append(tr);
                     }
+                    $("#tab").html(tr);
                 }
             })
         })

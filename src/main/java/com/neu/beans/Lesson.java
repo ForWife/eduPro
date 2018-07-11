@@ -13,7 +13,7 @@ public class Lesson {//quality class
     private String category;//class category
     private int qid;//company id (foreign)
     private Date pubtime;//class publish time
-    private List<LessonBranch> lessonBranch;
+    private List<SOrder> sOrder;
 
     public int getLid() {
         return lid;
@@ -86,4 +86,12 @@ public class Lesson {//quality class
     public void setPubtime(Date pubtime) {
         this.pubtime = pubtime;
     }
+
+	public List<SOrder> getsOrder() {
+		return sOrder;
+	}
+
+	public void setsOrder(List<SOrder> sOrder) {
+		this.sOrder = sOrder;
+	}
 }

@@ -90,11 +90,11 @@
         }
 
         .layui-card-body .tableStyle .th5 {
-            width: 5%;
+            width: 4%;
         }
 
         .layui-card-body .tableStyle .th6 {
-            width: 10%;
+            width: 5%;
         }
 
         .layui-card-body .tableStyle .th7 {
@@ -102,7 +102,7 @@
         }
 
         .layui-card-body .tableStyle .th8 {
-            width: 10%;
+            width: 5%;
         }
 
         .layui-card-body .tableStyle .th9 {
@@ -110,7 +110,7 @@
         }
 
         .layui-card-body .tableStyle .th10 {
-            width: 10%;
+            width: 20%;
         }
 
         .layui-card-body .tableStyle .trBackground {
@@ -219,18 +219,155 @@
 
 
     <script>
-    	var pageNmber = 17;//ajax获取页数
+    	var pageNmber = 0;//ajax获取页数
 		var currectPage = 1;
     	var orderKey = null;
     	var orderStatus = null;
     	var orderStartTime = null;
     	var orderEndTime = null;
+    	var func = 0;
 		window.onload = function getAllPageNumber(){
-   			
+			$.ajax({
+				url: "/back/getLessonNumber",
+				type: "get",
+				async: false,
+				success:function(data){
+					pageNmber = data;
+				}
+			})
+			getLessonOrder(currectPage);
    			getPageNumber(currectPage);
+   			
    		}
 		
-		function 
+		function getLessonOrder(currectPage){
+			$.ajax({
+				url: "/back/getLessonOrder",
+				data: {"currectPage" : currectPage,
+					   "orderKey" : orderKey,
+					   "orderStatus" : orderStatus,
+					   "orderStartTime" : orderStartTime,
+					   "orderEndTime" : orderEndTime},
+   				type: "get",
+   				success:function (data){
+					console.log(data);
+					var table_body = '';
+					var count = 1;
+					for(var i = 0; i < data.length; i++){
+						for(var j = 0; j < data[i].sOrder.length; j++){
+							if(count % 2 == 1){
+								table_body += '<tr>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].lid;
+								table_body += "</td>";
+								table_body += '<td class="trBackground">';
+								table_body += data[i].lname;
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].sOrder[j].nickname;
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].sOrder[j].tel;
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].sOrder[j].total;
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].sOrder[j].cid;
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].sOrder[j].actual;
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								if(data[i].sOrder[j].status == "退款中"){
+									func = 1;
+									table_body += '<div class="dealAll">';
+									table_body += '<span class="dealWord">退款中</span>';
+									table_body += '<span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;" href="javascript:setState('+data[i].sOrder[j].oid+','+func+')">退款处理</a></span>';
+									table_body += '</div>';
+								}else if(data[i].sOrder[j].status == "已付款"){
+									func = 2;
+									table_body += '<div class="dealAll">';
+									table_body += '<span class="dealWord">已付款</span>';
+									table_body += '<span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;" href="javascript:setState('+data[i].sOrder[j].oid+','+func+')">订单核销</a></span>';
+									table_body += '</div>';
+								}else{
+									table_body += data[i].sOrder[j].status;
+								}
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += new Date(parseInt(data[i].sOrder[j].ordertime)).toLocaleString().replace(/:\d{1,2}$/,' ');
+								table_body += '</td>';
+								table_body += '<td class="trBackground">';
+								table_body += data[i].sOrder[j].transactionid;
+								table_body += '</td>';
+							}else{
+								table_body += '<tr>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].lid;
+								table_body += "</td>";
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].lname;
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].sOrder[j].nickname;
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].sOrder[j].tel;
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].sOrder[j].total;
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].sOrder[j].cid;
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].sOrder[j].actual;
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								if(data[i].sOrder[j].status == "退款中"){
+									func = 1;
+									table_body += '<div class="dealAll">';
+									table_body += '<span class="dealWord">退款中</span>';
+									table_body += '<span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;" href="javascript:setState('+data[i].sOrder[j].oid+','+func+')">退款处理</a></span>';
+									table_body += '</div>';
+								}else if(data[i].sOrder[j].status == "已付款"){
+									func = 2;
+									table_body += '<div class="dealAll">';
+									table_body += '<span class="dealWord">已付款</span>';
+									table_body += '<span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;" href="javascript:setState('+data[i].sOrder[j].oid+', '+func+')">订单核销</a></span>';
+									table_body += '</div>';
+								}else{
+									table_body += data[i].sOrder[j].status;
+								}
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += new Date(parseInt(data[i].sOrder[j].ordertime)).toLocaleString().replace(/:\d{1,2}$/,' ');
+								table_body += '</td>';
+								table_body += '<td class="trBackground2">';
+								table_body += data[i].sOrder[j].transactionid;
+								table_body += '</td>';
+							}
+							count++;
+						}
+					}
+					$("#table_body").html(table_body);
+   				}
+			})
+		}
+		
+		
+		function setState(order_id, s_status){
+			alert(s_status);
+			$.ajax({
+				url: "/back/set",
+				data: {"order_id" : order_id,
+					   "s_status" : s_status},
+				type: "get"
+			})
+			getLessonOrder(currectPage);
+		}
+		
 		
 		
 		
@@ -320,19 +457,22 @@
 			if(currectPage > 1){
 				currectPage--;
 			}
-			getPageNumber(currectPage);
+			getLessonOrder(currectPage);
+   			getPageNumber(currectPage);
 		}
 		
 		function next(){
 			if(currectPage < pageNmber){
 				currectPage++;
 			}
-			getPageNumber(currectPage);
+			getLessonOrder(currectPage);
+   			getPageNumber(currectPage);
 		}
 		
 		function setPage(pageOrder){
 			currectPage = pageOrder;
-			getPageNumber(currectPage);
+			getLessonOrder(currectPage);
+   			getPageNumber(currectPage);
 		}
 		
 		//查询，需要加入列表获取功能，
@@ -341,12 +481,17 @@
 			orderStatus = document.getElementById("orderStatus").value;
 			orderStartTime = document.getElementById("orderStartTime").value;
 			orderEndTime = document.getElementById("orderEndTime").value;
-			alert(orderKey);
-			alert(orderStatus);
-			alert(orderStartTime);
-			alert(orderEndTime);
-			currectPage = 1;
-   			getPageNumber(currectPage);
+			if(orderKey == "" && orderStatus == "" && orderStartTime == "" && orderEndTime == ""){
+	   			alert("搜索时，输入不能为空");
+	   		}else{
+	   			if((orderStartTime == "" && orderEndTime != "") || (orderStartTime != "" && orderEndTime == "")){
+	   				alert("请输入完整的时间范围");
+	   			}else{
+	   		   		currectPage = 1;
+		   		   	getLessonOrder(currectPage);
+		   			getPageNumber(currectPage);
+	   			}
+	   		}
 		}
     </script>
 </head>
@@ -365,8 +510,9 @@
 	  					<datalist id="stateList">
 						    <option>已退款</option>
 						    <option>退款中</option>
-						    <option>代付款</option>
+						    <option>待付款</option>
 						    <option>已付款</option>
+						    <option>已核销</option>
 						</datalist>  
 	  				</span>
             <span>
@@ -386,7 +532,7 @@
             <thead>
             <tr>
                 <th class="th1">课程编号</th>
-                <th class="th2">订单编号</th>
+                <th class="th2">课程名称</th>
                 <th class="th3">用户昵称</th>
                 <th class="th4">用户电话</th>
                 <th class="th5">订单金额</th>
@@ -397,371 +543,8 @@
                 <th class="th10">交易流水号</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    <div class="dealAll">
-                        <span class="dealWord">退款中</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">退款处理</a></span>
-                    </div>
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    <div class="dealAll">
-                        <span class="dealWord">已付款</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">订单核销</a></span>
-                    </div>
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    <div class="dealAll">
-                        <span class="dealWord">退款中</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">退款处理</a></span>
-                    </div>
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    <div class="dealAll">
-                        <span class="dealWord">已付款</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">订单核销</a></span>
-                    </div>
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    <div class="dealAll">
-                        <span class="dealWord">退款中</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">退款处理</a></span>
-                    </div>
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    <div class="dealAll">
-                        <span class="dealWord">已付款</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">订单核销</a></span>
-                    </div>
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    <div class="dealAll">
-                        <span class="dealWord">退款中</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">退款处理</a></span>
-                    </div>
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    <div class="dealAll">
-                        <span class="dealWord">已付款</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">订单核销</a></span>
-                    </div>
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    <div class="dealAll">
-                        <span class="dealWord">退款中</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">退款处理</a></span>
-                    </div>
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-                <td class="trBackground">
-                    1111
-                </td>
-            </tr>
-            <tr>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    <div class="dealAll">
-                        <span class="dealWord">已付款</span>
-                        <span class="dealA"><a class="layui-icon layui-icon-ok" style="font-size: 11px;"
-                                               href="">订单核销</a></span>
-                    </div>
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-                <td class="trBackground2">
-                    1111
-                </td>
-            </tr>
-
-
+            <tbody id = "table_body">
+            
             </tbody>
         </table>
     </div>

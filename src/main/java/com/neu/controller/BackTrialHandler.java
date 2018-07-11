@@ -23,7 +23,7 @@ public class BackTrialHandler {
     public List<FreeListen> findquality(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        return trialService.findtrial(user.getQid());
+        return trialService.findtrial(1);
     }
 
     @ResponseBody
