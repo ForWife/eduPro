@@ -17,8 +17,10 @@
             <result property="branch" column="branch"/>
         </association>
     </resultMap>
-    <select id="findTrial" parameterType="int" resultType="com.neu.beans.FreeListen">
+    <select id="findTrial" resultType="com.neu.beans.FreeListen">
         select * FROM freelisten where qid=#{qid} and status!='已删除'
+        order by id
+		limit #{pageStart}, #{pageNumber}
     </select>
     <select id="findTrialById" parameterType="int" resultMap="freelisten">
         select freelisten.*,address.branch from freelisten right join address on freelisten.branchid=address.id where
@@ -35,4 +37,10 @@
         update freelisten set title=#{title},imgurl=#{imgurl},fdesc=#{fdesc},status=#{status},branchid=#{branchid} where
         id=#{id}
     </update>
+    
+    <select id = "getPageNumber" resultType = "int">
+    	select count(*)
+    	from freelisten
+    	where qid=#{qid}
+    </select>
 </mapper>

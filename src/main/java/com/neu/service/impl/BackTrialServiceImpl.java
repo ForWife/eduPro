@@ -15,9 +15,9 @@ public class BackTrialServiceImpl implements BackTrialService {
     BackTrialMapper trialMapper;
 
     @Override
-    public List<FreeListen> findtrial(int qid) {
+    public List<FreeListen> findtrial(int qid, int pageStart, int pageNumber) {
         try {
-            return trialMapper.findTrial(qid);
+            return trialMapper.findTrial(qid, pageStart, pageNumber);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -63,4 +63,10 @@ public class BackTrialServiceImpl implements BackTrialService {
             return false;
         }
     }
+
+	@Override
+	public int getPageNumber(int qid) throws Exception {
+		// TODO Auto-generated method stub
+		return trialMapper.getPageNumber(qid);
+	}
 }

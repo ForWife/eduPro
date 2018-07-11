@@ -6,6 +6,7 @@ import com.neu.service.BackTrialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +21,12 @@ public class BackTrialHandler {
 
     @RequestMapping(value = "/back/findtrial")
     @ResponseBody
-    public List<FreeListen> findquality(HttpServletRequest request) {
+    public List<FreeListen> findquality(HttpServletRequest request, @RequestParam int currectPage) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        return trialService.findtrial(1);
+        int pageStart = (currectPage - 1) * 10;
+		int pageNumber = 10;
+        return trialService.findtrial(user.getQid(), pageStart, pageNumber);
     }
 
     @ResponseBody
@@ -60,4 +63,18 @@ public class BackTrialHandler {
             return "{\"result\":\"success\"}";
         } else return "{\"result\":\"failed\"}";
     }
+    
+    @RequestMapping(value = "/back/getPageNumber")
+    @ResponseBody
+    public int getPageNumber(HttpServletRequest request) throws Exception {
+    	HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+		// TODO Auto-generated method stub
+		int allPageNumber = trialService.getPageNumber(user.getQid());
+		if(allPageNumber % 10 == 0) {
+			return allPageNumber / 10;
+		}else {
+			return (allPageNumber / 10) + 1;
+		}
+	}
 }
