@@ -1,6 +1,7 @@
 package com.neu.mapper;
 
 import com.neu.beans.Lesson;
+import com.neu.beans.LessonBranch;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,7 +13,12 @@ public interface BackQualityMapper {
 
     public List<Integer> findBranchIds(int lid) throws SQLException;
 
+    public int addlessonbranch(LessonBranch lessonBranch) throws SQLException;
     public List<String> findCategory(int qid) throws SQLException;
+
+    public int deletelessonbranch(int lid) throws SQLException;
+
+    public List<String> findBranchNames(int lid) throws SQLException;
 
     public int addQuality(Lesson lesson) throws SQLException;
 

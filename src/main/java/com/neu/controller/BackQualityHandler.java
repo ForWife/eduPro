@@ -1,10 +1,12 @@
 package com.neu.controller;
 
 import com.neu.beans.Lesson;
+import com.neu.beans.LessonBranch;
 import com.neu.beans.User;
 import com.neu.service.BackQualityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,6 +34,12 @@ public class BackQualityHandler {
         return qualityService.findBranchIds(lid);
         
     }
+
+    @RequestMapping(value = "/back/findbranchsnamebylid")
+    @ResponseBody
+    public List<String> findbranchesName(int lid) {
+        return qualityService.findBranchNames(lid);
+    }
     @ResponseBody
     @RequestMapping(value = "/back/findquality")
     public List<Lesson> findquality(HttpServletRequest request) {
@@ -45,6 +53,7 @@ public class BackQualityHandler {
     public Lesson findqualitybyid(int lid) {
         return qualityService.finQualityById(lid);
     }
+
 
     @RequestMapping(value = "/back/deletequality")
     @ResponseBody
@@ -62,6 +71,21 @@ public class BackQualityHandler {
         } else return "{\"result\":\"failed\"}";
     }
 
+    @RequestMapping(value = "/back/lessonbranch")
+    @ResponseBody
+    public String lessonbranch(@RequestBody int[] branches) {
+        qualityService.deletelessonbranch(branches[branches.length - 1]);
+        for (int i = 0; i < branches.length - 1; i++) {
+            LessonBranch lessonBranch = new LessonBranch();
+            lessonBranch.setBranchid(branches[i]);
+            lessonBranch.setLid(branches[branches.length - 1]);
+            System.out.println(branches[i] + " " + branches[branches.length - 1]);
+            qualityService.addlessonbranch(lessonBranch);
+        }
+//        if (qualityService.editQuality(lesson)) {
+        return "{\"result\":\"success\"}";
+//        } else return "{\"result\":\"failed\"}";
+    }
     @RequestMapping(value = "/back/addquality")
     @ResponseBody
     public String addquality(HttpServletRequest request, Lesson lesson) {
@@ -70,8 +94,10 @@ public class BackQualityHandler {
         lesson.setQid(user.getQid());
         lesson.setStatus("进行中");
         lesson.setPubtime(new Date());
-        if (qualityService.addQuality(lesson)) {
-            return "{\"result\":\"success\"}";
+        int lid = qualityService.addQuality(lesson);
+        System.out.println(lid);
+        if (lid > 0) {
+            return "{\"result\":\"success\",\"lid\":\"" + lid + "\"}";
         } else return "{\"result\":\"failed\"}";
     }
 }

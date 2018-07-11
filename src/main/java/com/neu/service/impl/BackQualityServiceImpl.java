@@ -1,10 +1,12 @@
 package com.neu.service.impl;
 
 import com.neu.beans.Lesson;
+import com.neu.beans.LessonBranch;
 import com.neu.mapper.BackQualityMapper;
 import com.neu.service.BackQualityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -45,6 +47,16 @@ public class BackQualityServiceImpl implements BackQualityService {
     }
 
     @Override
+    public boolean addlessonbranch(LessonBranch lessonBranch) {
+        try {
+            return qualityMapper.addlessonbranch(lessonBranch) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
     public List<Integer> findBranchIds(int lid) {
         try {
             return qualityMapper.findBranchIds(lid);
@@ -64,13 +76,36 @@ public class BackQualityServiceImpl implements BackQualityService {
         }
     }
 
+    @Transactional
     @Override
-    public boolean addQuality(Lesson lesson) {
+    public boolean deletelessonbranch(int lid) {
         try {
-            return qualityMapper.addQuality(lesson) > 0;
+            return qualityMapper.deletelessonbranch(lid) > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public List<String> findBranchNames(int lid) {
+        try {
+            return qualityMapper.findBranchNames(lid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public int addQuality(Lesson lesson) {
+        try {
+            if (qualityMapper.addQuality(lesson) > 0) {
+                return lesson.getLid();
+            } else return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 

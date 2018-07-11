@@ -28,7 +28,19 @@
                     $("#category").append(data.category);
                     $("#status").append(data.status);
                 }
-            })
+            });
+            $.ajax({
+                url: '/back/findbranchsnamebylid',
+                type: 'get',
+                data: {"lid": id},
+                success: function (data) {
+                    console.log(data);
+                    for (i = 0; i < data.length; i++) {
+                        $("#branch").append(data[i] + "<br>");
+                    }
+                }
+            });
+
         })
     </script>
 </head>
@@ -59,6 +71,11 @@
 <div class="layui-card" style="margin: 2%">
     <div class="layui-card-header">课程价格</div>
     <div class="layui-card-body" id="price">
+    </div>
+</div>
+<div class="layui-card" style="margin: 2%">
+    <div class="layui-card-header">所在分部</div>
+    <div class="layui-card-body" id="branch">
     </div>
 </div>
 <div class="layui-card" style="margin: 2%">

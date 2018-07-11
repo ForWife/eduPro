@@ -72,6 +72,9 @@
         layer = layui.layer;
         // layer.msg('Hello World');
     });
+    layui.use('form', function () {
+        form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+    });
     img = String("");
     var loc = location.href;
     var n1 = loc.length;//地址的总长度
@@ -82,6 +85,7 @@
             url: '/back/findbranches1',
             type: 'get',
             success: function (data) {
+                console.log(data);
                 for (i = 0; i < data.length; i++) {
                     $("#part").append("<input id=\"bid_" + data[i].id + "\" name=\"radio\" title=\"" + data[i].branch + "\" type=\"radio\" value=\"" + data[i].id + " \" lay-filter=\"filter\">\n");
                 }
