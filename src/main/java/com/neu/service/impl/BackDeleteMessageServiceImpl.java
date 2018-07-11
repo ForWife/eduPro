@@ -12,19 +12,17 @@ public class BackDeleteMessageServiceImpl implements BackDeleteMessageService {
 
 	@Override
 	public int deleteMessage(int mid,int imgNumber, int likeNumber, int replyNumber) throws Exception {
-		int flag = 1;
 		backDeleteMessageMapper.deleteMessage(mid);
-		if(backDeleteMessageMapper.deleteMessageImg(mid) != imgNumber) {
-			flag = 0;
+		if(imgNumber != 0) {
+			backDeleteMessageMapper.deleteMessageImg(mid);
 		}
-		if(backDeleteMessageMapper.deleteMessageLike(mid) != likeNumber) {
-			flag = 0;
+		if(likeNumber != 0) {
+			backDeleteMessageMapper.deleteMessageLike(mid);
 		}
-		if(backDeleteMessageMapper.deleteMessageReply(mid) != replyNumber) {
-			flag = 0;
+		if(replyNumber != 0) {
+			backDeleteMessageMapper.deleteMessageReply(mid);
 		}
-		System.out.println(flag);
-		return flag;
+		return 0;
 	}
 
 }

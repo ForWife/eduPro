@@ -15,12 +15,6 @@ public class BackGetFreeListenBookServiceImpl implements BackGetFreeListenBookSe
 	private BackGetFreeListenBookMapper backGetFreeListenBookMapper;
 
 	@Override
-	public List<FreeListen> getfreeListenBook(int pageStart, int pageNumber) throws Exception{
-		// TODO Auto-generated method stub
-		return backGetFreeListenBookMapper.getfreeListenBook(pageStart, pageNumber);
-	}
-
-	@Override
 	public int getPageNumber() throws Exception {
 		// TODO Auto-generated method stub
 		
@@ -28,9 +22,9 @@ public class BackGetFreeListenBookServiceImpl implements BackGetFreeListenBookSe
 	}
 
 	@Override
-	public List<FreeListen> getfreeListenBookByeInput(int pageStart, int pageNumber, String titleKey, String listenState, String listenStartTime, String listenEndTime) throws Exception {
+	public List<FreeListen> getfreeListenBookByeInput(int qid, int pageStart, int pageNumber, String titleKey, String listenState, String listenStartTime, String listenEndTime) throws Exception {
 		// TODO Auto-generated method stub
-		return backGetFreeListenBookMapper.getfreeListenBookByeInput(pageStart, pageNumber, titleKey, listenState, listenStartTime, listenEndTime);
+		return backGetFreeListenBookMapper.getfreeListenBookByeInput(qid, pageStart, pageNumber, titleKey, listenState, listenStartTime, listenEndTime);
 	}
 
 	@Override

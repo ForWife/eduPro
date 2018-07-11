@@ -22,14 +22,7 @@
 			<result property = "openid" column = "openid"/>
 		</collection>
 	</resultMap>
-	
-	<select id = "getfreeListenBook" resultMap = "FreeListen_FreeListenBook">
-		select f.id, f.title, f_book.id book_id, f_book.username, f_book.tel, f_book.booktime, f_book.comment, f_book.status book_status
-		from freelisten f, freelistenbook f_book
-		where f.id = f_book.fid
-		order by id, book_id asc
-		limit #{pageStart}, #{pageNumber}
-	</select>
+
 	 
 	<select id = "getPageNumber" resultType = "int">
 		select count(*)
@@ -40,7 +33,7 @@
 	<select id = "getfreeListenBookByeInput" resultMap = "FreeListen_FreeListenBook">
 		select f.id, f.title, f_book.id book_id, f_book.username, f_book.tel, f_book.booktime, f_book.comment, f_book.status book_status
 		from freelisten f, freelistenbook f_book
-		where f.id = f_book.fid
+		where f.id = f_book.fid and f.qid = #{qid} and f.status = "进行中"
 		<if test = 'titleKey != null and titleKey != ""'>
 			and f.title like "%"#{titleKey}"%"
 		</if>

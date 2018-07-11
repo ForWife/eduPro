@@ -10,7 +10,8 @@ import com.neu.beans.FreeListen;
 public interface BackGetFreeListenBookMapper {
 	public List<FreeListen> getfreeListenBook(@Param("pageStart") int pageStart, @Param("pageNumber") int pageNumber) throws Exception;
 	public int getPageNumber() throws Exception;
-	public List<FreeListen> getfreeListenBookByeInput(@Param("pageStart") int pageStart, 
+	public List<FreeListen> getfreeListenBookByeInput(@Param("qid") int qid,
+													  @Param("pageStart") int pageStart, 
 													  @Param("pageNumber") int pageNumber, 
 													  @Param("titleKey") String titleKey,
 													  @Param("listenState") String listenState,

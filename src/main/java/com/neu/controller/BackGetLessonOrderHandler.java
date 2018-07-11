@@ -3,6 +3,7 @@ package com.neu.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.neu.beans.Lesson;
+import com.neu.beans.User;
 import com.neu.service.BackGetLessonOrderService;
 
 @Controller
@@ -26,10 +28,12 @@ public class BackGetLessonOrderHandler {
 									   @RequestParam String orderStatus,
 									   @RequestParam String orderStartTime,
 									   @RequestParam String orderEndTime) throws Exception{
+		HttpSession session = request.getSession();
+	    User user = (User) session.getAttribute("user");
 		System.out.println("ceshi");
 		int pageStart = (currectPage - 1) * 20;
 		int pageNumber = 20;
-		return backGetLessonOrderService.getLessonOrder(pageStart, pageNumber, orderKey, orderStatus, orderStartTime, orderEndTime);
+		return backGetLessonOrderService.getLessonOrder(user.getQid(), pageStart, pageNumber, orderKey, orderStatus, orderStartTime, orderEndTime);
 	}
 	
 	@RequestMapping(value = "/back/getLessonNumber")

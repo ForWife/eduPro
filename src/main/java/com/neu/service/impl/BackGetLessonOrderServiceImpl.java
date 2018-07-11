@@ -15,10 +15,10 @@ public class BackGetLessonOrderServiceImpl implements BackGetLessonOrderService 
 	private BackGetLessonOrderMapper backGetLessonOrderMapper;
 	
 	@Override
-	public List<Lesson> getLessonOrder(int pageStart, int pageNumber, String orderKey, String orderStatus,
+	public List<Lesson> getLessonOrder(int qid, int pageStart, int pageNumber, String orderKey, String orderStatus,
 			String orderStartTime, String orderEndTime) throws Exception {
 		// TODO Auto-generated method stub
-		return backGetLessonOrderMapper.getLessonOrder(pageStart, pageNumber, orderKey, orderStatus, orderStartTime, orderEndTime);
+		return backGetLessonOrderMapper.getLessonOrder(qid, pageStart, pageNumber, orderKey, orderStatus, orderStartTime, orderEndTime);
 	}
 
 	@Override

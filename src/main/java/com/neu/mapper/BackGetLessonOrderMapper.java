@@ -7,7 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import com.neu.beans.Lesson;
 
 public interface BackGetLessonOrderMapper {
-	public List<Lesson> getLessonOrder(@Param("pageStart") int pageStart,
+	public List<Lesson> getLessonOrder(@Param("qid") int qid,
+									   @Param("pageStart") int pageStart,
 									   @Param("pageNumber") int pageNumber,
 									   @Param("orderKey") String orderKey,
 									   @Param("orderStatus")  String orderStatus,

@@ -31,7 +31,7 @@
 	<select id = "getLessonOrder" resultMap = "lesson_branch">
 		select l.lid, l.lname, s.oid, s.nickname, s.tel, s.total, s.cid, s.actual, s.status s_status, s.ordertime, s.transactionid
 		from lesson l, sorder s
-		where l.lid = s.lid
+		where l.lid = s.lid and l.qid = #{qid} and l.status = "进行中"
 		<if test = 'orderKey != null and orderKey != ""'>
 			and l.lname like "%"#{orderKey}"%"
 		</if>

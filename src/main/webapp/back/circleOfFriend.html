@@ -41,7 +41,7 @@
 	    					}else{
 	    						card  += 'pheigh';
 	    					}
-	    					card += '" src="'+data[i].messageImg[j].imgurl+'"/></li>';
+	    					card += '" src="/'+data[i].messageImg[j].imgurl+'"/></li>';
 	    				}
 	    				card += '</ul">';
 	    				card += '</div>';
@@ -92,10 +92,19 @@
 	   		})
 	   	}
 	   	
-	   	function deleteMessage(id, imgNumber, likeNumber,replyNumber){
-	   		$.ajax{
-	   			
-	   		}
+	   	function deleteMessage(mid, imgNumber, likeNumber,replyNumber){
+	   		alert(mid);
+	   		$.ajax({
+	   			url: "/back/deleteMessage",
+	   			data: {"mid" : mid,
+	   				   "imgNumber" : imgNumber,
+	   				   "likeNumber" : likeNumber,
+	   				   "replyNumber" : replyNumber},
+	   			type: "get",
+	   			success:function(){
+	   				loading();
+	   			}
+	   		})
 	   	}
 	   	function editMessage(id){
 	   		
@@ -325,6 +334,9 @@
         <div style="margin: 10px; border-bottom: #d9d9d9 1px solid;">
 					<span>
 						信息编辑
+					</span>
+					<span>
+						选择分部：
 					</span>
             <span>
 						<div class="layui-icon layui-icon-release" style="float:right; margin:0 10px"></div>
