@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,8 @@ public class BackQualityHandler {
     public List<String> findcategory(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        return qualityService.findCategory(1);
+        
+        return qualityService.findCategory(user.getQid());
     }
 
     @RequestMapping(value = "/back/findbranchsbylid")
@@ -42,10 +44,13 @@ public class BackQualityHandler {
     }
     @ResponseBody
     @RequestMapping(value = "/back/findquality")
-    public List<Lesson> findquality(HttpServletRequest request) {
+    public List<Lesson> findquality(HttpServletRequest request,
+    								@RequestParam int currectPage) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        return qualityService.findQuanlity(user.getQid());
+        int pageStart = (currectPage - 1) * 10;
+		int pageNumber = 10;
+        return qualityService.findQuanlity(user.getQid(), pageStart, pageNumber);
     }
 
     @ResponseBody
@@ -99,5 +104,17 @@ public class BackQualityHandler {
         if (lid > 0) {
             return "{\"result\":\"success\",\"lid\":\"" + lid + "\"}";
         } else return "{\"result\":\"failed\"}";
+    }
+    @RequestMapping(value = "/back/getQualityPageNumber")
+    @ResponseBody
+    public int getQualityPageNumber(HttpServletRequest request) throws Exception{
+    	HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+    	int allPageNumber = qualityService.getPageNumber(user.getQid());
+		if(allPageNumber % 10 == 0) {
+			return allPageNumber / 10;
+		}else {
+			return (allPageNumber / 10) + 1;
+		}
     }
 }

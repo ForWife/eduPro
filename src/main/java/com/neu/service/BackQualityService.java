@@ -6,7 +6,7 @@ import com.neu.beans.LessonBranch;
 import java.util.List;
 
 public interface BackQualityService {
-    public List<Lesson> findQuanlity(int qid);
+    public List<Lesson> findQuanlity(int qid, int pageStart, int pageNumber);
     public boolean deleteQuanlity(int lid);
     public Lesson finQualityById(int lid);
 
@@ -21,4 +21,6 @@ public interface BackQualityService {
     public int addQuality(Lesson lesson);
 
     public boolean editQuality(Lesson lesson);
+    
+    public int getPageNumber(int qid) throws Exception;
 }

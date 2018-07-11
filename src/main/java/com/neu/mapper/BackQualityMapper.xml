@@ -6,8 +6,10 @@
     <insert id="addlessonbranch" parameterType="com.neu.beans.LessonBranch">
         insert into lessonbranch(lid,branchid) value(#{lid},#{branchid})
     </insert>
-    <select id="findQuality" parameterType="int" resultType="com.neu.beans.Lesson">
+    <select id="findQuality" resultType="com.neu.beans.Lesson">
         select * FROM lesson where qid=#{qid} and status!='已删除'
+        order by lid
+		limit #{pageStart}, #{pageNumber}
     </select>
     <delete id="deletelessonbranch" parameterType="int">
         delete from lessonbranch where lid=#{lid}
@@ -30,6 +32,7 @@
     </select>
     <update id="deleteQuality" parameterType="int">
         update lesson set status='已删除' where lid=#{lid}
+        
     </update>
     <select id="finQualityById" parameterType="int" resultType="com.neu.beans.Lesson">
         select * from lesson where lid=#{lid}
@@ -46,4 +49,10 @@
         lname=#{lname},imgurl=#{imgurl},ldesc=#{ldesc},status=#{status},lprice=#{lprice},category=#{category} where
         lid=#{lid}
     </update>
+    
+    <select id = "getPageNumber" resultType = "int">
+    	select count(*)
+    	from lesson
+    	where qid=#{qid} and status!='已删除'
+    </select>
 </mapper>

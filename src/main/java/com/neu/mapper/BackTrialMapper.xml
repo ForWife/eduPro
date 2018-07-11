@@ -41,6 +41,6 @@
     <select id = "getPageNumber" resultType = "int">
     	select count(*)
     	from freelisten
-    	where qid=#{qid}
+    	where qid=#{qid} and status!='已删除'
     </select>
 </mapper>

@@ -2,6 +2,8 @@ package com.neu.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +20,8 @@ public class BackGetLessonOrderHandler {
 	
 	@RequestMapping(value = "/back/getLessonOrder")
 	@ResponseBody
-	public List<Lesson> getLessonOrder(@RequestParam int currectPage, 
+	public List<Lesson> getLessonOrder(HttpServletRequest request,
+									   @RequestParam int currectPage, 
 									   @RequestParam String orderKey,
 									   @RequestParam String orderStatus,
 									   @RequestParam String orderStartTime,

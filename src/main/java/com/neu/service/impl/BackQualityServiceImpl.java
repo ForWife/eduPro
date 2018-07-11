@@ -17,9 +17,9 @@ public class BackQualityServiceImpl implements BackQualityService {
     BackQualityMapper qualityMapper;
 
     @Override
-    public List<Lesson> findQuanlity(int qid) {
+    public List<Lesson> findQuanlity(int qid, int pageStart, int pageNumber) {
         try {
-            return qualityMapper.findQuality(qid);
+            return qualityMapper.findQuality(qid, pageStart, pageNumber);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -118,4 +118,10 @@ public class BackQualityServiceImpl implements BackQualityService {
             return false;
         }
     }
+
+	@Override
+	public int getPageNumber(int qid) throws Exception {
+		// TODO Auto-generated method stub
+		return qualityMapper.getPageNumber(qid);
+	}
 }

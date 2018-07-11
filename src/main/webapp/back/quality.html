@@ -73,16 +73,25 @@
 		} 
     </style>
     <script>
-    	var pageNmber = 17;//ajax获取页数
+    	var pageNmber = 0;//ajax获取页数
 		var currectPage = 1;
 		window.onload = function getAllPage(){
-			getMessage();
+			$.ajax({
+				url: "/back/getQualityPageNumber",
+				type: "get",
+				async: false,
+				success:function(data){
+					pageNmber = data;
+				}
+			})
+			getMessage(currectPage);
 			getPageNumber(currectPage)
 		}
     	
-        function getMessage(){
+        function getMessage(currectPage){
             $.ajax({
                 url: '/back/findquality',
+                data: {"currectPage" : currectPage},
                 type: 'get',
                 success: function (data) {
                     console.log(data);
@@ -231,6 +240,7 @@
 			if(currectPage > 1){
 				currectPage--;
 			}
+			getMessage(currectPage);
    			getPageNumber(currectPage);
 		}
 		
@@ -238,11 +248,13 @@
 			if(currectPage < pageNmber){
 				currectPage++;
 			}
+			getMessage(currectPage);
    			getPageNumber(currectPage);
 		}
 		
 		function setPage(pageOrder){
 			currectPage = pageOrder;
+			getMessage(currectPage);
    			getPageNumber(currectPage);
 		}
 		
