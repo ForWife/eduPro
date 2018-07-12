@@ -20,6 +20,16 @@ public class FrontLessonServiceBean implements FrontLessonService {
 	 FrontLessonMapper lessonMapper;
 	
 	@Override
+	public LessonAndAddress findLessonAndAddressById(int lid) throws Exception {
+		LessonAndAddress lessonAndAddress = new LessonAndAddress();
+		Lesson lesson = lessonMapper.getLesssonById(lid);
+		Address address = lessonMapper.getLessonAdderss(lid);
+		lessonAndAddress.setLesson(lesson);
+		lessonAndAddress.setAddress(address);
+		return lessonAndAddress;
+	}
+
+	@Override
 	public Map<String, List<Lesson>> findLessonListByCategory() throws Exception {
 		Map<String, List<Lesson>> map = new HashMap<>();
 		
@@ -27,6 +37,9 @@ public class FrontLessonServiceBean implements FrontLessonService {
 		for(String s:list){
 			System.out.println(".................s:"+s);
 			List<Lesson> lessonList= lessonMapper.findLessehByCategory(s);
+			for (Lesson lesson : lessonList) {
+				System.out.println(lesson.getLname()+"...................0.0.00.0.0.0..0.0.");
+			}
 			map.put(s, lessonList);
 			System.out.println("...........put list into map  OK");
 		}
@@ -37,15 +50,5 @@ public class FrontLessonServiceBean implements FrontLessonService {
 		System.out.println("...............LessonService..findLessonById");
 		Lesson lesson = lessonMapper.getLesssonById(lid);
 		return lesson;
-	}
-
-	@Override
-	public LessonAndAddress findLessonAndAddressById(int lid) throws Exception {
-		LessonAndAddress lessonAndAddress = new LessonAndAddress();
-		Lesson lesson = lessonMapper.getLesssonById(lid);
-		Address address = lessonMapper.getLessonAdderss(lid);
-		lessonAndAddress.setLesson(lesson);
-		lessonAndAddress.setAddress(address);
-		return lessonAndAddress;
 	}
 }

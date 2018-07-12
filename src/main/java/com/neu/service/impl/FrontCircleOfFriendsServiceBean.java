@@ -1,10 +1,13 @@
 package com.neu.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.neu.beans.Address;
 import com.neu.beans.Message;
@@ -40,5 +43,34 @@ public class FrontCircleOfFriendsServiceBean implements FrontCircleOfFriendsServ
 			messageAboutList.add(messageAbout);
 		}
 		return messageAboutList;
+	}
+
+	@Override
+	@Transactional
+	public boolean dolike(Map<String, Object> map) throws Exception {
+		System.out.println(".........FrontCircleOfFriendsServiceBean........................dolike");
+		boolean isok = false;
+		MessageLike mlike = circleOfFriendsMapper.findlike(map);
+		if(mlike==null){
+			int number = circleOfFriendsMapper.addlike(map);
+			if(number>0){
+				isok=true;
+				System.out.println("。。。。。添加赞成功");
+			}
+		}else{
+			int denum = circleOfFriendsMapper.deletelike(map);
+			if(denum>0){
+				isok=true;
+				System.out.println("。。。。。删除赞成功");
+			}
+		}
+		return isok;
+	}
+
+	@Override
+	@Transactional
+	public boolean addreply(Map<String, Object> map) throws Exception {
+		boolean isok = false;
+		return false;
 	}
 }

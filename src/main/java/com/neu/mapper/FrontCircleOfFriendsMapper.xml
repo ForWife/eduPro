@@ -17,7 +17,21 @@
 	SELECT * FROM messagereply WHERE mid=#{mid}
 </select>
 <select id="getBranchAddress" resultType="com.neu.beans.Address" parameterType="int">
-	SELECT * FROM address WHERE id  = 1
+	SELECT * FROM address WHERE id  = #{branchid}
 </select>
+
+<insert id="addlike" parameterType="map">
+	INSERT INTO messagelike(mid,nickname,stime) VALUES(#{mid},#{nickname},now())
+</insert>
+<delete id="deletelike" parameterType="map">
+	delete  FROM messagelike WHERE mid=#{mid} AND nickname= #{nickname}
+</delete>
+<select id="findlike" parameterType="map" resultType="com.neu.beans.MessageLike">
+	select * FROM messagelike WHERE mid=#{mid} AND nickname= #{nickname}
+</select>
+
+<insert id="addreply" parameterType="map">
+	insert into messagereply (mid,nickname,content,stime) values(#{mid},#{nickname},#{content},NOW())
+</insert>
 </mapper>
 

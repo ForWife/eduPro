@@ -1,6 +1,7 @@
 package com.neu.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.neu.beans.Address;
 import com.neu.beans.Message;
@@ -14,4 +15,11 @@ public interface FrontCircleOfFriendsMapper {
 	public List<MessageImg> getMessageImg(int mid) throws Exception;
 	public List<MessageReply> getMessageReply(int mid) throws Exception;
 	public Address getBranchAddress(int branchid) throws Exception;
+	
+//	点赞 增加点赞和删除点赞
+	public int addlike(Map<String, Object> map) throws Exception;
+	public int deletelike(Map<String, Object> map) throws Exception;
+	public MessageLike findlike(Map<String, Object> map) throws Exception;
+//	增加评论
+	public int addreply(Map<String, Object> map) throws Exception;
 }
