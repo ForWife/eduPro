@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.neu.beans.Address;
 import com.neu.beans.Message;
 import com.neu.beans.MessageImg;
 import com.neu.mapper.BackGetAllMessageMapper;
@@ -23,5 +24,10 @@ public class BackGetAllMessageServiceImpl implements BackGetAllMessageService {
 		// TODO Auto-generated method stub
 		return backGetAllMessageMapper.getAllMessage(qid);
 	}
-
+	@Override
+	public List<Address> getPart(int qid) throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("ceshi_getPart");
+		return backGetAllMessageMapper.getPart(qid);
+	}
 }

@@ -45,4 +45,10 @@
 					 address a
 			where a.id = m.branchid and m.qid = #{id}
     </select>
+    
+    <select id = "getPart" resultType = "com.neu.beans.Address">
+    	select id, branch
+    	from address
+    	where address.status = "正在营业" and address.qid = #{qid}
+    </select>
 </mapper>
