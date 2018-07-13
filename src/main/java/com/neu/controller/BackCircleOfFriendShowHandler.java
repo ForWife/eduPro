@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -64,14 +66,25 @@ public class BackCircleOfFriendShowHandler {
 	
 	@RequestMapping(value = "/back/back_circleOfFriend_setMessage")
 	@ResponseBody
-	public String  setMessage(String partChoose, 
-							String areaJs,
-							@RequestParam(value = "files", required = false) MultipartFile [] files) throws Exception {
-		
-		System.out.println(URLDecoder.decode(partChoose,"utf-8"));
-		System.out.println(areaJs);
-		return partChoose.getBytes("utf-8").toString();
-		
+	public void  setMessage(String partChoose, 
+							 String areaJs,
+							 @RequestParam(value = "files", required = false) MultipartFile [] files,
+							 HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+	    User user = (User) session.getAttribute("user");
+		partChoose = URLDecoder.decode(partChoose,"utf-8");
+		areaJs = URLDecoder.decode(areaJs,"utf-8");
+		String pathOfService = request.getServletContext().getRealPath("/");
+		String path;
+		List<String> pathOfPicture = new ArrayList<>();
+		for(MultipartFile file : files) {
+			System.out.println(file.getOriginalFilename());
+			path = "images/" + (new Date().getTime()) + file.getOriginalFilename();
+			pathOfPicture.add(path);
+			System.out.println(pathOfService + path);
+			file.transferTo(new File(pathOfService + path));
+		}
+		backGetAllMessageService.setMessage(user.getQid(), partChoose, areaJs, pathOfPicture);
 	}
 }
  

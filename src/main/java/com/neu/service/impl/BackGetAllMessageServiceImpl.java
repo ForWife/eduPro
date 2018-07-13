@@ -30,4 +30,15 @@ public class BackGetAllMessageServiceImpl implements BackGetAllMessageService {
 		System.out.println("ceshi_getPart");
 		return backGetAllMessageMapper.getPart(qid);
 	}
+	@Override
+	public void setMessage(int qid, String partChoose, String areaJs, List<String> pathOfPicture) throws Exception {
+		// TODO Auto-generated method stub
+		int branchid = backGetAllMessageMapper.getBranchId(partChoose);
+		int mid = backGetAllMessageMapper.getNewMid();
+		backGetAllMessageMapper.setMessage(mid, areaJs, qid, branchid);
+		for(String path : pathOfPicture) {
+			int id = backGetAllMessageMapper.getNewId();
+			backGetAllMessageMapper.setMessageImg(id, mid, path);
+		}
+	}
 }

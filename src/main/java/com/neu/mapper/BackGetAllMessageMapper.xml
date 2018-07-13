@@ -51,4 +51,27 @@
     	from address
     	where address.status = "正在营业" and address.qid = #{qid}
     </select>
+    
+    <insert id = "setMessage">
+    	insert into message(mid, mtitle, mtime, qid, branchid)
+		values (#{mid}, #{areaJs}, now(), #{qid}, #{branchid})
+    </insert>
+    
+    <select id = "getNewMid" resultType = "int">
+    	select max(mid) + 1 from message
+    </select>
+    
+    <select id = "getBranchId" resultType = "int">
+    	select id from address where branch = #{partChoose}
+    </select>
+    
+    <insert id = "setMessageImg">
+    	insert messageimg 
+		values (#{id}, #{mid}, #{pathOfPicture})
+    </insert>
+    
+    <select id = "getNewId" resultType = "int">
+    	select max(id) + 1 from messageimg
+    </select>
+    
 </mapper>

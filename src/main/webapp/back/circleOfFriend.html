@@ -240,7 +240,7 @@
    		function sendMessage(){
 	   		var formData = new FormData();
 	   		formData.append("partChoose",encodeURIComponent($("#partChoose").val()));
-	   		formData.append("areaJs",$("#areaJs").val());
+	   		formData.append("areaJs",encodeURIComponent($("#areaJs").val()));
 	   		for (var i = 0; i < fileListAll.length; i++){
    				formData.append("files",fileListAll[i]);
             }
@@ -251,7 +251,7 @@
             	processData: false,
             	contentType: false, 
             	success:function(data){
-            		alert(data);
+            		alert("seccess");
             	}
             })
 	   	}
