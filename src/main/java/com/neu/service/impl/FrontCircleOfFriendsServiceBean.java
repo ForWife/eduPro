@@ -70,7 +70,12 @@ public class FrontCircleOfFriendsServiceBean implements FrontCircleOfFriendsServ
 	@Override
 	@Transactional
 	public boolean addreply(Map<String, Object> map) throws Exception {
+		System.out.println(".........>>FrontCircleOfFriendsServiceBean........................reply");
 		boolean isok = false;
-		return false;
+		int count = circleOfFriendsMapper.addreply(map);
+		if(count>0){
+			isok = true;
+		}
+		return isok;
 	}
 }

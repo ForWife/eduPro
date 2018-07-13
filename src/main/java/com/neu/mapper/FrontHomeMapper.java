@@ -1,5 +1,9 @@
 package com.neu.mapper;
 
-public interface FrontHomeMapper {
+import java.util.List;
 
+import com.neu.beans.Swiper;
+
+public interface FrontHomeMapper {
+	public List<Swiper> getHomeImg(int qid) throws Exception;
 }

@@ -42,7 +42,18 @@ public class FrontCircleOfFriendsHandler {
 	@RequestMapping(value="/front/reply")
 	@ResponseBody
 	public String reply(int mid,String nickname,String content) throws Exception{
-		
-		return "{\"result\":\"success\"}";
+		System.out.println("..........>>FrontCircleOfFriendsHandler.....reply");
+		Map<String , Object> map = new HashMap<>();
+		map.put("mid", mid);
+		map.put("nickname", nickname);
+		map.put("content", content);
+		boolean isok = circleOfFriendsService.addreply(map);
+		if(isok){			
+			System.out.println("..........>handler µãÔÞ ³É¹¦");
+			return "{\"result\":\"success\"}";
+		}else{
+			System.out.println("..........>handler failed");
+			return "{\"result\":\"failed\"}";
+		}
 	}
 }

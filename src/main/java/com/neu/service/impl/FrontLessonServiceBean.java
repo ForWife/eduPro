@@ -21,6 +21,7 @@ public class FrontLessonServiceBean implements FrontLessonService {
 	
 	@Override
 	public LessonAndAddress findLessonAndAddressById(int lid) throws Exception {
+		System.out.println(".....FrontLessonServiceBean.....findLessonAndAddressById.");
 		LessonAndAddress lessonAndAddress = new LessonAndAddress();
 		Lesson lesson = lessonMapper.getLesssonById(lid);
 		Address address = lessonMapper.getLessonAdderss(lid);
@@ -32,16 +33,12 @@ public class FrontLessonServiceBean implements FrontLessonService {
 	@Override
 	public Map<String, List<Lesson>> findLessonListByCategory() throws Exception {
 		Map<String, List<Lesson>> map = new HashMap<>();
+		System.out.println(".........FrontLessonServiceBean..findLessonListByCategory");
 		
 		List<String> list =  lessonMapper.findTypeList();
 		for(String s:list){
-			System.out.println(".................s:"+s);
 			List<Lesson> lessonList= lessonMapper.findLessehByCategory(s);
-			for (Lesson lesson : lessonList) {
-				System.out.println(lesson.getLname()+"...................0.0.00.0.0.0..0.0.");
-			}
 			map.put(s, lessonList);
-			System.out.println("...........put list into map  OK");
 		}
 		return map;
 	}
