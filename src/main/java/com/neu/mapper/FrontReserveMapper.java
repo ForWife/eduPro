@@ -12,7 +12,7 @@ public interface FrontReserveMapper
 
 	public List<FreeListenVO> findreserved() throws Exception;
 
-	public List<FreeListenVO> findreserveing();
+	public List<FreeListenVO> findreserveing()throws Exception;
 		
 	
 	

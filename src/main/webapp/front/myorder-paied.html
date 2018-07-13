@@ -26,7 +26,7 @@
 				   var card ='<div class="ordercard"><div class="ordercard_up">';
 				   card+='<div class="ordercard_num">'+(new Date(data[i].sorder.ordertime)).Format("yyyy-MM-dd hh:mm:ss")+'订购</div>';
 				   card+='<div class="ordercard_state_paied">已付款</div></div>';				  
-				   card+=' <div class="ordercard_body"><div class="ordercard_pic"><img src="images/'+data[i].lesson.imgurl+'"></div>';
+				   card+=' <div class="ordercard_body"><div class="ordercard_pic"><img src="../upload/'+data[i].lesson.imgurl+'"></div>';
 				   card+=' <div class="ordercard_name"><p>'+data[i].lesson.lname+'</p>';
 				   card+='<span class="time_p">'+(new Date(data[i].lesson.pubtime)).Format("yyyy-MM-dd hh:mm:ss")+'开课</span><br/>';
 				   card+='开课地点:'+data[i].address.address+'<br/>';

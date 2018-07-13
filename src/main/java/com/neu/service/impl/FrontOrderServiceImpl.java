@@ -30,7 +30,7 @@ public class FrontOrderServiceImpl implements FrontOrderService {
 			for (SOrder sOrder : orderList) {
 				OrderVO ordervo = new OrderVO();
 				Lesson lesson = mapper.getLesssonById(sOrder.getLid());
-				Address address = mapper.getLessonAdderss(sOrder.getLid());
+				Address address = mapper.getLessonAdderss(sOrder.getBranchid());
 				ordervo.setAddress(address);
 				ordervo.setLesson(lesson);
 				ordervo.setSorder(sOrder);
@@ -56,7 +56,7 @@ public class FrontOrderServiceImpl implements FrontOrderService {
 				if(Sorder.getStatus().equals("待付款"))
 				{
 					Lesson lesson = mapper.getLesssonById(Sorder.getLid());
-					Address address = mapper.getLessonAdderss(Sorder.getLid());
+					Address address = mapper.getLessonAdderss(Sorder.getBranchid());
 					ordervo.setAddress(address);
 					ordervo.setLesson(lesson);
 					ordervo.setSorder(Sorder);
@@ -83,7 +83,7 @@ public class FrontOrderServiceImpl implements FrontOrderService {
 				if(Sorder.getStatus().equals("已付款"))
 				{
 					Lesson lesson = mapper.getLesssonById(Sorder.getLid());
-					Address address = mapper.getLessonAdderss(Sorder.getLid());
+					Address address = mapper.getLessonAdderss(Sorder.getBranchid());
 					ordervo.setAddress(address);
 					ordervo.setLesson(lesson);
 					ordervo.setSorder(Sorder);
@@ -110,7 +110,7 @@ public class FrontOrderServiceImpl implements FrontOrderService {
 				if(Sorder.getStatus().equals("已使用"))
 				{
 					Lesson lesson = mapper.getLesssonById(Sorder.getLid());
-					Address address = mapper.getLessonAdderss(Sorder.getLid());
+					Address address = mapper.getLessonAdderss(Sorder.getBranchid());
 					ordervo.setAddress(address);
 					ordervo.setLesson(lesson);
 					ordervo.setSorder(Sorder);
@@ -137,7 +137,7 @@ public class FrontOrderServiceImpl implements FrontOrderService {
 				if((Sorder.getStatus().equals("退款中"))||(Sorder.getStatus().equals("已退款")))
 				{
 					Lesson lesson = mapper.getLesssonById(Sorder.getLid());
-					Address address = mapper.getLessonAdderss(Sorder.getLid());
+					Address address = mapper.getLessonAdderss(Sorder.getBranchid());
 					ordervo.setAddress(address);
 					ordervo.setLesson(lesson);
 					ordervo.setSorder(Sorder);

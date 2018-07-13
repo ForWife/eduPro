@@ -15,7 +15,8 @@ public class SOrder {//payment order
     private String transactionid;//order transaction id
     private String nickname;//order user nickname
     private String tel;//order user telephone number
-
+    private int branchid;
+    
     public int getOid() {
         return oid;
     }
@@ -111,4 +112,12 @@ public class SOrder {//payment order
     public void setTel(String tel) {
         this.tel = tel;
     }
+
+	public int getBranchid() {
+		return branchid;
+	}
+
+	public void setBranchid(int branchid) {
+		this.branchid = branchid;
+	}
 }

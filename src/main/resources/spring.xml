@@ -11,7 +11,7 @@
     <!-- dbcp2 是一个数据库连接池  c3p0-->
     <bean id="ds" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://203.195.242.172:3306/neuer?useUnicode=true&amp;characterEncoding=utf8"/>
+        <property name="url" value="jdbc:mysql://123.206.32.30:3306/neuer?useUnicode=true&amp;characterEncoding=utf8"/>
         <property name="username" value="root"/>
         <property name="password" value="123456"/>
     </bean>
