@@ -177,22 +177,25 @@
                         imgurl: img,
                         status: $("#status").val(),
                         lprice: lprice,
-                        category: $("#select").val()
+                        category: $("#select").val(),
+                        branch: branches.toString()
                     },
                     dataType: "json",
                     success: function (data) {
                         console.log(data);
-                        $.ajax({
-                            url: '/back/lessonbranch',
-                            type: 'post',
-                            dataType: "json",
-                            contentType: "application/json",
-                            data: JSON.stringify(branches),
-                            success: function (data) {
-                                layer.msg("修改成功");
-                                window.location.href = "quality.html"
-                            }
-                        });
+                        layer.msg("修改成功");
+                        window.location.href = "quality.html"
+                        // $.ajax({
+                        //     url: '/back/lessonbranch',
+                        //     type: 'post',
+                        //     dataType: "json",
+                        //     contentType: "application/json",
+                        //     data: JSON.stringify(branches),
+                        //     success: function (data) {
+                        //         layer.msg("修改成功");
+                        //         window.location.href = "quality.html"
+                        //     }
+                        // });
 
                     },
                     error: function () {
@@ -224,24 +227,27 @@
                     ldesc: ue.getContent(),
                     imgurl: img,
                     lprice: lprice,
-                    category: $("#select").val()
+                    category: $("#select").val(),
+                    branch: branches.toString()
                 },
                 dataType: 'json',
                 success: function (data) {
                     branches.push(Number(data.lid));
                     console.log(data.lid);
                     console.log(branches);
-                    $.ajax({
-                        url: '/back/lessonbranch',
-                        type: 'post',
-                        dataType: "json",
-                        contentType: "application/json",
-                        data: JSON.stringify(branches),
-                        success: function (data) {
-                            layer.msg("添加成功");
-                            window.location.href = "quality.html"
-                        }
-                    });
+                    layer.msg("添加成功");
+                    window.location.href = "quality.html"
+                    // $.ajax({
+                    //     url: '/back/lessonbranch',
+                    //     type: 'post',
+                    //     dataType: "json",
+                    //     contentType: "application/json",
+                    //     data: JSON.stringify(branches),
+                    //     success: function (data) {
+                    //         layer.msg("添加成功");
+                    //         window.location.href = "quality.html"
+                    //     }
+                    // });
                 },
                 error: function () {
                     layer.msg("添加失败");

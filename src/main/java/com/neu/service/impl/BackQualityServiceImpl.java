@@ -98,9 +98,15 @@ public class BackQualityServiceImpl implements BackQualityService {
     }
 
     @Override
-    public int addQuality(Lesson lesson) {
+    public int addQuality(Lesson lesson, List<Integer> t) {
         try {
             if (qualityMapper.addQuality(lesson) > 0) {
+                for (int tt : t) {
+                    LessonBranch lessonBranch = new LessonBranch();
+                    lessonBranch.setBranchid(tt);
+                    lessonBranch.setLid(lesson.getLid());
+                    qualityMapper.addlessonbranch(lessonBranch);
+                }
                 return lesson.getLid();
             } else return 0;
         } catch (SQLException e) {
@@ -110,9 +116,18 @@ public class BackQualityServiceImpl implements BackQualityService {
     }
 
     @Override
-    public boolean editQuality(Lesson lesson) {
+    public boolean editQuality(Lesson lesson, List<Integer> t) {
         try {
-            return qualityMapper.editQuality(lesson) > 0;
+            if (qualityMapper.editQuality(lesson) > 0) {
+                qualityMapper.deletelessonbranch(lesson.getLid());
+                for (int tt : t) {
+                    LessonBranch lessonBranch = new LessonBranch();
+                    lessonBranch.setBranchid(tt);
+                    lessonBranch.setLid(lesson.getLid());
+                    qualityMapper.addlessonbranch(lessonBranch);
+                }
+                return true;
+            } else return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

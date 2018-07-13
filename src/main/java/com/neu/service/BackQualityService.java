@@ -18,9 +18,9 @@ public interface BackQualityService {
 
     public List<String> findBranchNames(int lid);
 
-    public int addQuality(Lesson lesson);
+    public int addQuality(Lesson lesson, List<Integer> t);
 
-    public boolean editQuality(Lesson lesson);
+    public boolean editQuality(Lesson lesson, List<Integer> t);
     
     public int getPageNumber(int qid) throws Exception;
 }
