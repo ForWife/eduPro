@@ -1,3 +1,4 @@
+
 package com.neu.service;
 
 import java.util.List;
@@ -10,3 +11,4 @@ public interface FrontCircleOfFriendsService {
 	public boolean dolike(Map<String, Object> map) throws Exception;
 	public boolean addreply(Map<String, Object> map) throws Exception;
 }
+

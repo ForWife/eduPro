@@ -1,3 +1,5 @@
+
+
 package com.neu.mapper;
 
 import java.util.List;
@@ -16,10 +18,11 @@ public interface FrontCircleOfFriendsMapper {
 	public List<MessageReply> getMessageReply(int mid) throws Exception;
 	public Address getBranchAddress(int branchid) throws Exception;
 	
-//	µãÔÞ Ôö¼ÓµãÔÞºÍÉ¾³ýµãÔÞ
+//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Óµï¿½ï¿½Þºï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int addlike(Map<String, Object> map) throws Exception;
 	public int deletelike(Map<String, Object> map) throws Exception;
 	public MessageLike findlike(Map<String, Object> map) throws Exception;
-//	Ôö¼ÓÆÀÂÛ
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int addreply(Map<String, Object> map) throws Exception;
 }
+

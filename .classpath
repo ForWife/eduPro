@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" output="target/classes" path="src/main/java">
@@ -32,6 +33,8 @@
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
 =======
+=======
+>>>>>>> 0ace801e1e432f14600ec28771099106295213f8
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" output="target/classes" path="src/main/java">
@@ -60,4 +63,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
+<<<<<<< HEAD
+>>>>>>> 0ace801e1e432f14600ec28771099106295213f8
+=======
 >>>>>>> 0ace801e1e432f14600ec28771099106295213f8

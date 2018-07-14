@@ -6,4 +6,5 @@
 <select id="getHomeImg" parameterType="int" resultType="com.neu.beans.Swiper">
 	SELECT * FROM swiper WHERE qid = #{qid}
 </select>
+
 </mapper>

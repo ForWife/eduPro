@@ -1,3 +1,4 @@
+
 package com.neu.beans;
 
 public class Userlist {
@@ -30,3 +31,4 @@ public class Userlist {
 		this.openid = openid;
 	}
 }
+

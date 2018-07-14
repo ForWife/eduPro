@@ -1,4 +1,5 @@
 
+
 package com.neu.mapper;
 
 import java.util.List;
@@ -19,4 +20,5 @@ public interface FrontReserveMapper
 	
 
 }
+
 
