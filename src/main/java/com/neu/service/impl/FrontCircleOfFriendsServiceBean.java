@@ -1,4 +1,3 @@
-
 package com.neu.service.impl;
 
 import java.util.ArrayList;
@@ -80,3 +79,4 @@ public class FrontCircleOfFriendsServiceBean implements FrontCircleOfFriendsServ
 		return isok;
 	}
 }
+

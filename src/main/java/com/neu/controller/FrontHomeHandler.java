@@ -1,4 +1,3 @@
-
 package com.neu.controller;
 
 import java.util.List;
@@ -30,5 +29,4 @@ public class FrontHomeHandler {
 	
 	
 }
-
 

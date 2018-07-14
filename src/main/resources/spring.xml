@@ -80,5 +80,4 @@
     <!-- <aop:config>
     <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neu.service.impl.*.*(..))"/>
     </aop:config> -->
-
 </beans>

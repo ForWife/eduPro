@@ -1,4 +1,3 @@
-
 package com.neu.service;
 
 import java.util.List;
@@ -9,4 +8,3 @@ public interface FrontHomeService {
 	public List<Swiper> getHomeImg(int qid) throws Exception;
 	
 }
-
