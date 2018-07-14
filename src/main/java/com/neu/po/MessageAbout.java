@@ -2,6 +2,7 @@ package com.neu.po;
 
 import java.util.List;
 
+import com.neu.beans.Address;
 import com.neu.beans.Message;
 import com.neu.beans.MessageImg;
 import com.neu.beans.MessageLike;
@@ -12,6 +13,7 @@ public class MessageAbout {
 	private List<MessageImg>  messageImg;
 	private List<MessageLike> messageLike;
 	private List<MessageReply> messageReply;
+	private Address address;
 	public List<MessageImg> getMessageImg() {
 		return messageImg;
 	}
@@ -35,6 +37,12 @@ public class MessageAbout {
 	}
 	public void setMessage(Message message) {
 		this.message = message;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }
