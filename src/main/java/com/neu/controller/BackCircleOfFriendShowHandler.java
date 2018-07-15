@@ -39,7 +39,7 @@ public class BackCircleOfFriendShowHandler {
 		for(Message r : result) {
 			for(MessageImg m : ((Message) r).getMessageImg()) {
 				System.out.println(request.getServletContext().getRealPath("/"));
-				File file = new File(request.getServletContext().getRealPath("/") + m.getImgurl());
+				File file = new File(request.getServletContext().getRealPath("/") + "upload/" + m.getImgurl());
 				System.out.println(file.getCanonicalPath());
 				FileInputStream fis = new FileInputStream(file);
 				BufferedImage bufferedImg = ImageIO.read(fis);
@@ -79,10 +79,10 @@ public class BackCircleOfFriendShowHandler {
 		List<String> pathOfPicture = new ArrayList<>();
 		for(MultipartFile file : files) {
 			System.out.println(file.getOriginalFilename());
-			path = "images/" + (new Date().getTime()) + file.getOriginalFilename();
+			path =  (new Date().getTime()) + file.getOriginalFilename();
 			pathOfPicture.add(path);
 			System.out.println(pathOfService + path);
-			file.transferTo(new File(pathOfService + path));
+			file.transferTo(new File(pathOfService + "upload/" + path));
 		}
 		backGetAllMessageService.setMessage(user.getQid(), partChoose, areaJs, pathOfPicture);
 	}

@@ -45,7 +45,7 @@
 	    					}else{
 	    						card  += 'pheigh';
 	    					}
-	    					card += '" src="/'+data[i].messageImg[j].imgurl+'"/></li>';
+	    					card += '" src="/upload/'+data[i].messageImg[j].imgurl+'"/></li>';
 	    				}
 	    				card += '</ul">';
 	    				card += '</div>';
@@ -251,7 +251,7 @@
             	processData: false,
             	contentType: false, 
             	success:function(data){
-            		alert("seccess");
+            		loading();
             	}
             })
 	   	}
