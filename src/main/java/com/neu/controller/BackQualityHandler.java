@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Controller
 public class BackQualityHandler {
@@ -70,8 +72,14 @@ public class BackQualityHandler {
 
     @RequestMapping(value = "/back/editquality")
     @ResponseBody
-    public String editquality(Lesson lesson) {
-        if (qualityService.editQuality(lesson)) {
+    public String editquality(Lesson lesson, String branch) {
+        System.out.println(branch);
+        StringTokenizer s = new StringTokenizer(branch, ",");
+        List<Integer> t = new ArrayList<>();
+        while (s.hasMoreElements()) {
+            t.add(Integer.valueOf(s.nextToken()));
+        }
+        if (qualityService.editQuality(lesson, t)) {
             return "{\"result\":\"success\"}";
         } else return "{\"result\":\"failed\"}";
     }
@@ -93,13 +101,19 @@ public class BackQualityHandler {
     }
     @RequestMapping(value = "/back/addquality")
     @ResponseBody
-    public String addquality(HttpServletRequest request, Lesson lesson) {
+    public String addquality(HttpServletRequest request, Lesson lesson, String branch) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         lesson.setQid(user.getQid());
         lesson.setStatus("进行中");
         lesson.setPubtime(new Date());
-        int lid = qualityService.addQuality(lesson);
+        System.out.println(branch);
+        StringTokenizer s = new StringTokenizer(branch, ",");
+        List<Integer> t = new ArrayList<>();
+        while (s.hasMoreElements()) {
+            t.add(Integer.valueOf(s.nextToken()));
+        }
+        int lid = qualityService.addQuality(lesson, t);
         System.out.println(lid);
         if (lid > 0) {
             return "{\"result\":\"success\",\"lid\":\"" + lid + "\"}";

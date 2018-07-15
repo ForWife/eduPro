@@ -6,9 +6,13 @@
     <title></title>
     <link rel="stylesheet" href="css/layui.css">
    	<script src = "js/jquery-3.3.1.js"></script>
+   	<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
    	<script>
    	/*jq代码块*/
-	   	window.onload = loading();
+	   	window.onload = function loadAll(){
+	   		loading();
+	   		loadPart();
+   		}
 	   	function loading(){
 	   		$.ajax({
 	   			url:"/back/back_getAllMessage",
@@ -41,7 +45,7 @@
 	    					}else{
 	    						card  += 'pheigh';
 	    					}
-	    					card += '" src="/'+data[i].messageImg[j].imgurl+'"/></li>';
+	    					card += '" src="/upload/'+data[i].messageImg[j].imgurl+'"/></li>';
 	    				}
 	    				card += '</ul">';
 	    				card += '</div>';
@@ -74,6 +78,20 @@
 	    		}
 	    	})
 	    }
+	   	
+	   	function loadPart(){
+	   		$.ajax({
+	   			url: "/back/back_circleOfFriend_getPart",
+	   			type: "get",
+	   			success:function(data){
+	   				partList = "";
+	   				for(var i = 0; i < data.length; i++){
+	   					partList += '<option>'+data[i].branch+'</option>';
+	   				}
+	   				$("#partList").html(partList);
+	   			}
+	   		})
+	   	}
 	   	
 	   	function deleteMR(id){
 	   		$.ajax({
@@ -109,8 +127,7 @@
 	   	function editMessage(id){
 	   		
 	   	}
-    
-   	</script> 
+	</script> 
     <script>
     	/*textArea自适应高度*/
         var autoTextarea = function (elem, extra, maxHeight) {
@@ -181,6 +198,7 @@
         };
 		
     	/*图片自适应宽高*/
+    	var fileListAll = [];
         function setImagePreviews(avalue) {
             var docObj = document.getElementById("picInput");
             var fileList = docObj.files;
@@ -188,6 +206,7 @@
             for (var i = 0; i < fileList.length; i++) {
                 var img = new Image();
                 var path = window.URL.createObjectURL(fileList[i]);
+                fileListAll.push(fileList[i]);
                 img.src = path;
                 img.onload = function () {
                     if (img.height > img.width) {
@@ -206,6 +225,36 @@
         function display() {
             document.getElementById("hideDiv1").style.display = "block";
         }
+    	//
+    	function dataURItoBlob(dataURI) {
+		    var byteString = atob(dataURI.split(',')[1]);
+		    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+		    var ab = new ArrayBuffer(byteString.length);
+		    var ia = new Uint8Array(ab);
+		    for (var i = 0; i < byteString.length; i++) {
+		        ia[i] = byteString.charCodeAt(i);
+		    }
+		    return new Blob([ab], {type: mimeString});
+		}
+    	
+   		function sendMessage(){
+	   		var formData = new FormData();
+	   		formData.append("partChoose",encodeURIComponent($("#partChoose").val()));
+	   		formData.append("areaJs",encodeURIComponent($("#areaJs").val()));
+	   		for (var i = 0; i < fileListAll.length; i++){
+   				formData.append("files",fileListAll[i]);
+            }
+            $.ajax({
+            	url: "/back/back_circleOfFriend_setMessage",
+            	data: formData,
+            	type: "post",
+            	processData: false,
+            	contentType: false, 
+            	success:function(data){
+            		loading();
+            	}
+            })
+	   	}
     </script>
     <style>
         .timeStyle {
@@ -333,20 +382,20 @@
     <div class="layui-card-body" style=" overflow: hidden;">
         <div style="margin: 10px; border-bottom: #d9d9d9 1px solid;">
 					<span>
-						信息编辑
-					</span>
-					<span>
 						选择分部：
+						<input id = "partChoose" style = "width: 80px;" type="text" list = "partList" autocomplete="off" >
+						<datalist id="partList">
+						    <option></option>
+						</datalist>  
 					</span>
             <span>
-						<div class="layui-icon layui-icon-release" style="float:right; margin:0 10px"></div>
+						<a class="layui-icon layui-icon-release" style="float:right; margin:0 10px" href = "javascript:sendMessage()"></a>
 					</span>
             <span>
 						<a class="layui-icon layui-icon-delete" style="float:right;margin:0 10px" href="#"></a>
 					</span>
-
+		
         </div>
-        <form>
             <div>
                 <center>
                     <textarea id="areaJs" class="areaStyle"></textarea>
@@ -356,7 +405,7 @@
                     </script>
                 </center>
             </div>
-
+		<form enctype="multipart/form-data">
             <div class="pictureStyle " style="margin: 10px">
                 <ul>
                     <div id="pic"></div>
