@@ -147,8 +147,10 @@
             	
             	setTimeout(function(){
             		var id = obj.getAttribute("id");
+            		var branchid = obj.getAttribute("branchid");
+            		console.log(branchid);
                 	console.log(id);
-            		mui.openWindow("lesson-detail.html?lid="+id);
+            		mui.openWindow("lesson-detail.html?lid="+id+"&branchid="+branchid);
             	},100)
             	
             }
@@ -161,31 +163,30 @@
 	            var i = 0,
 	                j = 0;
 	            /* 左侧 */
-	            var m = data.length+1;
+	            var m = data.length;
 	            console.log(m);
 	            /*  */
 	            var n = 1;
 	            
-	            for(var key in data){
-	            	html.push('<a class="mui-control-item" data-index="' + i + '" href="#content' + i + '">'+ key +'</a>');
-	            	i++
+	            for(var i = 0; i < m; i++){
+	            	html.push('<a class="mui-control-item" data-index="' + i + '" href="#content' + i + '">'+ data[i].address.address +'</a>');
 	            }
 	            i = 0
 	            controls.innerHTML = html.join('');
 	            html = [];
-	            for(var key in data){
+	            for(var i = 0; i < m; i++){
 	            	html.push('<div id="content' + i + '" class="mui-control-content"><ul class="mui-table-view">');
-	            	n = data[key].length;
-	            	var lessons = data[key];
+	            	n = data[i].lessons.length;
+	            	var lessons = data[i].lessons;
 	            	console.log("...............n:.."+n);
-	            	console.log(data[key]);
+	           
 	            	console.log(lessons);
 	            	for(j=0;j<n;j++){
-	            		var card = '<li class="mui-table-view-cell mui-media"  onclick="showwindow()" id='+lessons[j].lid+'>'+
-	            						'<a href="javascript:void(0)" id="'+lessons[j].lid+'">'+
-	            						'	<img class="mui-media-object mui-pull-right" src="images/1.jpg">'+
-	            						'		<div class="mui-media-body" id='+lessons[j].lid+'>' + lessons[j].lname +
-	            						'			<p class="mui-ellipsis"id='+lessons[j].lid+' >'+ lessons[j].pubtime +'</p>'+
+	            		var card = '<li class="mui-table-view-cell mui-media"  onclick="showwindow()" id="'+lessons[j].lid+'" branchid="'+data[i].address.id+'">'+
+	            						'<a href="javascript:void(0)" id="'+lessons[j].lid+'" branchid="'+data[i].address.id+'">'+
+	            						'	<img class="mui-media-object mui-pull-right" src="../upload/'+lessons[j].imgurl+'">'+
+	            						'		<div class="mui-media-body" id='+lessons[j].lid+' branchid="'+data[i].address.id+'">' + lessons[j].lname +
+	            						'			<p class="mui-ellipsis"id='+lessons[j].lid+' branchid="'+data[i].address.id+'">'+ lessons[j].pubtime +'</p>'+
 	            						'		</div>'+
 	            						'	</a>'+
 	            						'</li>'
@@ -200,7 +201,6 @@
 	            		/* })    */
 	            	}
 	            	html.push('</ul></div>');
-	            	i++
 	            }
 	            contents.innerHTML = html.join('');
 	            

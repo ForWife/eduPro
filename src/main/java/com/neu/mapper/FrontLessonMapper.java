@@ -11,19 +11,21 @@ import com.neu.beans.Lesson;
 
 
 public interface FrontLessonMapper {
-//	ï¿½ï¿½ï¿½Õ¿Î³ï¿½ï¿½ï¿½ð»®·ï¿½
+//	¿Î³Ì£¬°´ÕÕÖÖÀà»®·Ö
 	public List<String> findTypeList() throws Exception;
 	public List<Lesson> findLessehByCategory(String category)throws Exception;
 	public Lesson getLesssonById(int lid) throws Exception;
 	public List<Address> getLessonAdderss(int lid) throws Exception;
 
-//	ï¿½ï¿½ï¿½Õ·Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	¿Î³Ì£¬°´ÕÕµØÖ··Ö
 	public List<Address> findAddresList(int qid) throws Exception;
 	public List<Lesson> findLessonsByAddress(int branchid) throws Exception;
 
-//	ï¿½ï¿½È¡ï¿½Î³Ìµï¿½Ö·
+//	»ñÈ¡¿Î³ÌµØÖ·
 	public Address getAddress(int branchid) throws Exception;
 
-//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	Í¨¹ýµØÖ·»ñÈ¡ÄÇÀïµÄÊÔÌý¿Î
 	public List<FreeListen> getFreeListenListByAddress(int branchid) throws Exception;
+
+
 }

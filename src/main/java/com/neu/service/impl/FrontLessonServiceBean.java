@@ -14,6 +14,7 @@ import com.neu.beans.Lesson;
 import com.neu.mapper.FrontLessonMapper;
 import com.neu.po.AddressandLesson;
 import com.neu.po.FreeListenByAddress;
+import com.neu.po.FreeListenByType;
 import com.neu.po.LessonAndAddress;
 import com.neu.service.FrontLessonService;
 
@@ -82,6 +83,12 @@ public class FrontLessonServiceBean implements FrontLessonService {
 			freelistenByAddresslist.add(fla);
 		}
 		return freelistenByAddresslist;
+	}
+
+	@Override
+	public List<FreeListenByType> findFreelistenByType(int qid) throws Exception {
+		
+		return null;
 	}
 	
 	

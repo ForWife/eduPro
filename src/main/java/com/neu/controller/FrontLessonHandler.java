@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.neu.beans.Lesson;
 import com.neu.po.AddressandLesson;
 import com.neu.po.FreeListenByAddress;
+import com.neu.po.FreeListenByType;
 import com.neu.po.LessonAndAddress;
 import com.neu.service.FrontLessonService;
 
@@ -62,5 +63,10 @@ public class FrontLessonHandler {
 		return lessonService.findFreeListens(qid);
 	}
 	
+	@RequestMapping(value="/front/findFreelistenByType")
+	@ResponseBody
+	public List<FreeListenByType> findFreelistenByType(int qid) throws Exception{
+		return lessonService.findFreelistenByType(qid);
+	}
 }
 

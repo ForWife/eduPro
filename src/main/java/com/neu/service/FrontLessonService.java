@@ -7,6 +7,7 @@ import java.util.Map;
 import com.neu.beans.Lesson;
 import com.neu.po.AddressandLesson;
 import com.neu.po.FreeListenByAddress;
+import com.neu.po.FreeListenByType;
 import com.neu.po.LessonAndAddress;
 
 
@@ -20,4 +21,7 @@ public interface FrontLessonService {
 
 //	试听课，按地址显示
 	public List<FreeListenByAddress> findFreeListens(int qid) throws Exception;
+	
+//	试听课，按照类别显示
+	public List<FreeListenByType> findFreelistenByType(int qid) throws Exception;
 }
