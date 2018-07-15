@@ -37,42 +37,42 @@
 					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#" >
-							<img  id="img0" style="weight:100%;height: 220px;">
+							<img  id="img0" style="weight:100%;height: 200px;">
 							<p class="mui-slider-title">从这里来添加介绍</p>
 						</a>
 					</div>
 					<div class="mui-slider-item">
 						<a href="#">
-							<img  id="img1" style="weight:100%;height: 220px;">
+							<img  id="img1" style="weight:100%;height: 200px;">
 							<p class="mui-slider-title">从这里来添加介绍</p>
 						</a>
 					</div>
 					<div class="mui-slider-item" >
 						<a href="#">
-							<img id="img2" style="weight:100%;height: 220px;">
+							<img id="img2" style="weight:100%;height: 200px;">
 							<p class="mui-slider-title">想要一间这样的木屋，静静的喝咖啡</p>
 						</a>
 					</div>
 					<div class="mui-slider-item">
 						<a href="#">
-							<img  id="img3" style="weight:100%;height: 220px;">
+							<img  id="img3" style="weight:100%;height: 200px;">
 							<p class="mui-slider-title">Color of SIP CBD</p>
 						</a>
 					</div>
 					<div class="mui-slider-item">
 						<a href="#">
-							<img  id="img4" style="weight:100%;height: 220px;">
+							<img  id="img4" style="weight:100%;height: 200px;">
 							<p class="mui-slider-title">从这里来添加介绍</p>
 						</a>
 					</div>
 					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#" style="weight:100%;height: 220px;">
+						<a href="#" style="weight:100%;height: 200px;">
 							<img src="images/shuijiao.jpg" id="img5">
 							<p class="mui-slider-title">幸福就是可以一起睡觉</p>
 						</a>
 					</div>
-				</div>-
+				</div>
 				<div class="mui-slider-indicator mui-text-right">
 					<div class="mui-indicator mui-active"></div>
 					<div class="mui-indicator"></div>
@@ -80,8 +80,7 @@
 					<div class="mui-indicator"></div>
 				</div>
 			</div>
-
-			<br>
+			<br />
 			<div class="segment">
 				<a href="#" id="company" class="segitem">企业介绍</a>
 				<a href="#" id="teacher" class="segitem">师资力量</a>
@@ -98,7 +97,7 @@
 
 			<div class="mui-card" >
 				<div class="mui-card-header">试听课
-					<a href="#" style="float:right;">更多>></a>
+					<a href="#" style="float:right;" id="more_freelisten">更多</a>
 				</div>
 
 				<a href="#" class="mui-card-header mui-card-media" style="height:40vw;background-image:url(images/cbd.jpg)">
@@ -106,8 +105,8 @@
 
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
-						<p>具体开课时间：昨天</p>
-						<p style="color: #333;">关于py的课程</p>
+						<p id="freelisten1_time">具体开课时间：昨天</p>
+						<p style="color: #333;" id="freelisten1_name">关于py的课程</p>
 					</div>
 				</div>
 
@@ -116,22 +115,22 @@
 				</a>
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
-						<p>具体开课时间：昨天</p>
-						<p style="color: #333;">关于py的课程</p>
+						<p id="freelisten2_time">具体开课时间：昨天</p>
+						<p style="color: #333;" id="freelisten2_name">关于py的课程</p>
 					</div>
 				</div>
 			</div>
 
 			<div class="mui-card">
 				<div class="mui-card-header">付费课
-					<a href="b.html" style="float:right;">更多</a>
+					<a href="b.html" style="float:right;" id="more_lesson">更多</a>
 				</div>
 				<a href="a.html" class="mui-card-header mui-card-media" style="height:40vw;background-image:url(images/cbd.jpg)">
 				</a>
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
-						<p>具体开课时间：昨天</p>
-						<p style="color: #333;">关于py的课程</p>
+						<p id="lesson1_time">具体开课时间：昨天</p>
+						<p style="color: #333;" id="lesson1_name">关于py的课程</p>
 					</div>
 				</div>
 				<hr>
@@ -139,8 +138,8 @@
 				</a>
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
-						<p>具体开课时间：昨天</p>
-						<p style="color: #333;">关于py的课程</p>
+						<p id="lesson2_time">具体开课时间：昨天</p>
+						<p style="color: #333;" id="lesson2_name">关于py的课程</p>
 					</div>
 				</div>
 
@@ -152,22 +151,55 @@
 	<script src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 	<script>
-		
+	
+	$(function(){
+		//主页课程：显示两条最新的付费课程
+		$.ajax({
+			type:"get",
+			url:"/front/findTwoNewLesson?qid=1",
+			success:lessonsuccessfunction
+		});
+	})
+	function lessonsuccessfunction(data){
+		console.log("么么哒");
+		console.log(data);
+		console.log(data[0].lname);
+		$("#lesson1_name").text(data[0].lname);
+		$("#lesson2_name").text(data[1].lname);
+		$("#lesson1_time").text("开课时间："+new Date(parseInt(data[0].pubtime)).toLocaleString().replace(/:\d{1,2}$/,' '));
+		$("#lesson2_time").text("开课时间："+new Date(parseInt(data[1].pubtime)).toLocaleString().replace(/:\d{1,2}$/,' '));
+	}
+	$(function(){
+		//主页课程：显示两条最新的免费课程
+		$.ajax({
+			type:"get",
+			url:"/front/findTwoNewFreeListen?qid=1",
+			success:lessonsuccessfunction
+		});
+	})
+	function lessonsuccessfunction(data){
+		console.log("么么啾");
+		console.log(data);
+		console.log(data[0].lname);
+		$("#freelisten1_name").text(data[0].title);
+		$("#freelisten2_name").text(data[1].title);
+		$("#freelisten1_time").text("开课时间："+new Date(parseInt(data[0].pubtime)).toLocaleString().replace(/:\d{1,2}$/,' '));
+		$("#freelisten2_time").text("开课时间："+new Date(parseInt(data[1].pubtime)).toLocaleString().replace(/:\d{1,2}$/,' '));
+	}
 		
 	$(function(){
 		//主页轮播图片
 		$.ajax({
 			type:"get",
 			url:"/front/getImgs?qid=1",
-			success:successfunction
+			success:imgsuccessfunction
 		});
 	})
 	
-	function successfunction(data){
-		console.log("么么啾");
-		console.log(data);
-		console.log(data[1]);
-		
+	function imgsuccessfunction(data){
+//		console.log("么么啾");
+//		console.log(data);
+//		console.log(data[1]);
 		var length = data.length;
 		$("#img0").attr('src','../upload/'+data[length-1].imgurl);
 		$("#img1").attr("src","../upload/"+data[0].imgurl);
@@ -186,6 +218,7 @@
 //					'</div>';
 //		$("#sliderloop").append(pichead);
 //		for (var i = 0;i<length;i++) {
+	
 //			var pic = '<div class="mui-slider-item" id="img'+data[i].id+'">'+
 //						'<a href="#">'+
 //							'<img src="../upload/'+data[i].imgurl+'">'+
@@ -222,8 +255,18 @@
 				mui.openWindow({
 					url: "home-teacher-list.html"
 				});
-
 			});
+			document.getElementById("more_freelisten").addEventListener("tap", function() {
+				mui.openWindow({
+					url: ""
+				});
+			});
+			document.getElementById("more_lesson").addEventListener("tap", function() {
+				mui.openWindow({
+					url: ""
+				});
+			});
+			
 		});
 		
 		

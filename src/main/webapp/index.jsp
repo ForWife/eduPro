@@ -15,7 +15,7 @@
 <br>
 <h3>3.<a href="front/findLessons">课程列表测试</a></h3>
 <br>
-<h3>4.<a href="front/findLessonById?lid=3">单个课程测试</a></h3>
+<h3>4.<a href="front/findLessonById?lid=65&branchid=2">单个课程测试</a></h3>
 <br>
 <h3>4.<a href="/front/findCircleOfFriends?qid=1">测试朋友圈</a></h3>
 <br>
@@ -25,9 +25,13 @@
 <br>
 <h3>8.<a href="/front/getImgs?qid=1">首页图片</a></h3>
 <br>
+<h3>9.<a href="/front/findLessonsByAddress?qid=1">课程按地址分测试</a></h3>
 <br>
+<h3>10.<a href="/front/findTwoNewLesson?qid=1">首页得到两门最新的课程</a></h3>
 <br>
+<h3>11.<a href="/front/findTwoNewFreeListen?qid=1">首页得到两门最新的试听课程</a></h3>
 <br>
+<h3>11.<a href="/front/findFreelisten?qid=1">获取试听课，按照地址方式</a></h3>
 <br>
 <br>
 <br>

@@ -14,7 +14,23 @@
     	SELECT * FROM lesson WHERE lid = #{lid}
     </select>
     <select id="getLessonAdderss" resultType="com.neu.beans.Address" parameterType="int">
-    	SELECT * FROM address WHERE id = (SELECT branchid FROM lessonbranch where lid=#{lid})
+    	SELECT * FROM address WHERE id in (SELECT branchid FROM lessonbranch where lid=#{lid})
     </select>
-	
+    <select id="getAddress" resultType="com.neu.beans.Address" parameterType="int" >
+    	SELECT * FROM address WHERE id = #{branchid}
+    </select>
+    
+    <!-- 按照地址来划分课程 -->
+    <select id="findAddresList" resultType="com.neu.beans.Address" parameterType="int">
+    	SELECT * FROM address WHERE qid = #{qid} AND `status`='正在营业'
+    </select>
+    <select id="findLessonsByAddress" parameterType="int" resultType="com.neu.beans.Lesson">
+    	SELECT * FROM lesson where lesson.lid in (SELECT lessonbranch.lid FROM lessonbranch WHERE branchid = #{branchid})
+    </select>
+    
+    <!-- 试听课 -->
+    <select id="getFreeListenListByAddress" resultType="com.neu.beans.FreeListen" parameterType="int">
+    	SELECT * FROM freelisten WHERE branchid = #{branchid}
+    </select>
+    
 </mapper>

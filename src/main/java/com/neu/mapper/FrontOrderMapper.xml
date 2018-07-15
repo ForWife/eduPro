@@ -11,9 +11,8 @@
     	SELECT * FROM lesson WHERE lid = #{lid}
 </select>
 <select id="getLessonAdderss" resultType="com.neu.beans.Address" parameterType="int">
-    	SELECT * FROM address WHERE id = (SELECT branchid FROM lessonbranch where lid=#{lid})
+    	SELECT * FROM address WHERE id = #{branchid}
 </select>
-
 
 
 </mapper>
