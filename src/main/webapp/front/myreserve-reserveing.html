@@ -8,6 +8,36 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="css/mui.min.css">
     <link rel="stylesheet" href="css/myreserve.css">
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+    <script>
+    $(function(){
+	   	 	  //这个界面还有两个未完成的点 
+	   	 	  //1.
+	   	 	  //2.为每一个card添加链接到课程详情页面
+	   	 	  
+	   $.ajax({
+		   url:"ajaxreserveing",
+		   success:function(data)
+		   {
+			   for(var i=0; i<data.length;i++)
+			   {
+				   var card = '<div class="reservecard">';
+				   card+='<div class="reservecard_up">';
+				   card+='<div class="reservecard_time">'+data[i].booktime+'&nbsp预约</div>';
+				   card+='<div class="reservecard_state_checking">'+data[i].status+'</div></div>';
+				   card+='<div class="reservecard_body"><div class="reservecard_pic"><img src="images/'+data[i].imgurl+'"></div>';
+				   card+='<div class="reservecard_intr"><p>'+data[i].title+'</p><span class="time_p">'+data[i].pubtime+'开课</span><br/>';
+				   card+='开课地点:'+data[i].address+'<br>联系电话:'+data[i].tel+'</div></div>';
+				   card+='<div class="reservecard_down"><div class="to_detail"></div>';				   
+				   card+='</div></div>';
+			       $("#reservecardback").append(card);				   
+			   }
+
+		   }		   
+	   })
+	   	   
+})
+</script>
     <style>
         html,
         body {
@@ -23,34 +53,8 @@
     </style>
 </head>
 <body>
-<div class="reservecardback">
-    <div class="reservecard">
-
-        <div class="reservecard_up">
-            <div class="reservecard_time">2018-06-15 12:20:30</div>
-            <div class="reservecard_state_checking">待处理</div>
-        </div>
-
-        <div class="reservecard_body">
-            <div class="reservecard_pic"><img src="images/cbd.jpg"></div>
-            <div class="reservecard_intr">
-                <p>试听课：绝望</p>
-                <span class="time_p">2018-06-21开课</span><br/>
-                这是一门教你如何绝望的课程，让每一个有希望的人都陷入深深的绝望之中！
-            </div>
-
-        </div>
-
-        <div class="reservecard_down">
-            <div class="teacher_intr">
-                <p>授课老师：费圆圆</p>
-                <span class="time_p">授人以鱼不如授人以愚</span><br/>
-                国家级别IT僵尸，曾在人民大会堂修改宪法，成功连任300年“最佳IT讲师”！
-            </div>
-            <div class="teacher_pic"><img src="images/fyy.jpg"></div>
-        </div>
-
-    </div>
+<div class="reservecardback" id="reservecardback">
+    
 </div>
 <script src="js/mui.min.js"></script>
 <script>
