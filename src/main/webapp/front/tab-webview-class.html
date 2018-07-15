@@ -125,7 +125,7 @@
 				$(function(){
             		$.ajax({
             			type:"get",
-            			url:"/front/findLessons",
+            			url:"/front/findLessonsByAddress?qid=1",
             			async:true,
             			success:successfunction
             		});
@@ -160,8 +160,10 @@
 	            var html = [];
 	            var i = 0,
 	                j = 0;
-	            var m = getJsonLength(data)+1;
+	            /* 左侧 */
+	            var m = data.length+1;
 	            console.log(m);
+	            /*  */
 	            var n = 1;
 	            
 	            for(var key in data){
@@ -179,8 +181,16 @@
 	            	console.log(data[key]);
 	            	console.log(lessons);
 	            	for(j=0;j<n;j++){
-	            		
-	            		html.push('<li class="mui-table-view-cell mui-media"  onclick="showwindow()" id='+lessons[j].lid+'><a href="javascript:void(0)" id="'+lessons[j].lid+'"><img class="mui-media-object mui-pull-right" src="images/1.jpg"><div class="mui-media-body" id='+lessons[j].lid+'>' + lessons[j].lname + '<p class="mui-ellipsis"id='+lessons[j].lid+' >'+ lessons[j].pubtime +'</p></div></a></li>');
+	            		var card = '<li class="mui-table-view-cell mui-media"  onclick="showwindow()" id='+lessons[j].lid+'>'+
+	            						'<a href="javascript:void(0)" id="'+lessons[j].lid+'">'+
+	            						'	<img class="mui-media-object mui-pull-right" src="images/1.jpg">'+
+	            						'		<div class="mui-media-body" id='+lessons[j].lid+'>' + lessons[j].lname +
+	            						'			<p class="mui-ellipsis"id='+lessons[j].lid+' >'+ lessons[j].pubtime +'</p>'+
+	            						'		</div>'+
+	            						'	</a>'+
+	            						'</li>'
+	            		html.push(card)
+//	            		html.push('<li class="mui-table-view-cell mui-media"  onclick="showwindow()" id='+lessons[j].lid+'><a href="javascript:void(0)" id="'+lessons[j].lid+'"><img class="mui-media-object mui-pull-right" src="images/1.jpg"><div class="mui-media-body" id='+lessons[j].lid+'>' + lessons[j].lname + '<p class="mui-ellipsis"id='+lessons[j].lid+' >'+ lessons[j].pubtime +'</p></div></a></li>');
 /* 	            		html.push('<li class="mui-table-view-cell mui-media"><a href="javascript:;" id="'+lessons[j].lid+'"><img class="mui-media-object mui-pull-right" src="'+lessons[j].imgurl+'"><div class="mui-media-body">' + lessons[j].lname + '<p class="mui-ellipsis">'+ lessons[j].pubtime +'</p></div></a></li>') */
 	            		
 	            		//跳转
