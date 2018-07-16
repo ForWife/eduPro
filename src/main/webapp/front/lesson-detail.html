@@ -45,7 +45,7 @@
 				<div id="lesson-title2">
 					<!-- 课程名字 -->
 				</div>
-				<button type="button" style=" height: 30px; margin: 11.5px 5px 11.5px auto; float: right;" class="mui-btn mui-btn-warning mui-btn-outlined">预约</button>
+				<button  onclick="jumpToOrderView()" type="button" style=" height: 30px; margin: 11.5px 5px 11.5px auto; float: right;" class="mui-btn mui-btn-warning mui-btn-outlined">预约</button>
 			</div>
 
 			<div class="class_detail" style=" display: none;">
@@ -58,7 +58,7 @@
 					<div id="lesson-title">
 						<!-- 课程名字  -->
 					</div>
-					<button type="button" style=" height: 30px; margin: 11.5px 5px 11.5px auto; float: right;" class="mui-btn mui-btn-warning mui-btn-outlined">预约</button>
+					<button onclick="jumpToOrderView()" type="button" style=" height: 30px; margin: 11.5px 5px 11.5px auto; float: right;" class="mui-btn mui-btn-warning mui-btn-outlined">预约</button>
 				</div>
 
 				<div class="class_detail_word" id="text-context">
@@ -78,6 +78,11 @@
 		});
 	</script>
 	<script type="text/javascript">
+		
+		function jumpToOrderView(){
+			
+		}
+		
 		//将传来的值，变成json格式
 		function GetRequest() {
 			var url = location.search; //获取url中"?"符后的字串 
@@ -92,6 +97,7 @@
 			return theRequest;
 		}
 
+
 		var request = new Object();
 		request = GetRequest();
 		var lid = request["lid"];
@@ -99,11 +105,16 @@
 		console.log(lid);
 		console.log(branchid);
 		var longitude, latitude;
-
+		
+		function jumpToOrderView(){
+			
+			mui.openWindow("order-input.html?lid="+lid+"&branchid="+branchid);
+		}
 //		var str = location.href;
 //		console.log(str);
 //		var index = str.indexOf("=");
 //		var id = str.substr(index + 1);
+		
 		
 		$(function() {
 			$.ajax({

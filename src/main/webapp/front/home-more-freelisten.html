@@ -81,13 +81,15 @@
 			for (i = 0; i < m; i++) {
 				html.push('<div id="content' + i + '" class="mui-control-content"><ul class="mui-table-view">');
 				n = data[i].freelistenlist.length;
-			
+				console.log("..........n"+n);
+				var freeListens = data[i].freelistenlist;
+				console.log(freeListens);
 				for (j = 0; j < n; j++) {
-					var card = '<li class="mui-table-view-cell mui-media"  onclick="showwindow()" id="'+data[i].freelistenlist[j].id+'" branchid="'+data[i].address.id+'">'+
-	            						'<a href="javascript:void(0)" id="'+data[i].freelistenlist[j].id+'" branchid="'+data[i].address.id+'">'+
-	            						'	<img class="mui-media-object mui-pull-right" src="../upload/'+data[i].freelistenlist.imgurl+'">'+
-	            						'		<div class="mui-media-body" id='+data[i].freelistenlist[j].id+' branchid="'+data[i].address.id+'">' + data[i].freelistenlist.title +
-	            						'			<p class="mui-ellipsis"id='+data[i].freelistenlist[j].id+' branchid="'+data[i].address.id+'">'+ data[i].freelistenlist.status +'</p>'+
+					var card = '<li class="mui-table-view-cell mui-media"  onclick="showwindow()" id="'+freeListens[j].id+'" branchid="'+data[i].address.id+'">'+
+	            						'<a href="javascript:void(0)" id="'+freeListens[j].id+'" branchid="'+freeListens[j].id+'">'+
+	            						'	<img class="mui-media-object mui-pull-right" src="../upload/'+freeListens[j].imgurl+'">'+
+	            						'		<div class="mui-media-body" id='+freeListens[j].id+' branchid="'+data[i].address.id+'">' + freeListens[j].title +
+	            						'			<p class="mui-ellipsis"id='+freeListens[j].id+' branchid="'+data[i].address.id+'">'+ freeListens[j].status +'</p>'+
 	            						'		</div>'+
 	            						'	</a>'+
 	            						'</li>'

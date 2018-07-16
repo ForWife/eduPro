@@ -13,9 +13,12 @@
         update address set status='已删除' where id=#{id}
     </update>
     <insert id="addBranch" parameterType="com.neu.beans.Address">
-        insert into address(qid,branch,address,tel,longitude,latitude) values(#{qid},#{branch},#{address},#{tel},#{longitude},#{latitude})
+        insert into address(qid,branch,address,tel,longitude,latitude,status)
+        values(#{qid},#{branch},#{address},#{tel},#{longitude},#{latitude},#{status})
     </insert>
     <update id="editBranch" parameterType="com.neu.beans.Address">
-        update address set branch=#{branch},address=#{address},tel=#{tel},longitude=#{longitude},latitude=#{latitude} where id=#{id}
+        update address set
+        branch=#{branch},address=#{address},tel=#{tel},longitude=#{longitude},latitude=#{latitude}
+        where id=#{id}
     </update>
 </mapper>
