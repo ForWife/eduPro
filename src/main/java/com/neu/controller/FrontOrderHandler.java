@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.neu.beans.SOrder;
 import com.neu.po.OrderVO;
 import com.neu.service.FrontOrderService;
 
@@ -55,4 +56,15 @@ public class FrontOrderHandler
 		  System.out.println("....servlet....findordercancel()......");
 		  return frontorderService.findordercancel();
       }
+	  
+	  @RequestMapping(value="/front/addOrder")
+	  @ResponseBody
+	  public String addOrder(SOrder sorder) throws Exception{
+		  int count = frontorderService.addOrder(sorder);
+		  if(count>0)
+			  return "{\"result\":\"success\"}";
+		  else
+			  return "{\"result\":\"failed\"}";
+			  
+	  }
 }

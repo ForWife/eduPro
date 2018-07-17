@@ -16,10 +16,10 @@ public interface FrontCircleOfFriendsMapper {
 	public List<MessageReply> getMessageReply(int mid) throws Exception;
 	public Address getBranchAddress(int branchid) throws Exception;
 	
-//	点赞 增加点赞和删除点赞
+
 	public int addlike(Map<String, Object> map) throws Exception;
 	public int deletelike(Map<String, Object> map) throws Exception;
 	public MessageLike findlike(Map<String, Object> map) throws Exception;
-//	增加评论
+
 	public int addreply(Map<String, Object> map) throws Exception;
 }

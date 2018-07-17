@@ -14,5 +14,9 @@
     	SELECT * FROM address WHERE id = #{branchid}
 </select>
 
+<insert id="addOrder" parameterType="com.neu.beans.SOrder">
+	INSERT INTO sorder (lid,openid,total,actual,`status`,ordertime,nickname,tel,branchid) 
+VALUES(#{lid},'oC9yV5HNntbgqDyPEg2J0YSY8dC8',2,2,'待付款',NOW(),#{nickname},#{tel},#{branchid})
+</insert>
 
 </mapper>
