@@ -6,6 +6,6 @@ import com.neu.beans.Teacher;
 
 public interface FrontTeacherService {
 
-	List<Teacher> findTeacher(int qid);
+	List<Teacher> findTeacher(int qid) throws Exception;
 
 }

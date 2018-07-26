@@ -20,17 +20,20 @@ public class FrontHomeHandler {
 	
 	@RequestMapping(value="/front/getImgs")
 	@ResponseBody
-	public List<Swiper> getImgs(int qid) throws Exception{
+	public List<String> getImgs(int qid) throws Exception{
+		
+		
 		System.out.println("...>FrontHomeHandler....>getImgs");
-		List<Swiper> list = homeService.getHomeImg(qid);
-		for (Swiper swiper : list) {
-			System.out.println(swiper.getImgurl());
+		List<String> list = homeService.getHomeImg(qid);
+		for (String	str : list) {
+			System.out.println(str);
 		}
+		
 		return list;
 	}
 	
 	
-//	Ê×Ò³¿Î³Ì
+//	home two latest lesson
 	@RequestMapping(value="/front/findTwoNewLesson")
 	@ResponseBody
 	public List<Lesson> findTwoNewLesson(int qid) throws Exception{
@@ -38,7 +41,7 @@ public class FrontHomeHandler {
 		return homeService.getTwoLesson(qid);
 	}
 	
-//	Ê×Ò³ÊÔÌý¿Î
+//	home two latest freelisten
 	@RequestMapping(value= "/front/findTwoNewFreeListen")
 	@ResponseBody
 	public List<FreeListen> findTwoFreeListen(int qid) throws Exception{

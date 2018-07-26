@@ -80,4 +80,13 @@
     <!-- <aop:config>
     <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neu.service.impl.*.*(..))"/>
     </aop:config> -->
+    
+    <!-- 配置redis的依赖注入 -->
+    <bean id="config" class="redis.clients.jedis.JedisPoolConfig"></bean>
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+    	<!-- 通过构造方法来传值 以下是构造方法的熟悉-->
+    	<constructor-arg name="poolConfig" ref="config"></constructor-arg>
+    	<constructor-arg name="host" value="123.206.32.30"></constructor-arg>
+    	<constructor-arg name="port" value="6379"></constructor-arg>
+    </bean>
 </beans>

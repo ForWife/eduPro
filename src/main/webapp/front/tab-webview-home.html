@@ -204,16 +204,16 @@
 	})
 	
 	function imgsuccessfunction(data){
-//		console.log("么么啾");
-//		console.log(data);
+		console.log("么么啾")
+		console.log(data);
 //		console.log(data[1]);
 		var length = data.length;
-		$("#img0").attr('src','../upload/'+data[length-1].imgurl);
-		$("#img1").attr("src","../upload/"+data[0].imgurl);
-		$("#img2").attr("src","../upload/"+data[1].imgurl);
-		$("#img3").attr("src","../upload/"+data[2].imgurl);
-		$("#img4").attr("src","../upload/"+data[3].imgurl);
-		$("#img5").attr("src","../upload/"+data[0].imgurl);
+		$("#img0").attr('src','../upload/'+data[length-1]);
+		$("#img1").attr("src","../upload/"+data[0]);
+		$("#img2").attr("src","../upload/"+data[1]);
+		$("#img3").attr("src","../upload/"+data[2]);
+		$("#img4").attr("src","../upload/"+data[3]);
+		$("#img5").attr("src","../upload/"+data[0]);
 		
 //		 var length = data.length;
 		//在开头增加一个节点，节点为最后一张图

@@ -55,13 +55,13 @@ public class FrontCircleOfFriendsServiceBean implements FrontCircleOfFriendsServ
 			int number = circleOfFriendsMapper.addlike(map);
 			if(number>0){
 				isok=true;
-				System.out.println("。。。。。添加赞成功");
+				
 			}
 		}else{
 			int denum = circleOfFriendsMapper.deletelike(map);
 			if(denum>0){
 				isok=true;
-				System.out.println("。。。。。删除赞成功");
+				
 			}
 		}
 		return isok;
