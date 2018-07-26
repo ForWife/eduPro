@@ -19,7 +19,7 @@ public class FrontTeacherHandler {
 	
 	@RequestMapping(value = "/front/ajaxteacher")
 	@ResponseBody
-	  public List<Teacher> findEnterpraise(int qid)
+	  public List<Teacher> findEnterpraise(int qid) throws Exception
 	  {
 		  System.out.println("....servlet....findTeacher()......");
 		  return frontteacherService.findTeacher(qid);
