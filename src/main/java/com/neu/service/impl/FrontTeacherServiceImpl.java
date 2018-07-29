@@ -32,7 +32,6 @@ public class FrontTeacherServiceImpl implements FrontTeacherService {
 	@Override
 	public List<Teacher> findTeacher(int qid) throws Exception{
 		System.out.println("...Service...findTeacher().....");
-		Class<Teacher> type = null;
 		List<Teacher> list=new ArrayList<Teacher>();	
 //		Jedis jedis = RedisConnectionPoor.getJedis();
 		Gson gson = new Gson();
@@ -43,27 +42,22 @@ public class FrontTeacherServiceImpl implements FrontTeacherService {
 			String teachers = gson.toJson(mapper.getallteacher(qid));
 			jedis.set("teacher"+qid, teachers);
 			JsonArray jsonarray = new JsonParser().parse(jedis.get("teacher"+qid)).getAsJsonArray();
-			System.out.println("0");
+//			System.out.println("0");
 			for (JsonElement jsonElement : jsonarray) {
-				System.out.println("1");
-				System.out.println(gson.fromJson(jsonElement, Teacher.class));
-				list.add(gson.fromJson(jsonElement, type));
+//				System.out.println("1");
+//				System.out.println(gson.fromJson(jsonElement, Teacher.class));
+				list.add(gson.fromJson(jsonElement, Teacher.class));
 			}
-			System.out.println(list+"2-");
-			
-		
-			
+//			System.out.println(list+"2-");
 		}else{
-			System.out.println("2");
+//			System.out.println("2");
 			JsonArray jsonarray = new JsonParser().parse(jedis.get("teacher"+qid)).getAsJsonArray();
 
 			for (JsonElement jsonElement : jsonarray) {
 				System.out.println(jsonElement);
 				list.add(gson.fromJson(jsonElement, Teacher.class));
 				}
-			System.out.println(list+"listss");
 		}
-//		list = mapper.getallteacher(qid);
 		return list;
 	}
 }

@@ -20,6 +20,9 @@
 	SELECT * FROM address WHERE id  = #{branchid}
 </select>
 
+<select id="getLikeId" parameterType="map" resultType="int">
+	SELECT id FROM messagelike WHERE mid=#{mid} and nickname = #{nickname}
+</select>
 <insert id="addlike" parameterType="map">
 	INSERT INTO messagelike(mid,nickname,stime) VALUES(#{mid},#{nickname},now())
 </insert>

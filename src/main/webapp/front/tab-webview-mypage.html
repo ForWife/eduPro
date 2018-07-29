@@ -9,6 +9,25 @@
 		
 		<link rel="stylesheet" type="text/css" href="css/mui.min.css">
 		<link rel="stylesheet" type="text/css" href="css/mypage.css">
+        <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <script>
+    	
+    $(function(){
+    $.ajax({
+		   url:"/front/getsession",
+		   success:function(data)
+		   {
+			   console.log(data.uname);
+			   var mypic='<img src="../upload/'+data.userimg+'" class="mytouxiang">';
+			   var myname= data.uname;			   
+			   $("#mypic").append(mypic);
+			   $("#myname").append(myname);
+		   }	
+	   })
+	   
+})
+    </script>
+
 
 		<style>
 			#list {
@@ -32,8 +51,8 @@
 		
 			<div class="up_back">
 				<div class="myinfo">
-					<div class="mypic"><img src="../upload/fyy.jpg" class="mytouxiang"></div>
-					<div class="myname">费圆圆</div>
+					<div id="mypic" class="mypic"></div>
+					<div id="myname" class="myname"></div>
 				</div>
 			</div>
 			

@@ -1,3 +1,4 @@
+
 package com.neu.beans;
 
 public class Userlist {
@@ -5,6 +6,7 @@ public class Userlist {
 	private String uname;
 	private String tel;
 	private String openid;
+	private String userimg;
 	public int getUid() {
 		return uid;
 	}
@@ -29,4 +31,11 @@ public class Userlist {
 	public void setOpenid(String openid) {
 		this.openid = openid;
 	}
+	public String getUserimg() {
+		return userimg;
+	}
+	public void setUserimg(String userimg) {
+		this.userimg = userimg;
+	}
 }
+

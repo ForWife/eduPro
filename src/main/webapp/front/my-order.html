@@ -11,6 +11,111 @@
         <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
         <link rel="stylesheet" href="css/mui.min.css">
          <script>
+         function deleteorder(oid)
+         {
+    		 $.ajax({
+    			   url:"ajaxdeleteorder",
+    			   data:{myoid:oid},
+    			   dataType:"text",
+    			   success:function(data)
+    			   {
+    				   if(data=='1')
+    					   {
+    					   mui.toast('成功取消订单！'); 
+    					  
+    					   $("#all"+oid).remove();	
+    					   $("#paying"+oid).remove();	
+    					   }
+    				   else
+    					   {
+    					   mui.toast('取消订单失败！'); 
+    					   
+    					   }
+    			  
+    			   }
+    		 })
+    	};
+
+    	function pay(cardobject)
+    	{
+    		var object=JSON.stringify(cardobject);
+    		 $.ajax({
+    			   url:"ajaxpay",
+    			   data:{myoid:cardobject.sorder.oid},
+    			   dataType:"text",
+    			   success:function(data)
+    			   {
+    				   if(data=='1')
+    				   {
+    					   mui.toast('支付成功！'); 
+    					   $("#all"+cardobject.sorder.oid).remove();	
+    					   $("#paying"+cardobject.sorder.oid).remove();	
+    					   
+    					   var card ='<div class="ordercard" id="paied'+cardobject.sorder.oid+'"><div class="ordercard_up">';
+    					   card+='<div class="ordercard_num">'+(new Date(cardobject.sorder.ordertime)).Format("yyyy-MM-dd hh:mm:ss")+'订购</div>';
+    					   card+='<div class="ordercard_state_paied">已付款</div></div>';				  
+    					   card+=' <div class="ordercard_body"><div class="ordercard_pic"><img src="../upload/'+cardobject.lesson.imgurl+'"></div>';
+    					   card+=' <div class="ordercard_name"><p>'+cardobject.lesson.lname+'</p>';
+    					   card+='<span class="time_p">'+(new Date(cardobject.lesson.pubtime)).Format("yyyy-MM-dd hh:mm:ss")+'开课</span><br/>';
+    					   card+='开课地点:'+cardobject.address.address+'<br/>';
+    					   card+='联系电话:'+cardobject.address.tel+'<br/></div>';
+    					   card+='<div class="ordercard_price">￥'+cardobject.lesson.lprice+'</div> </div>';
+    					   card+='<div class="ordercard_down">';
+    					   card+="<div class='orderbuttonpay'><button type='button' onclick='cancel("+object+")'>退款</button> </div>";					  				  
+    					   card+='</div>';
+    					   
+    					   $("#orderback1").append(card);
+    					   $("#orderback3").append(card);
+    				   }
+    			   else
+    				   {
+    				   mui.toast('支付失败！'); 
+    				   }
+    				  
+    			   }
+    		 })
+    		
+    	};
+
+    	function cancel(cardobject)             
+    	{
+    		 $.ajax({
+    			   url:"ajaxcancel",
+    			   data:{myoid:cardobject.sorder.oid},
+    			   dataType:"text",
+    			   success:function(data)
+    			   {
+    				   if(data=='1')
+    				   {
+    					   mui.toast('成功申请退款！'); 
+    					    					   
+    					   $("#all"+cardobject.sorder.oid).remove();
+    					   $("#paied"+cardobject.sorder.oid).remove();
+    					   
+    					   var card ='<div class="ordercard" id="cancel'+cardobject.sorder.oid+'"><div class="ordercard_up">';
+    					   card+='<div class="ordercard_num">'+(new Date(cardobject.sorder.ordertime)).Format("yyyy-MM-dd hh:mm:ss")+'订购</div>';
+    					   card+='<div class="ordercard_state_cancel">退款中</div></div>';						
+    					   card+=' <div class="ordercard_body"><div class="ordercard_pic"><img src="../upload/'+cardobject.lesson.imgurl+'"></div>';
+    					   card+=' <div class="ordercard_name"><p>'+cardobject.lesson.lname+'</p>';
+    					   card+='<span class="time_p">'+(new Date(cardobject.lesson.pubtime)).Format("yyyy-MM-dd hh:mm:ss")+'开课</span><br/>';
+    					   card+='开课地点:'+cardobject.address.address+'<br/>';
+    					   card+='联系电话:'+cardobject.address.tel+'<br/></div>';
+    					   card+='<div class="ordercard_price">￥'+cardobject.lesson.lprice+'</div> </div>';
+    					   card+='<div class="ordercard_down">';				   
+    					   card+='</div>';
+    					   $("#paied"+cardobject.sorder.oid).remove();
+    					   $("#orderback1").append(card);
+    					   $("#orderback5").append(card);
+    				   }
+    			   else
+    				   {
+    				   mui.toast('申请退款失败！'); 
+    				   }
+    				  
+    			   }
+    		 })
+    		
+    	};
     $(function(){
 	   	 	  
 	   $.ajax({
@@ -19,8 +124,8 @@
 		   {
 			   for(var i=0; i<data.length;i++)
 			   {
-				  
-				   var card ='<div class="ordercard"><div class="ordercard_up">';
+				   var cardobject=JSON.stringify(data[i]);
+				   var card ='<div class="ordercard" id="all'+data[i].sorder.oid+'"><div class="ordercard_up">';
 				   card+='<div class="ordercard_num">'+(new Date(data[i].sorder.ordertime)).Format("yyyy-MM-dd hh:mm:ss")+'订购</div>';
 				   switch(data[i].sorder.status)
 				   {
@@ -50,16 +155,19 @@
 				   switch(data[i].sorder.status)
 				   {
 				   case "待付款"	:				  
-					   card+=' <div class="orderbutton"><button type="button">取消</button></div><div class="orderbuttonpay"><button type="button">付款</button></div>';
+					   card+=" <div class='orderbutton'><button type='button' onclick='deleteorder("+data[i].sorder.oid+")'>取消</button></div><div class='orderbuttonpay'><button type='button' onclick='pay("+cardobject+")'>付款</button></div>";
 					   break;
 				   case "已付款":
-					   card+='<div class="orderbuttonpay"><button type="button">退款</button> </div>';
+					   card+="<div class='orderbuttonpay'><button type='button' onclick='cancel("+cardobject+")'>退款</button> </div>";
 					   break;
 				   case "已使用":
 					
 					   break;			   
 				   case "已退款":
 					 
+					   break;
+				   case "退款中":
+						 
 					   break;
 				   }
 				   card+='</div>';
@@ -74,8 +182,8 @@
 		   {
 			   for(var i=0; i<data.length;i++)
 			   {
-				  
-				   var card ='<div class="ordercard"><div class="ordercard_up">';
+				   var cardobject=JSON.stringify(data[i]);
+				   var card ='<div class="ordercard" id="paying'+data[i].sorder.oid+'"><div class="ordercard_up">';
 				   card+='<div class="ordercard_num">'+(new Date(data[i].sorder.ordertime)).Format("yyyy-MM-dd hh:mm:ss")+'订购</div>';				   
 				   card+='<div class="ordercard_state_paying">待付款</div></div>';
 				   card+=' <div class="ordercard_body"><div class="ordercard_pic"><img src="../upload/'+data[i].lesson.imgurl+'"></div>';
@@ -85,7 +193,7 @@
 				   card+='联系电话:'+data[i].address.tel+'<br/></div>';
 				   card+='<div class="ordercard_price">￥'+data[i].lesson.lprice+'</div> </div>';
 				   card+='<div class="ordercard_down">';			  
-				   card+=' <div class="orderbutton"><button type="button">取消</button></div><div class="orderbuttonpay"><button type="button">付款</button></div>';					 
+				   card+=" <div class='orderbutton'><button type='button' onclick='deleteorder("+data[i].sorder.oid+")'>取消</button></div><div class='orderbuttonpay'><button type='button' onclick='pay("+cardobject+")'>付款</button></div>"; 
 				   card+='</div>';
 			       $("#orderback2").append(card);				   
 			   }
@@ -99,8 +207,8 @@
 		   {
 			   for(var i=0; i<data.length;i++)
 			   {
-				  
-				   var card ='<div class="ordercard"><div class="ordercard_up">';
+				   var cardobject=JSON.stringify(data[i]);
+				   var card ='<div class="ordercard" id="paied'+data[i].sorder.oid+'"><div class="ordercard_up">';
 				   card+='<div class="ordercard_num">'+(new Date(data[i].sorder.ordertime)).Format("yyyy-MM-dd hh:mm:ss")+'订购</div>';
 				   card+='<div class="ordercard_state_paied">已付款</div></div>';				  
 				   card+=' <div class="ordercard_body"><div class="ordercard_pic"><img src="../upload/'+data[i].lesson.imgurl+'"></div>';
@@ -110,7 +218,7 @@
 				   card+='联系电话:'+data[i].address.tel+'<br/></div>';
 				   card+='<div class="ordercard_price">￥'+data[i].lesson.lprice+'</div> </div>';
 				   card+='<div class="ordercard_down">';				  
-				   card+='<div class="orderbuttonpay"><button type="button">退款</button> </div>';					  
+				   card+="<div class='orderbuttonpay'><button type='button' onclick='cancel("+cardobject+")'>退款</button> </div>";				  
 				   card+='</div>';
 			       $("#orderback3").append(card);				   
 			   }
@@ -125,7 +233,7 @@
 			   for(var i=0; i<data.length;i++)
 			   {
 				  
-				   var card ='<div class="ordercard"><div class="ordercard_up">';
+				   var card ='<div class="ordercard" id="used'+data[i].sorder.oid+'"><div class="ordercard_up">';
 				   card+='<div class="ordercard_num">'+(new Date(data[i].sorder.ordertime)).Format("yyyy-MM-dd hh:mm:ss")+'订购</div>';
                    card+='<div class="ordercard_state_used">已使用</div></div>';
 				   card+=' <div class="ordercard_body"><div class="ordercard_pic"><img src="../upload/'+data[i].lesson.imgurl+'"></div>';
@@ -148,7 +256,7 @@
 			   for(var i=0; i<data.length;i++)
 			   {
 				  
-				   var card ='<div class="ordercard"><div class="ordercard_up">';
+				   var card ='<div class="ordercard" id="cancel'+data[i].sorder.oid+'"><div class="ordercard_up">';
 				   card+='<div class="ordercard_num">'+(new Date(data[i].sorder.ordertime)).Format("yyyy-MM-dd hh:mm:ss")+'订购</div>';
 				   switch(data[i].sorder.status)
 				   {		   
@@ -175,6 +283,8 @@
 	   
 })
 
+
+
 Date.prototype.Format = function (fmt) { //author:czy 
             var o = {  
                 "M+": this.getMonth() + 1, //月份  
@@ -190,6 +300,8 @@ Date.prototype.Format = function (fmt) { //author:czy
                 if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));  
             return fmt;  
         };
+        
+        
 </script>
 <style>
         html,
@@ -316,13 +428,5 @@ Date.prototype.Format = function (fmt) { //author:czy
 	</body>
 
 </html>
-
-
-
-
-
-
-
-
 
 

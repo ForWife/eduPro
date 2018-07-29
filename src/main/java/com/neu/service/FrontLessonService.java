@@ -16,12 +16,12 @@ public interface FrontLessonService {
 	public Map<String, List<Lesson>> findLessonListByCategory() throws Exception;
 	public LessonAndAddress findLessonAndAddressById(Integer lid, Integer branchid) throws Exception;
 	
-//	按照地址显示课程
+
 	public List<AddressandLesson> findLessonsByAddress(int qid) throws Exception;
 
-//	试听课，按地址显示
+
 	public List<FreeListenByAddress> findFreeListens(int qid) throws Exception;
 	
-//	试听课，按照类别显示
+
 	public List<FreeListenByType> findFreelistenByType(int qid) throws Exception;
 }

@@ -2,12 +2,14 @@ package com.neu.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.neu.beans.SOrder;
 import com.neu.po.OrderVO;
 import com.neu.service.FrontOrderService;
 
@@ -57,14 +59,30 @@ public class FrontOrderHandler
 		  return frontorderService.findordercancel();
       }
 	  
-	  @RequestMapping(value="/front/addOrder")
+	  @RequestMapping(value = "/front/ajaxdeleteorder")
 	  @ResponseBody
-	  public String addOrder(SOrder sorder) throws Exception{
-		  int count = frontorderService.addOrder(sorder);
-		  if(count>0)
-			  return "{\"result\":\"success\"}";
-		  else
-			  return "{\"result\":\"failed\"}";
-			  
-	  }
+	  public int deleteorder(HttpServletRequest request,HttpServletResponse response)
+	  {
+		  int oid=Integer.parseInt(request.getParameter("myoid"));
+		  System.out.println("....servlet....deleteorder()......");
+		  return frontorderService.deleteorder(oid);
+      }
+	  
+	  @RequestMapping(value = "/front/ajaxpay")
+	  @ResponseBody
+	  public int pay(HttpServletRequest request,HttpServletResponse response)
+	  {
+		  int oid=Integer.parseInt(request.getParameter("myoid"));
+		  System.out.println("....servlet....pay()......");
+		  return frontorderService.pay(oid);
+      }
+	  
+	  @RequestMapping(value = "/front/ajaxcancel")
+	  @ResponseBody
+	  public int cancel(HttpServletRequest request,HttpServletResponse response)
+	  {
+		  int oid=Integer.parseInt(request.getParameter("myoid"));
+		  System.out.println("....servlet....cancel()......");
+		  return frontorderService.cancel(oid);
+      }
 }

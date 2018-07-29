@@ -7,16 +7,25 @@
 <select id="getOrderByOpenid" resultType="com.neu.beans.SOrder" parameterType="String">
 	SELECT * FROM sorder WHERE  `openid`= #{openid} order by ordertime desc
 </select>
-<select id="getLesssonById" resultType="com.neu.beans.Lesson" parameterType="int">
+
+<select id="getLesssonById" resultType="com.neu.beans.Lesson" parameterType="int" >
     	SELECT * FROM lesson WHERE lid = #{lid}
 </select>
+
 <select id="getLessonAdderss" resultType="com.neu.beans.Address" parameterType="int">
     	SELECT * FROM address WHERE id = #{branchid}
 </select>
 
-<insert id="addOrder" parameterType="com.neu.beans.SOrder">
-	INSERT INTO sorder (lid,openid,total,actual,`status`,ordertime,nickname,tel,branchid) 
-VALUES(#{lid},'oC9yV5HNntbgqDyPEg2J0YSY8dC8',2,2,'待付款',NOW(),#{nickname},#{tel},#{branchid})
-</insert>
+<delete id="deleteorderbyoid" parameterType="int">
+      delete  from sorder where oid=#{oid}
+</delete>
+
+<update id="paybyoid" parameterType="int">
+     update sorder set status='已付款' where oid=#{oid}
+</update>
+
+<update id="cancelbyoid" parameterType="int">
+      update sorder set status='退款中' where oid=#{oid}
+</update>
 
 </mapper>

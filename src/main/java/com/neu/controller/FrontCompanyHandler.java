@@ -18,7 +18,7 @@ public class FrontCompanyHandler {
 	
       @RequestMapping(value = "/front/ajaxcompany")
  	  @ResponseBody
- 	  public Enterprise findEnterpraise(int qid)
+ 	  public Enterprise findEnterpraise(int qid) throws Exception
  	  {
  		  System.out.println("....servlet....findEnterprise()......");
  		  return frontcompanyService.findEnterprise(qid);

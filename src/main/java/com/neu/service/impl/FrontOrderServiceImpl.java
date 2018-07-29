@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.neu.beans.Address;
 import com.neu.beans.Lesson;
@@ -152,17 +151,46 @@ public class FrontOrderServiceImpl implements FrontOrderService {
 		return list;
 	}
 
-	@Transactional
 	@Override
-	public int addOrder(SOrder sorder) throws Exception {
-		System.out.println("..>FrontOrderServiceBean..>addOrder");
-		int count = mapper.addOrder(sorder);
-		if(count>0){
-			System.out.println("addOK...0.0");
-		}else{
-			System.out.println("addfailed...0.0");
+	public int deleteorder( int oid) {
+		System.out.println("...Service...deleteorder().....");
+		int a;	
+		try {
+			a=mapper.deleteorderbyoid(oid);			
+		} catch (Exception e) {
+			a=0;
+			e.printStackTrace();
 		}
-		return count;
+		return a;
+	}
+
+	@Override
+	public int pay(int oid) {
+		System.out.println("...Service...pay().....");
+		int a;			
+		try {
+			a=mapper.paybyoid(oid);
+						
+		} catch (Exception e) {
+			a=0;
+			e.printStackTrace();
+		}
+		return a;
+	}
+
+	@Override
+	public int cancel(int oid) {
+		System.out.println("...Service...cancel().....");
+		int a;			
+		try {
+			a=mapper.cancelbyoid(oid);
+			
+		
+		} catch (Exception e) {
+			a=0;
+			e.printStackTrace();
+		}
+		return a;
 	}
 	
 

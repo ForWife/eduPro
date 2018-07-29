@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.client.CircularRedirectException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,20 +48,21 @@ public class FrontCircleOfFriendsServiceBean implements FrontCircleOfFriendsServ
 
 	@Override
 	@Transactional
-	public boolean dolike(Map<String, Object> map) throws Exception {
+	public int dolike(Map<String, Object> map) throws Exception {
 		System.out.println(".........FrontCircleOfFriendsServiceBean........................dolike");
-		boolean isok = false;
+		int isok = 0;
 		MessageLike mlike = circleOfFriendsMapper.findlike(map);
 		if(mlike==null){
 			int number = circleOfFriendsMapper.addlike(map);
+			int id = circleOfFriendsMapper.getLikeId(map);
 			if(number>0){
-				isok=true;
-				
+				isok=id;
 			}
 		}else{
+			int id = circleOfFriendsMapper.getLikeId(map);
 			int denum = circleOfFriendsMapper.deletelike(map);
 			if(denum>0){
-				isok=true;
+				isok=-id;
 				
 			}
 		}

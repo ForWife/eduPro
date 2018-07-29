@@ -27,13 +27,16 @@ public class FrontCircleOfFriendsHandler {
 	@RequestMapping(value="/front/like")
 	@ResponseBody
 	public String like(int mid,String nickname) throws Exception{
-		//需要传入点赞人姓名和mid朋友圈id
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mid", mid);
 		map.put("nickname", nickname);
-		boolean isok = circleOfFriendsService.dolike(map);
-		if(isok==true){
-			return "{\"result\":\"success\"}";
+		int isok = circleOfFriendsService.dolike(map);
+		if(isok>0){
+			return "{\"result\":\"add\",\"id\":\""+isok+"\"}";
+		}else if(isok<0){
+			
+			return "{\"result\":\"del\",\"id\":\""+-isok+"\"}";
 		}else{
 			return "{\"result\":\"false\"}";
 		}
@@ -49,7 +52,7 @@ public class FrontCircleOfFriendsHandler {
 		map.put("content", content);
 		boolean isok = circleOfFriendsService.addreply(map);
 		if(isok){			
-			System.out.println("..........>handler 点赞 成功");
+			System.out.println("..........>handler reply");
 			return "{\"result\":\"success\"}";
 		}else{
 			System.out.println("..........>handler failed");

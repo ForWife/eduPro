@@ -4,6 +4,6 @@ import com.neu.beans.Enterprise;
 
 public interface FrontCompanyService {
 
-    public 	Enterprise findEnterprise(int qid);
+    public 	Enterprise findEnterprise(int qid) throws Exception;
   
 }

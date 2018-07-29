@@ -194,6 +194,23 @@
 
 </script>
 <script>
+	var session;
+
+//$(function(){
+//  $.ajax({
+//		   url:"/front/getsession",
+////		   async:true,
+//		   success:function(data)
+//		   {
+//			   console.log(data.uname);
+////			   var mypic='<img src="../upload/'+data.userimg+'" class="mytouxiang">';
+//			   session = data;			   
+////			   $("#mypic").append(mypic);
+////			   $("#myname").append(myname);
+//		   }	
+//	   })
+//	   
+//})
 $(function(){
 	$.ajax({
 		type:"get",
@@ -204,24 +221,89 @@ $(function(){
 			console.log(data)
 		}
 	});
+	
+	$.ajax({
+		   url:"/front/getsession",
+		   async:false,
+		   success:function(data)
+		   {
+			   console.log(data.uname);
+//			   var mypic='<img src="../upload/'+data.userimg+'" class="mytouxiang">';
+			   session = data;			   
+//			   $("#mypic").append(mypic);
+//			   $("#myname").append(myname);
+		   }	
+	   })
 })
 
 
-	$("#replybtn").click(function(){
-	var mid = $(this).attr("data-id");
-	console.log("按键成功");
-	console.log(mid);
-  	$("#context").toggle();
-})
+//	$("#replybtn").click(function(){
+//	var mid = $(this).attr("data-id");
+//	console.log("按键成功");
+//	console.log(mid);
+//	$("#context").toggle();
+//})
 
 function like(mid){
-	
+//	console.log(mid);
+	$.ajax({
+		type:"get",
+		url:"/front/like?mid="+mid+"&nickname="+session.uname+"",
+		dataType:"json",
+		async:true,
+		success:function(data){
+			console.log("ok");
+			console.log(data);
+//			console.log(data.result);
+			if(data.result=="add"){
+				console.log(data);
+				$("#messagelike"+mid).append('<span id="likeid'+data.id+'">  '+session.uname+'</span>')
+				$("#likebtn"+mid).attr("class","fRight spanColor mui-icon-extra mui-icon-extra-heart-filled");
+				console.log(session.uname);
+				console.log("add"+"likeid"+data.id);
+			}else if(data.result=="del"){
+				console.log(data)
+				$("#likeid"+data.id).remove();
+				console.log("del"+"likeid"+data.id);
+				$("#likebtn"+mid).attr("class","fRight iconSize mui-icon-extra mui-icon-extra-heart");
+			}
+		}
+	});
 }
 
+function showarea(mid){
+	$("#context"+mid).toggle();
+}
+function reply(mid){
+	console.log("reply")
+	var content = $("#areaJs"+mid).val()
+	console.log(content)
+	console.log(mid)
+	$.ajax({
+		type:"get",
+		url:"/front/reply",
+		async:true,
+		data:{"mid":mid,"content":content,"nickname":session.uname},
+		dataType:"json",
+		success:function(data){
+			console.log(data)
+			if(data.result=="success"){
+				console.log("success");
+				$("#areaJs"+mid).val("");
+				var reply = '<div style = "margin-left: 15px;">'
+								+session.uname+':'+content;
+							+'</div>';
+				$("#reply"+mid).append(reply);
+			}
+		}
+	});
+}
 
 function successfunction(data){
+	
 	console.log(data)
 	for(var i = 0; i < data.length; i++) {
+		var liked = false;
 		var card = '<div class="mui-card">';
 		card += ' 	<div class="mui-card-header">'+data[i].address.address+'</div>';
 		card += ' <div class="mui-card-content">';
@@ -240,34 +322,52 @@ function successfunction(data){
 		
 		card += '<span>'+new Date(parseInt(data[i].message.mtime)).toLocaleString().replace(/:\d{1,2}$/,' ')+'</span>';
 		
-        
-		card += '<button data-id="'+data[i].message.mid+'" class="fRight iconSize mui-icon mui-icon-chatbubble replybtn"><span></span></button>';
-		card += '<a class="fRight iconSize mui-icon-extra mui-icon-extra-heart" href="javascript:like('+data[i].message.mid+');"></a>';
+        for (var k = 0; k < data[i].messageLike.length; k++) {
+			if(data[i].messageLike[k].nickname==session.uname){
+				liked = true;
+			}
+		}
+		card += '<a  class="fRight iconSize mui-icon mui-icon-chatbubble replybtn" href="javascript:showarea('+data[i].message.mid+');"><span></span></a>';
+		if(liked){
+			card += '<a id="likebtn'+data[i].message.mid+'" class="fRight spanColor mui-icon-extra mui-icon-extra-heart-filled " href="javascript:like('+data[i].message.mid+');"></a>';
+		}else{
+			card += '<a id="likebtn'+data[i].message.mid+'" class="fRight iconSize mui-icon-extra mui-icon-extra-heart" href="javascript:like('+data[i].message.mid+');"></a>';
+		}
 		card += '</p>'
 		card += '</div>';
 		
 		card += '<div class="mui-card-content" style = "border-top: #d9d9d9 1px solid;">';
 		
 		card +='<div style = "margin-left: 15px;">';
-		for (var k = 0; k < data[i].messageLike.length; k++) {
-		card += '<p>';
-		card += '<span class="spanColor mui-icon-extra mui-icon-extra-heart-filled"></span>';
-		card += '<span>'+data[i].messageLike[k].nickname+'</span>';
-		card += '</p>';
-		}
 		
+		card += '<p id="messagelike'+data[i].message.mid+'">';
+		card += '<span class="spanColor mui-icon-extra mui-icon-extra-heart-filled"></span>';
+		for (var k = 0; k < data[i].messageLike.length; k++) {
+		
+//			if(k>=1){	
+		card += '<span id="likeid'+data[i].messageLike[k].id+'"> '+data[i].messageLike[k].nickname+'</span>';
+//			}else{
+//		card += '<span "likeid'+data[i].messageLike[k].id+'">'+data[i].messageLike[k].nickname+'</span>';
+//			}
+			
+		}
+		card += '</p>';
 		card += '</div>';
+		
+		card +='<div id = "reply'+data[i].message.mid+'">'
 		for (var r = 0; r < data[i].messageReply.length; r++) {
 		card += '<div style = "margin-left: 15px;">';
 		card += data[i].messageReply[r].nickname+':'+data[i].messageReply[r].content;
 		card += '</div>';
 		}
+		card +='</div>'
 		
-		card += '<div style = "margin-left: 19px;" id = "context'+data[i].message.mid+'">';
-		card += '<textarea id="areaJs'+data[i].message.mid+'" style = "width: 90%;height:19px"></textarea>';
+		/* reply */		
+		card += '<div style = "margin-left: 19px;display: none" id = "context'+data[i].message.mid+'" >';
+		card += '<textarea id="areaJs'+data[i].message.mid+'" style = "width: 90%;height:19px;margin-top:10px" ></textarea>';
 		
-		showarea("areaJs"+data[i].message.mid);
-		card += '<a class = "mui-icon mui-icon-paperplane" style = "float: right; margin-right: 5px;"></a>';
+//		showarea("arenaJs"+data[i].message.mid);
+		card += '<a href="javascript:reply('+data[i].message.mid+')" class="mui-icon mui-icon-paperplane" style = "float: right; margin-right: 5px;margin-top:10px"></a>';
 		card += '</div>';
 		card += '</div>'; 
 	
@@ -289,10 +389,7 @@ function successfunction(data){
 	//$("#cardlist").append(clicks);
 }
 
-function showarea(areaJs){
-	var text = document.getElementById("areaJs");
-	autoTextarea(text);
-}
+
 
 
 
