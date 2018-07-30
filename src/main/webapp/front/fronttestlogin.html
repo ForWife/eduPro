@@ -11,7 +11,8 @@
 			<h1 class="mui-title">登录</h1>
 </header>
 		<div class="mui-content">
-			<form id='login-form' class="mui-input-group" action="/front/login">
+<!--			<form id='login-form' class="mui-input-group" action="javascript:geturl()">-->
+				<form id='login-form' class="mui-input-group" action="/front/login">
 				<div class="mui-input-row" style="padding-right: 14px;">				
 					<input name="phone" type="text" style="width: 66%;" class="mui-input-clear mui-input" placeholder="请输入你的手机号">							
 				</div>
@@ -24,5 +25,14 @@
 		</div>
 		
 		<script src="js/mui.min.js"></script>
+		<!--<script>
+			geturl(){
+				url = "/front/login"
+				var getTimestamp=new Date().getTime();  
+     	 		url=url+"?timestamp="+getTimestamp  
+     	 		console.log(url)
+      			return url; 
+			}
+		</script>-->
 </body>
 </html>
